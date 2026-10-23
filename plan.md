@@ -396,15 +396,18 @@ ari-meat/
     automatic setup for the zone, so no token is needed. Then drop `webAnalyticsToken`.
 
 ### Phase 5: SEO & QA
-- [ ] JSON-LD on all pages, validated in Google Rich Results Test
+- [x] JSON-LD on all pages, validated in Google Rich Results Test
   - Done in code (`src/lib/schema.ts`): home has `FoodEstablishment` (NAP, area served, Instagram,
     a photo) + `WebSite`; contact repeats `FoodEstablishment`; `/menu` has `Menu` (dish names only,
     no prices); service pages keep `Service` (provider linked by `@id`) + `FAQPage`; every inner page
     has `BreadcrumbList`. No `priceRange`, `geo` or ratings: not confirmed facts.
   - `npm run check:seo` (part of `verify`) checks every built page: one H1, title ≤ 60, description
     ≤ 155, canonical, unique per page, alt text, and the JSON-LD fields Google requires per type.
-  - Waiting on yonatan: Google's Rich Results Test can't be reached from the cloud workspace. Run it
-    on the branch preview (home, a service page, /menu) and check that it finds no errors.
+  - Validated 2026-10-23 by yonatan (Code tab; Google can't fetch workers.dev previews): home,
+    weddings and /menu all valid, no errors. The first run flagged the Service's provider stub as a
+    business missing address/phone/image, so services now nest the full business. Left as optional
+    warnings: `priceRange` (open question 6) and `postalCode` (ask Ari for Matat's postal code,
+    then add it to `site.address`).
 - [x] Titles/descriptions reviewed against keyword list
   - Checked against `docs/gsc-baseline-2026-10-23/queries.csv`. Home title now adds the old brand
     line ("קייטרינג בשרי על האש – חווית בשר ייחודית"), since "ארי חווית בשר ייחודית" is the top
