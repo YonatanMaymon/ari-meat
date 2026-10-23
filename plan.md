@@ -256,6 +256,12 @@ ari-meat/
 - [x] Decide the single official email + phone + WhatsApp number
   - Email `arielmaykab@gmail.com`, phone `052-8580775` (also the WhatsApp number). Already in `site.ts`.
 - [ ] Find out where the domain is registered (Wix or external) and get access
+  - Blocked: needs Ari's (or your) accounts, and the cloud workspace can't reach WHOIS/DNS.
+    To find out: look up `aricatering.com` at https://lookup.icann.org (the "Registrar" field), and
+    in the Wix dashboard check *Settings → Domains*. If it says "Purchased from Wix", it's
+    registered through Wix (transfer out or point DNS at launch); otherwise, get a login for the
+    named registrar. Also run `nslookup -type=NS aricatering.com` to see who hosts DNS today.
+    Needed before Phase 6 (DNS move), not before coding. Open question 3 in section 8.
 - [x] **Export a Search Console baseline**: current queries, impressions, top pages. Used to compare after launch. (If GSC isn't set up, set it up now on the Wix site.)
   - 16 months, saved as CSV in `docs/gsc-baseline-2026-10-23/` with a summary README.
     385 clicks / 34,651 impressions; nearly all clicks are branded, target keywords rank ~25–60.
