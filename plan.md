@@ -307,7 +307,7 @@ ari-meat/
 
 ### Phase 2: Design system
 - [x] Moodboard + 2 design directions for the home hero → pick one with brother
-  - Blocked on Ari's input. The Wix photos (`content-migration/`) are enough to start the moodboard.
+  - Built from the Wix photos (`content-migration/`) without waiting for Ari's originals.
     Components were built on the plan's palette in the meantime; `/styleguide` shows them for review.
   - Moodboard + 2 directions done: `/styleguide/hero` (noindex, out of the sitemap). A: "fire at
     night", full-bleed dark photo. B: "the Galilee by day", light split layout with a portrait photo
