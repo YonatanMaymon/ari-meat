@@ -52,6 +52,8 @@ faqs:
     answer: כן. לקבוצות קטנות יש ימי גיבוש ו-Offsite קולינרי אצלנו במטעים במתת.
   - question: כמה זה עולה?
     answer: המחיר תלוי במספר המשתתפים, בפורמט ובמיקום. שלחו לנו פרטים ונחזור עם הצעת מחיר.
+image: ../../assets/images/heroes/carving-station-by-pool.jpg
+imageAlt: 'שפים פורסים בשר ומגישים לאורחים בעמדה ליד בריכה'
 related:
   - team-building
   - market-tables

@@ -1,4 +1,5 @@
 ---
+import heroImage from '../../assets/images/heroes/matat-sunset.jpg';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import Section from '../../components/Section.astro';
@@ -25,6 +26,8 @@ const produce = [
   jsonLd={breadcrumbList(crumbs)}
 >
   <Hero
+    image={heroImage}
+    imageAlt="שקיעה מעל הרי הגליל, כפי שהיא נשקפת ממתת"
     title="חוויות במטעים במתת"
     subtitle="אתם מגיעים אלינו: למרפסת מול הנוף, למטעים ולגינת הירק. ארוחות שף, סדנאות וימי גיבוש, בפרטיות מלאה."
     eyebrow="מושב מתת, הגליל העליון"
@@ -52,7 +55,13 @@ const produce = [
   <Section tone="sand" heading="מה אפשר לעשות אצלנו">
     <div class="grid gap-6 sm:grid-cols-2">
       {services.map((s) => (
-        <ServiceCard title={s.data.label} description={s.data.summary} href={serviceHref(s)} />
+        <ServiceCard
+          title={s.data.label}
+          description={s.data.summary}
+          href={serviceHref(s)}
+          image={s.data.image}
+          imageAlt={s.data.imageAlt}
+        />
       ))}
     </div>
   </Section>

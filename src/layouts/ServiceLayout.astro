@@ -42,7 +42,13 @@ const related = data.related
     faqPage(data.faqs),
   ]}
 >
-  <Hero title={data.title} subtitle={data.subtitle} breadcrumbs={crumbs}>
+  <Hero
+    title={data.title}
+    subtitle={data.subtitle}
+    breadcrumbs={crumbs}
+    image={data.image}
+    imageAlt={data.imageAlt}
+  >
     <Button href={quoteLink.href} size="lg">
       {quoteLink.label}
     </Button>
@@ -120,7 +126,13 @@ const related = data.related
     <Section heading="אולי יעניין אתכם גם">
       <div class="grid gap-6 sm:grid-cols-2">
         {related.map((s) => (
-          <ServiceCard title={s.data.label} description={s.data.summary} href={serviceHref(s)} />
+          <ServiceCard
+            title={s.data.label}
+            description={s.data.summary}
+            href={serviceHref(s)}
+            image={s.data.image}
+            imageAlt={s.data.imageAlt}
+          />
         ))}
       </div>
     </Section>

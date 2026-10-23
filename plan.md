@@ -353,10 +353,11 @@ ari-meat/
   - Rewritten from `content-migration/pages/`: shorter, one intent per page, no invented facts
     (no prices, guest minimums or booking lead times). "כשר" left out until Ari confirms
     certification (assets.md 4). Price FAQs say "depends on guests, menu and location".
-- [ ] Photos: hero, service cards and gallery
-  - Blocked: the Wix CDN isn't reachable from the cloud workspace. The photos are downloaded on
-    yonatan's laptop (`content-migration/images/`); they need to be pushed (temporary branch) so
-    the chosen ones can be committed to `src/assets/images/`. Pages already accept `image`.
+- [x] Photos: hero, service cards and gallery
+  - From the Wix export (pushed once on the temporary `tmp/wix-photos` branch). 12 heroes in
+    `src/assets/images/heroes/` (max 2560px), 41 gallery photos in `src/assets/images/gallery/`
+    (max 1600px), EXIF stripped, descriptive file names, Hebrew alt text on every image.
+  - Alt text doesn't name Ari: we still don't know which person in the photos he is (assets.md 3).
 
 ### Phase 4: Forms & integrations
 - [ ] Quote form fields: name, phone (required), email (optional), event type (select), date, guest count, region, message

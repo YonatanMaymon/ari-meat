@@ -51,6 +51,8 @@ faqs:
     answer: כן. לאירועים במשרד או בשטח ליד הבית, ראו קייטרינג לאירועי חברה.
   - question: כמה זה עולה?
     answer: המחיר תלוי במספר המשתתפים, בפעילויות ובארוחות. שלחו לנו פרטים ונחזור עם הצעה.
+image: ../../assets/images/heroes/olive-grove.jpg
+imageAlt: 'שביל דשא בין עצי זית במטע במתת'
 related:
   - corporate-events
   - private-chef

@@ -56,6 +56,8 @@ faqs:
     answer: כן, לכל הארץ, מהגולן ועד הנגב והערבה.
   - question: כמה זה עולה?
     answer: המחיר תלוי במספר האורחים, בתפריט ובמיקום. ספרו לנו על האירוע ונחזור עם הצעת מחיר.
+image: ../../assets/images/heroes/couple-at-garden-party.jpg
+imageAlt: 'זוג טועם יחד מצלחת באירוע משפחתי בחצר'
 related:
   - market-tables
   - private-chef
