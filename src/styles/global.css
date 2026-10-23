@@ -1,10 +1,92 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/heebo';
+@import '@fontsource-variable/frank-ruhl-libre';
 
-/* Draft palette from plan.md. Finalised (with contrast checks) in Phase 2. */
+/*
+ * Design tokens. Palette from plan.md, with extra shades where the brand colour fails WCAG AA
+ * (4.5:1) for normal-size text. Measured contrast ratios:
+ *   charcoal on cream        14.9   body text
+ *   ember-deep on cream       5.2   links, small accent text on light sections
+ *   white on ember-deep       6.0   primary button
+ *   ember-light on charcoal   5.8   links, accent text on dark sections
+ *   smoke-deep on cream       5.0   muted text on light sections
+ *   smoke on charcoal         4.6   muted text on dark sections
+ *   olive on cream            5.0
+ *   white on whatsapp         5.4   (WhatsApp's own #25d366 fails with white text)
+ * Plain ember (3.8 on cream, 4.0 on charcoal) is for large display text, icons and decoration only.
+ * Muted text stays off the -soft/-deep surfaces (smoke on charcoal-soft is 4.0, smoke-deep on
+ * cream-deep 4.4); use the full-contrast text colour there.
+ */
 @theme {
   --color-charcoal: #1c1a17;
+  --color-charcoal-soft: #2a2622;
   --color-ember: #c8552b;
+  --color-ember-deep: #a8431f;
+  --color-ember-light: #e0784e;
   --color-olive: #5e6b3a;
   --color-cream: #f3ede3;
+  --color-cream-deep: #e8dfd0;
   --color-smoke: #8a8278;
+  --color-smoke-deep: #6b645b;
+  --color-whatsapp: #0f7a41;
+
+  --font-sans: 'Heebo Variable', 'Arial Hebrew', Arial, sans-serif;
+  --font-display: 'Frank Ruhl Libre Variable', 'Times New Roman', serif;
+
+  --radius-card: 1rem;
+  --spacing-section: clamp(4rem, 10vw, 7rem);
+  --container-content: 72rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Leaves room for the sticky header when jumping to #anchors. */
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-ember);
+    outline-offset: 2px;
+  }
+}
+
+@utility container-content {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-content);
+  padding-inline: 1rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* Subtle film grain for dark sections. Inline SVG noise, no extra request. */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 }

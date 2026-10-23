@@ -256,18 +256,39 @@ ari-meat/
 - [x] `public/_redirects` (all old Wix URLs → new URL scheme, see section 4) and `robots.txt`
 - [x] Verified in local workerd preview: redirects return 301, `/page/` and `/page.html` redirect to `/page`, canonicals clean
 - [x] Initial git commit (branch: `master`)
-- [ ] `formatTitle()` in `src/lib/seo.ts`: decide the title format (currently a placeholder)
+- [x] `formatTitle()` in `src/lib/seo.ts`: decide the title format (currently a placeholder)
+  - `<keyword> | ארי קייטרינג`; homepage uses `HOME_TITLE` ("קייטרינג בשרי על האש")
+  - If keyword + brand exceeds 60 chars, the brand is dropped so the keyword is never truncated
 - [ ] GitHub repo, push `master`, connect Cloudflare Workers Builds → preview deploys (needs your GitHub/Cloudflare accounts + `wrangler login`)
+  - GitHub part done: `YonatanMaymon/ari-meat`, `master` pushed. Still blocked on Cloudflare
+    account access to connect Workers Builds.
 - [ ] `wrangler.jsonc` bindings for Turnstile secret + email (and D1 if used): moved to Phase 4, when the form is built
 
 ### Phase 2: Design system
 - [ ] Moodboard + 2 design directions for the home hero → pick one with brother
-- [ ] Tokens in Tailwind theme (colors, fonts, spacing, radii)
-- [ ] Base components: Button, Section, Header (with mobile menu), Footer, MobileCtaBar, Hero, ServiceCard, FAQ, Testimonial
-- [ ] RTL check on every component (icons that imply direction flipped, etc.)
+  - Blocked: needs Ari's original photos (Phase 0) and his input. Components were built on the
+    plan's palette in the meantime; `/styleguide` shows them for that review.
+- [x] Tokens in Tailwind theme (colors, fonts, spacing, radii)
+  - Fonts: Frank Ruhl Libre (display) + Heebo (body), self-hosted via `@fontsource-variable`,
+    Hebrew subsets preloaded
+  - Added AA-safe shades: `ember-deep` (buttons/links on light), `ember-light` (on dark),
+    `smoke-deep` (muted text on light). Plain ember/smoke fail 4.5:1 for small text on cream.
+    Ratios documented in `global.css`. WhatsApp green darkened to `#0f7a41` for white text.
+  - Utilities: `container-content`, `grain` (inline SVG noise), `py-(--spacing-section)`
+- [x] Base components: Button, Section, Header (with mobile menu), Footer, MobileCtaBar, Hero, ServiceCard, FAQ, Testimonial
+  - Mobile menu uses the Popover API (open/close, Escape, light dismiss with zero JS)
+  - Nav lives in `src/data/nav.ts`; `Icon.astro` holds inline SVG icons
+  - `/styleguide` (noindex, out of the sitemap) previews all components; delete before launch
+- [x] RTL check on every component (icons that imply direction flipped, etc.)
+  - Logical utilities throughout; `arrow` icon mirrors with `rtl:-scale-x-100`; phone numbers and
+    email wrapped in `dir="ltr"`. Checked at 390px and 1280px: no horizontal scroll.
 
 ### Phase 3: Pages & content
-- [ ] `BaseLayout` + `Seo` component
+- [x] `BaseLayout` + `Seo` component
+  - BaseLayout renders Header, Footer, MobileCtaBar (body padded on phones so the bar never covers
+    the footer) and a `head` slot
+  - Seo adds `jsonLd` (escaped JSON-LD), `og:image:alt`, and a dev warning for descriptions over 155
+    chars. No default share image yet (needs a photo from Ari).
 - [ ] Home
 - [ ] `ServiceLayout` + six service pages from content collection (`/catering/*`, `/matat/*`)
 - [ ] `/catering` and `/matat` hub pages + breadcrumbs
@@ -294,6 +315,7 @@ ari-meat/
 - [ ] Keep Wix live (unpublished, not cancelled) for ~2 weeks as a rollback
 - [ ] Monitor GSC for 404s/coverage errors daily for the first 2 weeks
 - [ ] Cancel Wix plan once stable
+- [ ] Delete `/styleguide` (internal component preview)
 
 ### Phase 7: Post-launch growth
 - [ ] Google Business Profile optimization + review requests after each event

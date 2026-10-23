@@ -1,0 +1,30 @@
+---
+import Icon from './ui/Icon.astro';
+
+export interface Faq {
+  question: string;
+  answer: string;
+}
+
+export interface Props {
+  items: readonly Faq[];
+}
+
+const { items } = Astro.props;
+// FAQPage JSON-LD is added in Phase 5 from the same items, so visible and structured FAQs match.
+---
+
+<div class="divide-y divide-charcoal/10 border-y border-charcoal/10">
+  {items.map((faq) => (
+    <details class="group py-2">
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-3 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+        {faq.question}
+        <Icon
+          name="chevron"
+          class="size-6 shrink-0 text-ember-deep transition-transform group-open:rotate-180"
+        />
+      </summary>
+      <p class="pb-4 text-smoke-deep">{faq.answer}</p>
+    </details>
+  ))}
+</div>

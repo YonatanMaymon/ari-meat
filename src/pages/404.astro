@@ -1,12 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
 ---
 
 <BaseLayout title="הדף לא נמצא" description="הדף שחיפשתם לא קיים." noindex>
-  <section class="flex min-h-svh flex-col items-center justify-center gap-4 px-4 text-center">
-    <h1 class="text-3xl font-bold">הדף לא נמצא</h1>
-    <a class="text-ember underline" href="/">
+  <section class="container-content flex min-h-[60svh] flex-col items-center justify-center gap-6 py-16 text-center">
+    <h1 class="text-4xl font-bold">הדף לא נמצא</h1>
+    <p class="text-lg text-smoke-deep">ייתכן שהקישור ישן או שהדף עבר למקום אחר.</p>
+    <Button href="/" icon="arrow">
       חזרה לדף הבית
-    </a>
+    </Button>
   </section>
 </BaseLayout>

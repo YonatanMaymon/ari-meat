@@ -1,0 +1,71 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Tone = 'light' | 'sand' | 'dark';
+
+export interface Props extends HTMLAttributes<'section'> {
+  /** Alternate tones down the page to break up long service pages. */
+  tone?: Tone;
+  /** Section heading (an <h2>). Also names the section for screen readers. */
+  heading?: string;
+  /** Short label above the heading, e.g. "איך זה עובד". */
+  eyebrow?: string;
+  /** One or two sentences under the heading. */
+  intro?: string;
+  /** Centres the heading block (for short intro sections). */
+  centered?: boolean;
+}
+
+const {
+  tone = 'light',
+  heading,
+  eyebrow,
+  intro,
+  centered = false,
+  id,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const tones: Record<Tone, string> = {
+  light: 'bg-cream text-charcoal',
+  sand: 'bg-cream-deep text-charcoal',
+  dark: 'grain bg-charcoal text-cream',
+};
+// Muted text only where it keeps 4.5:1 contrast (see the notes in global.css).
+const mutedText: Record<Tone, string> = {
+  light: 'text-smoke-deep',
+  sand: 'text-charcoal',
+  dark: 'text-smoke',
+};
+const headingId = heading ? `${id ?? heading.replace(/\s+/g, '-')}-heading` : undefined;
+---
+
+<section
+  id={id}
+  aria-labelledby={headingId}
+  class:list={['py-(--spacing-section)', tones[tone], className]}
+  {...rest}
+>
+  <div class="container-content">
+    {heading && (
+      <header class:list={['mb-10 max-w-2xl', centered && 'mx-auto text-center']}>
+        {eyebrow && (
+          <p
+            class:list={[
+              'mb-2 text-sm font-semibold tracking-wide',
+              tone === 'dark' ? 'text-ember-light' : 'text-ember-deep',
+            ]}
+          >
+            {eyebrow}
+          </p>
+        )}
+        <h2 id={headingId} class="text-3xl font-bold sm:text-4xl">
+          {heading}
+        </h2>
+        {intro && <p class:list={['mt-4 text-lg', mutedText[tone]]}>{intro}</p>}
+      </header>
+    )}
+    <slot />
+  </div>
+</section>
