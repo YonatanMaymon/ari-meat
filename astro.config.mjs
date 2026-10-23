@@ -11,8 +11,8 @@ export default defineConfig({
   // Canonical origin. The Wix site canonicalises to www, so we keep it.
   site: 'https://www.aricatering.com',
 
-  // Wix URLs have no trailing slash (/weddings). `format: 'file'` emits weddings.html,
-  // which Cloudflare static assets serves at /weddings without redirecting to /weddings/.
+  // URLs have no trailing slash (/catering/weddings). `format: 'file'` emits catering/weddings.html,
+  // which Cloudflare static assets serves at /catering/weddings without redirecting to a slash URL.
   trailingSlash: 'never',
   build: {
     format: 'file',

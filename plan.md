@@ -123,26 +123,38 @@ The story is strong and currently buried: a chef who builds his own grills and s
 
 ## 4. Information architecture & URLs
 
-Keep existing URLs wherever possible. They have whatever ranking history the site has. Only change what's broken, with 301 redirects.
+New, clean URL scheme: lowercase English, words separated by hyphens, no trailing slash. The
+structure follows the two kinds of service:
+- `/catering/*`: Ari comes to your event, anywhere in Israel
+- `/matat/*`: you come to Ari, at the moshav and orchards in Matat
 
-| New URL | Old URL | Action |
+Every old Wix URL gets a **301** to its new home, so existing links and whatever ranking history
+there is carry over. (Expect a few weeks of ranking movement after launch while Google re-crawls;
+the current SEO is weak enough that the cleaner structure is worth it.)
+
+| New URL | Page | Old Wix URL (301 →) |
 |---|---|---|
-| `/` | `/`, `/blank` | `/blank` → **301 to `/`** |
-| `/weddings` | same | keep |
-| `/privateevents` | same | keep |
-| `/businessevents` | same | keep |
-| `/markettables` | same | keep |
-| `/offsitematat` | same | keep |
-| `/private-chef-matat` | `/priveteventinmatat` | **301** (fix typo) |
-| `/menu` | same | keep |
-| `/about` | same | keep |
-| `/gallery` | same | keep |
-| `/contacts` | same | keep |
-| `/llms.txt` | `/llms` | replace with a proper `llms.txt`; 301 old path |
-| `/thank-you` | (new) | form success page (`noindex`) |
-| `/404` | (new) | branded 404 |
+| `/` | Home | `/`, `/blank` |
+| `/catering` | Catering hub: overview of all off-site services *(new)* | n/a |
+| `/catering/weddings` | Outdoor weddings | `/weddings` |
+| `/catering/private-events` | Small events & private meals | `/privateevents` |
+| `/catering/corporate-events` | Business & company events | `/businessevents` |
+| `/catering/market-tables` | Market tables & meat stations | `/markettables` |
+| `/matat` | Matat hub: the orchards, experiences at the farm *(new)* | n/a |
+| `/matat/private-chef` | Private chef dinner & boutique events in Matat | `/priveteventinmatat` |
+| `/matat/team-building` | Team-building days in the orchards | `/offsitematat` |
+| `/menu` | Menu | `/menu` (unchanged) |
+| `/about` | About Ari | `/about` (unchanged) |
+| `/gallery` | Gallery | `/gallery` (unchanged) |
+| `/contact` | Contact / get a quote | `/contacts` |
+| `/thank-you` | Form success page (`noindex`) *(new)* | n/a |
+| `/llms.txt` | LLM summary of the site | `/llms` |
+| `/404` | Branded 404 *(new)* | n/a |
 
-Redirects live in Cloudflare (`_redirects` file in `public/` or Workers redirect rules).
+Breadcrumbs (`בית › קייטרינג › חתונות בטבע`) come from this structure, both visible and as
+`BreadcrumbList` JSON-LD.
+
+Redirects live in `public/_redirects` (Cloudflare applies them before serving assets).
 
 *Phase 2 option:* region landing pages (e.g. "קייטרינג בשרי בצפון", "…במרכז"). Only if each can have genuinely unique content, otherwise they become thin pages.
 
@@ -203,15 +215,16 @@ ari-meat/
 │  │  ├─ Gallery.tsx        # React island (lightbox, filter)
 │  │  └─ QuoteForm.tsx      # React island
 │  ├─ content/
-│  │  ├─ services/*.md      # weddings, privateevents, businessevents, …
+│  │  ├─ services/*.md      # weddings, private-events, …, private-chef, team-building (frontmatter: group catering|matat)
 │  │  ├─ menu.md
 │  │  └─ testimonials/*.md
 │  ├─ content.config.ts     # typed schemas for collections
 │  ├─ data/site.ts          # phone, email, address, socials, regions (single source of truth)
 │  ├─ layouts/BaseLayout.astro  ServiceLayout.astro
 │  ├─ pages/
-│  │  ├─ index.astro  menu.astro  about.astro  gallery.astro  contacts.astro
-│  │  ├─ [service].astro    # renders services collection
+│  │  ├─ index.astro  menu.astro  about.astro  gallery.astro  contact.astro
+│  │  ├─ catering/index.astro  catering/[service].astro   # hub + catering services
+│  │  ├─ matat/index.astro     matat/[service].astro      # hub + Matat experiences
 │  │  ├─ thank-you.astro  404.astro
 │  │  └─ api/quote.ts       # on-demand: Turnstile verify + send email
 │  └─ styles/global.css     # Tailwind + design tokens
@@ -236,11 +249,11 @@ ari-meat/
 - [x] `npm create astro@latest` (TypeScript strict), add Tailwind, React, sitemap, Cloudflare adapter
   - Astro 7 + Tailwind 4 + React 19 + `@astrojs/cloudflare` 14
   - `imageService: 'compile'` (Sharp at build time, no paid Images binding), `session: false` (no KV namespace)
-  - `build.format: 'file'` + `trailingSlash: 'never'` so URLs match Wix (`/weddings`, no trailing slash)
+  - `build.format: 'file'` + `trailingSlash: 'never'` so URLs have no trailing slash (`/catering/weddings`)
 - [x] Prettier/ESLint, `astro check` (`npm run verify` runs all of them + build)
   - `eslint-plugin-jsx-a11y` skipped: doesn't support ESLint 10 yet; accessibility covered by axe in Phase 5
 - [x] Base skeleton: `BaseLayout` (`lang="he" dir="rtl"`, skip link), `Seo` component (title/description/canonical/OG), `src/data/site.ts`, draft palette tokens, placeholder home + 404, `/api/health` Worker endpoint
-- [x] `public/_redirects` (`/blank`, `/priveteventinmatat`, `/llms`) and `robots.txt`
+- [x] `public/_redirects` (all old Wix URLs → new URL scheme, see section 4) and `robots.txt`
 - [x] Verified in local workerd preview: redirects return 301, `/page/` and `/page.html` redirect to `/page`, canonicals clean
 - [x] Initial git commit (branch: `master`)
 - [ ] `formatTitle()` in `src/lib/seo.ts`: decide the title format (currently a placeholder)
@@ -256,7 +269,8 @@ ari-meat/
 ### Phase 3: Pages & content
 - [ ] `BaseLayout` + `Seo` component
 - [ ] Home
-- [ ] `ServiceLayout` + six service pages from content collection
+- [ ] `ServiceLayout` + six service pages from content collection (`/catering/*`, `/matat/*`)
+- [ ] `/catering` and `/matat` hub pages + breadcrumbs
 - [ ] Menu, About, Gallery, Contact, Thank-you, 404
 - [ ] Copy rewrite pass (Hebrew), with FAQs per service page
 

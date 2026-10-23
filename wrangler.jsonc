@@ -7,7 +7,7 @@
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    // Serves dist/weddings.html at /weddings and redirects /weddings.html -> /weddings.
+    // Serves catering/weddings.html at /catering/weddings and redirects the .html and slash variants to it.
     "html_handling": "auto-trailing-slash",
   },
   "observability": {
