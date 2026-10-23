@@ -2,7 +2,7 @@
 // the login; each save is a commit to master, which Workers Builds deploys in about two minutes.
 // Cloud mode runs in the browser, so the Worker only serves the admin page. (Local mode can't be
 // used: it needs Node's file system, and `npm run dev` runs on-demand routes in workerd.)
-import { config, fields, singleton } from '@keystatic/core';
+import { collection, config, fields, singleton } from '@keystatic/core';
 import { galleryCategories } from './src/data/gallery';
 
 // Hebrew to Latin letters, for file names made from the Hebrew description.
@@ -27,6 +27,81 @@ export default config({
   cloud: { project: 'ari-cataring/ari-meat' },
   ui: {
     brand: { name: 'ארי קייטרינג' },
+  },
+  collections: {
+    services: collection({
+      label: 'דפי שירות',
+      // The file name is the page's URL (weddings.md → /catering/weddings), so it must not change.
+      path: 'src/content/services/*',
+      slugField: 'title',
+      format: { contentField: 'body' },
+      entryLayout: 'content',
+      columns: ['label'],
+      schema: {
+        // Fields that only matter for the site's structure and SEO stay in the file but are hidden
+        // from Ari (an ignored field is written back unchanged).
+        group: fields.ignored(),
+        order: fields.ignored(),
+        title: fields.slug({
+          name: { label: 'כותרת ראשית', validation: { isRequired: true } },
+          slug: {
+            label: 'כתובת הדף',
+            description: 'חלק מכתובת הדף באתר. לא לשנות: שינוי ישבור קישורים ויפגע בגוגל.',
+          },
+        }),
+        seoTitle: fields.ignored(),
+        description: fields.ignored(),
+        label: fields.text({
+          label: 'שם קצר',
+          description: 'מופיע בתפריטים ובקישורים לדף.',
+          validation: { isRequired: true },
+        }),
+        summary: fields.text({
+          label: 'תקציר',
+          description: 'משפט או שניים לכרטיס של השירות בדף הבית.',
+          multiline: true,
+          validation: { isRequired: true },
+        }),
+        subtitle: fields.text({
+          label: 'כותרת משנה',
+          description: 'מופיעה מתחת לכותרת הראשית, על התמונה.',
+          multiline: true,
+          validation: { isRequired: true },
+        }),
+        steps: fields.array(
+          fields.object({
+            title: fields.text({ label: 'כותרת', validation: { isRequired: true } }),
+            text: fields.text({ label: 'טקסט', multiline: true, validation: { isRequired: true } }),
+          }),
+          { label: 'איך זה עובד (שלבים)', itemLabel: (props) => props.fields.title.value },
+        ),
+        faqs: fields.array(
+          fields.object({
+            question: fields.text({ label: 'שאלה', validation: { isRequired: true } }),
+            answer: fields.text({
+              label: 'תשובה',
+              multiline: true,
+              validation: { isRequired: true },
+            }),
+          }),
+          { label: 'שאלות נפוצות', itemLabel: (props) => props.fields.question.value },
+        ),
+        image: fields.image({
+          label: 'תמונה ראשית',
+          description: 'התמונה הגדולה בראש הדף, וגם בכרטיס של השירות.',
+          directory: 'src/assets/images/services',
+          publicPath: '../../assets/images/services/',
+          validation: { isRequired: true },
+        }),
+        imageAlt: fields.text({
+          label: 'תיאור התמונה הראשית',
+          description: 'משפט קצר שמתאר מה רואים בתמונה. גוגל וקוראי מסך משתמשים בו.',
+          validation: { isRequired: true },
+        }),
+        related: fields.ignored(),
+        body: fields.markdoc({ label: 'תוכן הדף', extension: 'md' }),
+      },
+    }),
   },
   singletons: {
     gallery: singleton({

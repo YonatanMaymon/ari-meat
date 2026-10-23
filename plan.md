@@ -405,6 +405,14 @@ ari-meat/
   - Keystatic Cloud project `ari-cataring/ari-meat` created by yonatan (2026-10-23).
   - Waiting on yonatan: log in on the preview, test one save end to end, then invite Ari to the team.
 - [ ] Admin: service pages (hero photo + text), after the copy rewrite (PR #11) merges
+  - Done in code: the `services` collection in `keystatic.config.ts`. Ari edits the headings, short
+    name, summary, steps, FAQs, main photo + its alt text, and the page text. `group`, `order`,
+    `seoTitle`, `description` and `related` are hidden (kept as they are). The file name is the
+    URL, so the "כתובת הדף" field says not to change it.
+  - Service photos moved to `src/assets/images/services/<slug>/image.jpg` (Keystatic's layout).
+  - The six files were saved once through Keystatic so its formatting is the baseline (content
+    checked identical). Keystatic-written files are in `.prettierignore`.
+  - Waiting on yonatan: try one save on a service page after merge.
 
 ### Phase 5: SEO & QA
 - [x] JSON-LD on all pages, validated in Google Rich Results Test
