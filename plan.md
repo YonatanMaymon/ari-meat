@@ -434,7 +434,7 @@ ari-meat/
   - Real phone check on the branch preview: works (yonatan, 2026-10-23).
   - Left unchecked only for `/matat/team-building` (below 95) until it gets a lighter hero photo.
 - [ ] Cross-browser (Safari iOS especially for RTL + fonts)
-  - Only Chromium is available in the cloud workspace. yonatan checked the preview on his phone
+  - Only Chromium is available in the cloud workspace. yonatan checked the preview on a phone
     (2026-10-23): works. Still to confirm on the other platform (iPhone Safari or Android).
 
 ### Phase 6: Launch
