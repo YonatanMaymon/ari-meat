@@ -1,0 +1,54 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Icon, { type IconName } from './Icon.astro';
+
+type Variant = 'primary' | 'secondary' | 'secondary-dark' | 'whatsapp';
+
+export interface Props extends Omit<HTMLAttributes<'a'>, 'class'> {
+  /** Renders a link when set, otherwise a <button>. */
+  href?: string;
+  variant?: Variant;
+  size?: 'md' | 'lg';
+  icon?: IconName;
+  type?: 'button' | 'submit';
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  icon,
+  type = 'button',
+  class: className,
+  ...rest
+} = Astro.props;
+
+const variants: Record<Variant, string> = {
+  primary: 'bg-ember-deep text-white hover:bg-ember',
+  // For light sections.
+  secondary: 'border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-cream',
+  // For dark sections and over the hero image.
+  'secondary-dark': 'border-2 border-cream text-cream hover:bg-cream hover:text-charcoal',
+  whatsapp: 'bg-whatsapp text-white hover:brightness-110',
+};
+
+const classes = [
+  'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors',
+  size === 'lg' ? 'px-7 py-3.5 text-lg' : 'px-5 py-2.5',
+  variants[variant],
+  className,
+];
+---
+
+{href ? (
+  <a href={href} class:list={classes} {...rest}>
+    {icon && <Icon name={icon} />}
+    <slot />
+  </a>
+) : (
+  <button type={type} class:list={classes}>
+    {icon && <Icon name={icon} />}
+    <slot />
+  </button>
+)}

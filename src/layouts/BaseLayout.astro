@@ -1,6 +1,12 @@
 ---
 import '../styles/global.css';
 import Seo, { type Props as SeoProps } from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileCtaBar from '../components/MobileCtaBar.astro';
+// Preload the Hebrew subsets of both fonts so headings and body text don't swap in late.
+import heeboHebrew from '@fontsource-variable/heebo/files/heebo-hebrew-wght-normal.woff2?url';
+import frankHebrew from '@fontsource-variable/frank-ruhl-libre/files/frank-ruhl-libre-hebrew-wght-normal.woff2?url';
 
 export type Props = SeoProps;
 ---
@@ -9,22 +15,29 @@ export type Props = SeoProps;
 <html lang="he" dir="rtl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#1c1a17" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" href={heeboHebrew} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={frankHebrew} as="font" type="font/woff2" crossorigin />
     <Seo {...Astro.props} />
+    <slot name="head" />
   </head>
-  <body class="bg-cream text-charcoal antialiased">
+  <!-- Bottom padding on phones keeps the fixed MobileCtaBar from covering the footer. -->
+  <body class="flex min-h-svh flex-col bg-cream pb-16 font-sans text-charcoal antialiased md:pb-0">
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-50 focus:rounded focus:bg-charcoal focus:px-4 focus:py-2 focus:text-cream"
     >
       דלג לתוכן
     </a>
-    <main id="main">
+    <Header />
+    <main id="main" class="flex-1">
       <slot />
     </main>
+    <Footer />
+    <MobileCtaBar />
   </body>
 </html>

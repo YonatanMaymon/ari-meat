@@ -1,0 +1,58 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+export interface Props {
+  /** The page's single <h1>. */
+  title: string;
+  subtitle?: string;
+  /** Full-bleed background photo. Without one, a charcoal + ember glow background is used. */
+  image?: ImageMetadata;
+  /** Hebrew alt text. Required with `image`. */
+  imageAlt?: string;
+  /** 'full' for the homepage, 'compact' for inner pages. */
+  size?: 'full' | 'compact';
+}
+
+const { title, subtitle, image, imageAlt = '', size = 'compact' } = Astro.props;
+---
+
+<section
+  class:list={[
+    'grain relative flex items-end overflow-hidden bg-charcoal text-cream',
+    size === 'full' ? 'min-h-[85svh]' : 'min-h-[50svh]',
+  ]}
+>
+  {image ? (
+    <Picture
+      src={image}
+      alt={imageAlt}
+      formats={['avif', 'webp']}
+      widths={[640, 1024, 1600, 2400]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="absolute inset-0 -z-20 size-full object-cover"
+    />
+  ) : (
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_bottom,rgb(200_85_43/0.45),transparent_65%)]"
+    />
+  )}
+  <!-- Darkens the bottom of the photo so the text always passes contrast. -->
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 -z-10 bg-linear-to-t from-charcoal via-charcoal/60 to-charcoal/10"
+  ></div>
+
+  <div class="container-content pt-16 pb-14 sm:pb-20">
+    <h1 class="max-w-3xl text-4xl leading-tight font-bold sm:text-6xl">{title}</h1>
+    {subtitle && <p class="mt-5 max-w-2xl text-lg text-cream/90 sm:text-xl">{subtitle}</p>}
+    {Astro.slots.has('default') && (
+      <div class="mt-8 flex flex-wrap gap-3">
+        <slot />
+      </div>
+    )}
+  </div>
+</section>

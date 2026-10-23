@@ -1,0 +1,122 @@
+---
+import Icon from './ui/Icon.astro';
+import Button from './ui/Button.astro';
+import { site } from '../data/site';
+import { mainNav, quoteLink } from '../data/nav';
+import { isActive, publicPath } from '../lib/url';
+
+const current = publicPath(Astro.url);
+---
+
+<header class="sticky top-0 z-40 bg-charcoal/95 text-cream backdrop-blur">
+  <div class="container-content flex h-16 items-center justify-between gap-6">
+    <a
+      href="/"
+      class="font-display text-2xl font-bold"
+      aria-current={current === '/' ? 'page' : undefined}
+    >
+      {site.name}
+    </a>
+
+    <nav aria-label="ניווט ראשי" class="hidden lg:block">
+      <ul class="flex items-center gap-6">
+        {mainNav.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={current === link.href ? 'page' : undefined}
+              class:list={[
+                'py-2 transition-colors hover:text-ember-light',
+                isActive(link.href, current) && 'text-ember-light',
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href={site.phone.href}
+        class="hidden items-center gap-2 font-semibold hover:text-ember-light md:inline-flex"
+      >
+        <Icon name="phone" />
+        <span dir="ltr">{site.phone.display}</span>
+      </a>
+      <!-- Wrapped: the button's own inline-flex would override `hidden`. -->
+      <div class="hidden md:block">
+        <Button href={quoteLink.href}>{quoteLink.label}</Button>
+      </div>
+
+      <!-- Popover API: open/close, Escape and light dismiss with no JavaScript. -->
+      <button
+        type="button"
+        popovertarget="mobile-menu"
+        class="-me-2 p-2 lg:hidden"
+        aria-label="פתיחת תפריט"
+      >
+        <Icon name="menu" class="size-7" />
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    popover
+    class="m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-charcoal p-0 text-cream backdrop:bg-black/50 lg:hidden"
+  >
+    <div class="container-content flex h-16 items-center justify-between">
+      <span class="font-display text-2xl font-bold">{site.name}</span>
+      <button
+        type="button"
+        popovertarget="mobile-menu"
+        popovertargetaction="hide"
+        class="-me-2 p-2"
+        aria-label="סגירת תפריט"
+      >
+        <Icon name="close" class="size-7" />
+      </button>
+    </div>
+    <nav aria-label="ניווט ראשי" class="container-content pb-32">
+      <ul class="divide-y divide-cream/10 text-xl">
+        {mainNav.map((link) => (
+          <li class="py-3">
+            <a
+              href={link.href}
+              aria-current={current === link.href ? 'page' : undefined}
+              class:list={[
+                'block py-1 font-semibold',
+                isActive(link.href, current) && 'text-ember-light',
+              ]}
+            >
+              {link.label}
+            </a>
+            {link.children && (
+              <ul class="mt-1 space-y-1 ps-4 text-base">
+                {link.children.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      aria-current={current === child.href ? 'page' : undefined}
+                      class:list={[
+                        'block py-1.5',
+                        current === child.href ? 'text-ember-light' : 'text-smoke',
+                      ]}
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+      <Button href={quoteLink.href} size="lg" class="mt-8 w-full">
+        {quoteLink.label}
+      </Button>
+    </nav>
+  </div>
+</header>

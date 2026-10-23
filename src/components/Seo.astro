@@ -1,25 +1,33 @@
 ---
 import { site } from '../data/site';
 import { formatTitle } from '../lib/seo';
+import { publicPath } from '../lib/url';
 
 export interface Props {
   /** Keyword-focused page title, without the brand. Omit on the homepage. */
   title?: string;
   /** Unique meta description, ideally under 155 characters. */
   description: string;
-  /** Absolute or root-relative share image for WhatsApp/Facebook previews. */
+  /** Absolute or root-relative share image for WhatsApp/Facebook previews (1200×630). */
   image?: string;
+  /** Hebrew description of the share image. */
+  imageAlt?: string;
   noindex?: boolean;
+  /** Structured data for this page (one schema.org object or several). */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, image, noindex = false } = Astro.props;
+const { title, description, image, imageAlt, noindex = false, jsonLd } = Astro.props;
 
 const fullTitle = formatTitle(title);
-// With build.format 'file', prerendered pages see "/index.html" or "/weddings.html" here.
-// Strip that so the canonical matches the public URL ("/" and "/weddings").
-const pathname = Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/';
-const canonical = new URL(pathname, Astro.site).href;
+const canonical = new URL(publicPath(Astro.url), Astro.site).href;
 const ogImage = image ? new URL(image, Astro.site).href : undefined;
+// Escape "<" so a string inside the data can never close the <script> tag.
+const jsonLdText = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : undefined;
+
+if (import.meta.env.DEV && description.length > 155) {
+  console.warn(`[seo] description is ${description.length} chars (max 155): ${canonical}`);
+}
 ---
 
 <title>{fullTitle}</title>
@@ -34,4 +42,7 @@ const ogImage = image ? new URL(image, Astro.site).href : undefined;
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 {ogImage && <meta property="og:image" content={ogImage} />}
+{ogImage && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
 <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+
+{jsonLdText && <script is:inline type="application/ld+json" set:html={jsonLdText} />}
