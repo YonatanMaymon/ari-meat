@@ -12,9 +12,10 @@ const current = publicPath(Astro.url);
   <div class="container-content flex h-16 items-center justify-between gap-6">
     <a
       href="/"
-      class="font-display text-2xl font-bold"
+      class="inline-flex items-center gap-2 font-display text-2xl font-bold hover:text-ember-light"
       aria-current={current === '/' ? 'page' : undefined}
     >
+      <Icon name="home" class="size-6 text-ember-light" />
       {site.name}
     </a>
 
