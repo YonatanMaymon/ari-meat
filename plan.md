@@ -306,14 +306,16 @@ ari-meat/
 - [ ] `wrangler.jsonc` bindings for Turnstile secret + email (and D1 if used): moved to Phase 4, when the form is built
 
 ### Phase 2: Design system
-- [ ] Moodboard + 2 design directions for the home hero → pick one with brother
+- [x] Moodboard + 2 design directions for the home hero → pick one with brother
   - Blocked on Ari's input. The Wix photos (`content-migration/`) are enough to start the moodboard.
     Components were built on the plan's palette in the meantime; `/styleguide` shows them for review.
   - Moodboard + 2 directions done: `/styleguide/hero` (noindex, out of the sitemap). A: "fire at
     night", full-bleed dark photo. B: "the Galilee by day", light split layout with a portrait photo
     in an arch, which fits the mostly-portrait Wix photos. Photo areas are placeholders named after
     the Wix photo each would use (the Wix CDN isn't reachable from the cloud workspace).
-    Still open: Ari picks a direction, then Phase 3 builds the home hero from it.
+  - **Chosen (2026-10-23): A, "fire at night"** for the home hero. Phase 3 builds it on the
+    existing `Hero` component; until Ari sends a wide fire photo or short video (assets.md), it
+    runs on the ember glow. B's arched portrait frame stays available for About.
 - [x] Tokens in Tailwind theme (colors, fonts, spacing, radii)
   - Fonts: Frank Ruhl Libre (display) + Heebo (body), self-hosted via `@fontsource-variable`,
     Hebrew subsets preloaded
