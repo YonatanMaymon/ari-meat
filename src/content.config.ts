@@ -1,5 +1,5 @@
 // Typed content collections. Service pages (/catering/*, /matat/*) are generated from these files.
-// Ari edits gallery.yaml through the admin at /keystatic (keystatic.config.ts).
+// Ari edits these and gallery.yaml through the admin at /keystatic (keystatic.config.ts).
 import { defineCollection } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
@@ -32,7 +32,7 @@ const services = defineCollection({
       faqs: z.array(z.object({ question: z.string(), answer: z.string() })),
       /** Ids of related services, linked at the bottom of the page. */
       related: z.array(z.string()),
-      /** Hero and card photo, relative to this file (src/assets/images/heroes/). */
+      /** Hero and card photo, relative to this file: ../../assets/images/services/<slug>/image.jpg. */
       image: image(),
       /** Hebrew alt text for `image`. */
       imageAlt: z.string(),
