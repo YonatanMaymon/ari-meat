@@ -293,18 +293,16 @@ ari-meat/
 - [x] `formatTitle()` in `src/lib/seo.ts`: decide the title format (currently a placeholder)
   - `<keyword> | ארי קייטרינג`; homepage uses `HOME_TITLE` ("קייטרינג בשרי על האש")
   - If keyword + brand exceeds 60 chars, the brand is dropped so the keyword is never truncated
-- [ ] GitHub repo, push `master`, connect Cloudflare Workers Builds → preview deploys (needs your GitHub/Cloudflare accounts + `wrangler login`)
-  - GitHub part done: `YonatanMaymon/ari-meat`, `master` pushed.
-  - First manual deploy done on Ari's Cloudflare account: https://ari-catering.ari-catering.workers.dev
-    (home 200, `/api/health` 200, old Wix URLs 301). Still to do: connect Workers Builds in the dashboard.
-  - `preview_urls: true` in `wrangler.jsonc` (defaults to false). Tested with `wrangler versions upload`:
-    the version is served at `<version>-ari-catering.ari-catering.workers.dev` without touching production.
-  - Blocked on you (dashboard only, can't be done from code). `.nvmrc` pins Node 22.23.4 so the
-    Workers Builds image uses a version Astro accepts. Steps: Cloudflare dashboard → Workers & Pages →
-    `ari-catering` → Settings → Builds → Connect → GitHub `YonatanMaymon/ari-meat`. Production branch
-    `master`, build command `npm run build`, deploy command `npx wrangler deploy`, and turn on
-    builds for non-production branches (each PR then gets its own preview URL, deployed with
-    `npx wrangler versions upload`).
+- [x] GitHub repo, push `master`, connect Cloudflare Workers Builds → preview deploys (needs your GitHub/Cloudflare accounts + `wrangler login`)
+  - GitHub `YonatanMaymon/ari-meat`; Worker `ari-catering` on Ari's Cloudflare account
+    (`arielmaykab@gmail.com`), live at https://ari-catering.ari-catering.workers.dev
+  - Workers Builds: push to `master` → `npm run build` + `npx wrangler deploy`; any other branch →
+    `npx wrangler versions upload`, served at `<branch>-ari-catering.ari-catering.workers.dev`.
+    `.nvmrc` pins Node 22.23.4 for the build image. Build status shows as a GitHub check.
+  - `preview_urls: true` in `wrangler.jsonc` is required (defaults to false). Canonicals point to
+    www.aricatering.com, so the workers.dev copies don't compete in search.
+  - Verified 2026-10-23: merge of PR #5 auto-deployed to production; branch
+    `claude/phase1-preview-urls` served on its preview alias (unknown aliases 404).
 
 ### Phase 2: Design system
 - [x] Moodboard + 2 design directions for the home hero → pick one with brother
