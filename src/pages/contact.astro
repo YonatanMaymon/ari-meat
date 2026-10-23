@@ -8,14 +8,16 @@ import QuoteForm from '../components/QuoteForm.astro';
 import Icon from '../components/ui/Icon.astro';
 import { site } from '../data/site';
 import { breadcrumbList, business } from '../lib/schema';
+import { getPage } from '../lib/pages';
 
+const page = await getPage('contactPage');
 const crumbs = [{ label: 'בית', href: '/' }, { label: 'יצירת קשר' }];
 
 const channels = [
   {
     icon: 'whatsapp',
     title: 'וואטסאפ',
-    text: 'הכי מהיר. כתבו לנו כמה פרטים על האירוע.',
+    text: page.whatsappText,
     href: site.whatsapp.href,
     value: 'שליחת הודעה',
     external: true,
@@ -23,7 +25,7 @@ const channels = [
   {
     icon: 'phone',
     title: 'טלפון',
-    text: 'הכי טוב פשוט להתקשר.',
+    text: page.phoneText,
     href: site.phone.href,
     value: site.phone.display,
     ltr: true,
@@ -31,7 +33,7 @@ const channels = [
   {
     icon: 'mail',
     title: 'אימייל',
-    text: 'לשאלות, הצעות ומסמכים.',
+    text: page.emailText,
     href: `mailto:${site.email}`,
     value: site.email,
     ltr: true,
@@ -44,11 +46,7 @@ const channels = [
   description={`קבלת הצעת מחיר לקייטרינג בשרי על האש: וואטסאפ, טלפון ${site.phone.display} או אימייל. ספרו לנו על האירוע ונחזור אליכם בהקדם.`}
   jsonLd={[breadcrumbList(crumbs), await business()]}
 >
-  <Hero
-    title="קבלת הצעת מחיר"
-    subtitle="אנא מלאו את הפרטים ואתקשר אליכם בהקדם"
-    breadcrumbs={crumbs}
-  />
+  <Hero title={page.heroTitle} subtitle={page.heroSubtitle || undefined} breadcrumbs={crumbs} />
 
   <Section>
     <div class="grid items-start gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
@@ -56,7 +54,7 @@ const channels = [
 
       <aside aria-labelledby="channels-heading" class="lg:sticky lg:top-24">
         <h2 id="channels-heading" class="text-2xl font-bold">
-          מעדיפים לדבר?
+          {page.channelsHeading}
         </h2>
         <ul class="mt-5 grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
           {channels.map((c) => (
@@ -80,15 +78,13 @@ const channels = [
     </div>
   </Section>
 
-  <Section tone="sand" heading="איפה אנחנו">
+  <Section tone="sand" heading={page.locationHeading}>
     <address class="text-lg not-italic">
       <p class="font-semibold">{site.name}</p>
       <p>
         {site.address.street}, {site.address.locality}, {site.address.region}
       </p>
     </address>
-    <p class="mt-4 max-w-2xl text-smoke-deep">
-      לאירועים אנחנו מגיעים לכל הארץ. לארוחות שף וימי גיבוש במטעים, מגיעים אלינו למתת בתיאום מראש.
-    </p>
+    <p class="mt-4 max-w-2xl text-smoke-deep">{page.locationText}</p>
   </Section>
 </BaseLayout>

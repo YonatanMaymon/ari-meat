@@ -1,5 +1,4 @@
 ---
-import heroImage from '../../assets/images/heroes/event-tables.jpg';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import Section from '../../components/Section.astro';
@@ -10,7 +9,9 @@ import Button from '../../components/ui/Button.astro';
 import { quoteLink } from '../../data/nav';
 import { getServices, groups, serviceHref } from '../../lib/services';
 import { breadcrumbList } from '../../lib/schema';
+import { getPage } from '../../lib/pages';
 
+const page = await getPage('cateringPage');
 const services = await getServices('catering');
 const crumbs = [{ label: 'בית', href: '/' }, { label: groups.catering.label }];
 ---
@@ -18,15 +19,15 @@ const crumbs = [{ label: 'בית', href: '/' }, { label: groups.catering.label }
 <BaseLayout
   title="קייטרינג בשרי לאירועים בטבע ובכל הארץ"
   description="קייטרינג בשרי על האש לחתונות בטבע, אירועים פרטיים, אירועי חברה ושולחנות שוק. מטבח שטח עצמאי שמגיע לכל מקום בארץ. קבלו הצעת מחיר."
-  image={heroImage}
-  imageAlt="שולחנות עגולים ערוכים לאירוע בגינה"
+  image={page.heroImage}
+  imageAlt={page.heroAlt}
   jsonLd={breadcrumbList(crumbs)}
 >
   <Hero
-    image={heroImage}
-    imageAlt="שולחנות עגולים ערוכים לאירוע בגינה"
-    title="קייטרינג בשרי לאירועים"
-    subtitle="אנחנו מגיעים אליכם: לחצר, למשרד, ליער, לחוף או למדבר. עם גרילים, מעשנות, צוות וכל הציוד, גם במקום בלי תשתיות."
+    image={page.heroImage}
+    imageAlt={page.heroAlt}
+    title={page.heroTitle}
+    subtitle={page.heroSubtitle}
     breadcrumbs={crumbs}
   >
     <Button href={quoteLink.href} size="lg">
@@ -34,10 +35,7 @@ const crumbs = [{ label: 'בית', href: '/' }, { label: groups.catering.label }
     </Button>
   </Hero>
 
-  <Section
-    heading="איזה אירוע אתם מתכננים?"
-    intro="כל אירוע מקבל תפריט משלו. בחרו את סוג האירוע כדי לקרוא עוד ולמצוא תשובות לשאלות נפוצות."
-  >
+  <Section heading={page.servicesHeading} intro={page.servicesIntro || undefined}>
     <div class="grid gap-6 sm:grid-cols-2">
       {services.map((s) => (
         <ServiceCard
@@ -53,9 +51,9 @@ const crumbs = [{ label: 'בית', href: '/' }, { label: groups.catering.label }
 
   <Section
     tone="sand"
-    heading="מגיעים לכל הארץ"
-    eyebrow="אזורי שירות"
-    intro="הבית שלנו במתת שבגליל, והאש נודדת איתנו לכל מקום. אלה האזורים שבהם אנחנו עובדים הכי הרבה."
+    heading={page.areasHeading}
+    eyebrow={page.areasEyebrow || undefined}
+    intro={page.areasIntro || undefined}
   >
     <ServiceAreas />
   </Section>

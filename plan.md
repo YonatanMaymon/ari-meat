@@ -413,6 +413,15 @@ ari-meat/
   - The six files were saved once through Keystatic so its formatting is the baseline (content
     checked identical). Keystatic-written files are in `.prettierignore`.
   - Waiting on yonatan: try one save on a service page after merge.
+- [ ] Admin: the other pages (home, about, menu, /catering, /matat, contact)
+  - Done in code: one YAML file per page in `src/content/pages/` (a Keystatic singleton each, and an
+    Astro collection each in `content.config.ts`, read with `getPage()` from `src/lib/pages.ts`).
+    Ari edits the hero photo + alt text, headings and text; SEO titles/descriptions stay in the
+    `.astro` pages. Long text is Markdown in a plain text box (`components/Markdown.astro`, `marked`).
+  - Built pages checked against the previous build: the visible text, links and image alt text are
+    identical on all six. The YAML files were saved once through Keystatic as the format baseline.
+  - Hero photos moved to `src/assets/images/pages/<id>/heroImage.jpg`; the home one is a copy, since
+    `heroes/asado-cross-fire.jpg` is also the default share image and the business photo.
 
 ### Phase 5: SEO & QA
 - [x] JSON-LD on all pages, validated in Google Rich Results Test

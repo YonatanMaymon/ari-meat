@@ -1,0 +1,23 @@
+---
+// A block of Ari's text from the admin, rendered from Markdown (src/lib/markdown.ts) and styled
+// like the hand-written prose it replaced.
+import { markdown } from '../lib/markdown';
+
+export interface Props {
+  text: string;
+  /** Link colour for dark sections. */
+  dark?: boolean;
+  class?: string;
+}
+
+const { text, dark = false, class: className } = Astro.props;
+---
+
+<div
+  class:list={[
+    'space-y-5 [&_a]:font-semibold [&_a]:underline [&_a]:underline-offset-4 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:ps-6',
+    dark ? '[&_a]:text-ember-light' : '[&_a]:text-ember-deep',
+    className,
+  ]}
+  set:html={markdown(text)}
+/>

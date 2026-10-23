@@ -1,6 +1,6 @@
 // Typed content collections. Service pages (/catering/*, /matat/*) are generated from these files.
-// Ari edits these and gallery.yaml through the admin at /keystatic (keystatic.config.ts).
-import { defineCollection } from 'astro:content';
+// Ari edits these, gallery.yaml and pages/*.yaml through the admin at /keystatic (keystatic.config.ts).
+import { defineCollection, type SchemaContext } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { parse } from 'yaml';
@@ -61,4 +61,99 @@ const gallery = defineCollection({
   }),
 });
 
-export const collections = { services, gallery };
+// One YAML file per page (src/content/pages/<id>.yaml), each with its own fields. Text blocks are
+// Markdown, rendered by components/Markdown.astro. SEO titles and descriptions stay in the pages.
+const page = <T extends z.ZodRawShape>(id: string, shape: (helpers: SchemaContext) => T) =>
+  defineCollection({
+    loader: glob({ pattern: `${id}.yaml`, base: './src/content/pages' }),
+    schema: (helpers) => z.object(shape(helpers)),
+  });
+
+const text = z.string().trim().min(1);
+/** The admin leaves an emptied field out of the file. */
+const optional = z.string().default('');
+const hero = ({ image }: SchemaContext) => ({
+  /** Relative to the YAML file: ../../assets/images/pages/<id>/heroImage.jpg. */
+  heroImage: image(),
+  heroAlt: text,
+  heroTitle: text,
+  heroSubtitle: text,
+});
+const sections = z.array(
+  z.object({
+    heading: optional,
+    tone: z.enum(['light', 'sand', 'dark']),
+    text,
+  }),
+);
+
+const homePage = page('home', (h) => ({
+  ...hero(h),
+  heroEyebrow: optional,
+  about: z.object({
+    eyebrow: optional,
+    heading: text,
+    text,
+    moreHeading: optional,
+    moreText: optional,
+  }),
+  services: z.object({
+    heading: text,
+    intro: optional,
+    more: z.array(z.object({ label: text, text })),
+  }),
+  steps: z.object({ eyebrow: optional, heading: text, items: z.array(titledText) }),
+  expertise: z.object({ eyebrow: optional, heading: text, text, moreText: optional }),
+  areas: z.object({ eyebrow: optional, heading: text, text, closing: optional }),
+}));
+
+const aboutPage = page('about', (h) => ({ ...hero(h), sections }));
+
+const menuPage = page('menu', (h) => ({
+  ...hero(h),
+  sections,
+  ctaHeading: text,
+  ctaText: text,
+}));
+
+const cateringPage = page('catering', (h) => ({
+  ...hero(h),
+  servicesHeading: text,
+  servicesIntro: optional,
+  areasEyebrow: optional,
+  areasHeading: text,
+  areasIntro: optional,
+}));
+
+const matatPage = page('matat', (h) => ({
+  ...hero(h),
+  heroEyebrow: optional,
+  placeHeading: text,
+  placeIntro: optional,
+  produce: z.array(titledText),
+  servicesHeading: text,
+  ctaHeading: text,
+  ctaText: text,
+}));
+
+const contactPage = page('contact', () => ({
+  heroTitle: text,
+  heroSubtitle: optional,
+  channelsHeading: text,
+  whatsappText: text,
+  phoneText: text,
+  emailText: text,
+  locationHeading: text,
+  locationText: optional,
+}));
+
+export const collections = {
+  services,
+  gallery,
+  homePage,
+  aboutPage,
+  menuPage,
+  cateringPage,
+  matatPage,
+  contactPage,
+};
