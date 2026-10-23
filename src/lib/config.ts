@@ -6,7 +6,7 @@
 const TURNSTILE_TEST_SITE_KEY = '1x00000000000000000000AA';
 
 /** Cloudflare dashboard → Turnstile → "Ari Catering quote form" → Site key. */
-const TURNSTILE_PRODUCTION_SITE_KEY = '';
+const TURNSTILE_PRODUCTION_SITE_KEY = '0x4AAAAAAFixcKOEblwz5jiC';
 
 export const turnstileSiteKey =
   import.meta.env.DEV || !TURNSTILE_PRODUCTION_SITE_KEY

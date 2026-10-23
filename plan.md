@@ -384,15 +384,16 @@ ari-meat/
 - [ ] `wrangler.jsonc` bindings for Turnstile secret + email (and D1 if used) (moved here from Phase 1)
   - Done in code: `DB` (D1, created automatically by `wrangler deploy`, no id needed) and
     `QUOTE_EMAIL` (`send_email`, restricted to arielmaykab@gmail.com).
-  - Waiting on yonatan (Cloudflare dashboard): create the Turnstile widget, put its site key in
-    `src/lib/config.ts` and the secret in the Worker as `TURNSTILE_SECRET_KEY`. Until then the
-    deployed form refuses submissions (fails closed) and points people to WhatsApp.
+  - Turnstile widget created (2026-10-23); its site key is in `src/lib/config.ts`.
+  - Waiting on yonatan: the secret key in the Worker as `TURNSTILE_SECRET_KEY` (dashboard → Workers
+    → ari-catering → Settings → Variables and Secrets), then a test submit on the preview. Until
+    then the deployed form refuses submissions (fails closed) and points people to WhatsApp.
 - [ ] Cloudflare Web Analytics; track form submits / WhatsApp / call clicks as events
   - Events done: Web Analytics has no custom events, so `src/lib/track.ts` sends WhatsApp / phone /
     email clicks and the form's WhatsApp button to `/api/event` (D1 `events` table); `/api/quote`
     logs `quote_submit`.
-  - Waiting on yonatan: add the site in dashboard → Web Analytics and put the token in
-    `webAnalyticsToken` (`src/lib/config.ts`). The beacon is off while it's empty.
+  - Decided (2026-10-23): turn Web Analytics on after the DNS move (Phase 6), with Cloudflare's
+    automatic setup for the zone, so no token is needed. Then drop `webAnalyticsToken`.
 
 ### Phase 5: SEO & QA
 - [ ] JSON-LD on all pages, validated in Google Rich Results Test
@@ -406,6 +407,8 @@ ari-meat/
 ### Phase 6: Launch
 - [ ] Move DNS to Cloudflare (or point domain), attach custom domain to the Worker
 - [ ] Unify `www`/apex with a 301
+- [ ] Web Analytics: enable automatic setup for aricatering.com (dashboard → Web Analytics), remove
+      `webAnalyticsToken` from `src/lib/config.ts`
 - [ ] Email Routing on aricatering.com: enable it, add + verify arielmaykab@gmail.com as a destination,
       then send a test quote from the live form and check it arrives (Phase 4 email code is ready)
 - [ ] Submit new sitemap in Search Console, request indexing of key pages
