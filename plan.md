@@ -149,6 +149,7 @@ the current SEO is weak enough that the cleaner structure is worth it.)
 | `/contact` | Contact / get a quote | `/contacts` |
 | `/thank-you` | Form success page (`noindex`) *(new)* | n/a |
 | `/llms.txt` | LLM summary of the site | `/llms` |
+| | *Older Wix URLs found in Search Console* | `/about-3` → weddings, `/about-3-1` → corporate-events, `/about-3-2` & `/service-page/*` → `/catering`, `/גלרייה` → `/gallery`, `/דרכי-התקשרות` & `/booking` → `/contact`, `/reviews`, `/ביקורות` & `/event-list` → `/` |
 | `/404` | Branded 404 *(new)* | n/a |
 
 Breadcrumbs (`בית › קייטרינג › חתונות בטבע`) come from this structure, both visible and as
@@ -185,7 +186,8 @@ Redirects live in `public/_redirects` (Cloudflare applies them before serving as
 ### Content
 - Add an **FAQ section** to each service page (price range factors, minimum guests (15+), how far in advance to book, kosher, vegan options, what logistics are included, travel to remote locations)
 - Add **testimonials** (ask brother for real ones; also pull Google reviews)
-- Target keywords (validate with Search Console data): קייטרינג בשרי, קייטרינג לחתונה בטבע, קייטרינג לאירועים בצפון, עמדות בשר, שולחן שוק בשרי, ארוחת שף פרטית בצפון, קייטרינג לאירועי חברה, יום גיבוש בגליל, אסאדו לאירועים
+- Target keywords (Search Console baseline in `docs/gsc-baseline-2026-10-23/`: the main ones already get
+  impressions but rank ~25–60, so no clicks yet): קייטרינג בשרי, קייטרינג לחתונה בטבע, קייטרינג לאירועים בצפון, עמדות בשר, שולחן שוק בשרי, ארוחת שף פרטית בצפון, קייטרינג לאירועי חברה, יום גיבוש בגליל, אסאדו לאירועים
 - Internal linking between related services and the menu
 - Tighten and rewrite copy: shorter paragraphs, each page focused on its own search intent
 
@@ -196,37 +198,47 @@ Redirects live in `public/_redirects` (Cloudflare applies them before serving as
 
 ---
 
-## 6. Project structure (proposed)
+## 6. Project structure
+
+Current layout. Items marked *(planned)* are built in later phases.
 
 ```
 ari-meat/
+├─ assets.md                # what we still need from Ari (photos, logo, testimonials, …)
+├─ content-migration/       # raw Wix export: page text, images.csv, logo (images themselves gitignored)
+├─ docs/gsc-baseline-*/     # Search Console baseline before launch (CSV)
+├─ scripts/wix-export.py    # re-downloads the Wix text + images
 ├─ public/
-│  ├─ _redirects            # 301s from old Wix URLs
+│  ├─ _redirects            # 301s from old Wix URLs (incl. the ones found in Search Console)
 │  ├─ robots.txt
-│  ├─ llms.txt
+│  ├─ llms.txt              # (planned)
 │  └─ favicon.svg
 ├─ src/
-│  ├─ assets/images/        # originals; optimized at build time
+│  ├─ assets/images/        # (planned) photos used on the site; optimized at build time
 │  ├─ components/
+│  │  ├─ ui/Button.astro  ui/Icon.astro
 │  │  ├─ Header.astro  Footer.astro  MobileCtaBar.astro
 │  │  ├─ Hero.astro  Section.astro  ServiceCard.astro
-│  │  ├─ FaqList.astro  Testimonials.astro  ServiceAreas.astro
+│  │  ├─ FaqList.astro  Testimonial.astro  ServiceAreas.astro (planned)
 │  │  ├─ Seo.astro          # title/meta/OG/canonical/JSON-LD
-│  │  ├─ Gallery.tsx        # React island (lightbox, filter)
-│  │  └─ QuoteForm.tsx      # React island
-│  ├─ content/
+│  │  ├─ Gallery.tsx        # (planned) React island (lightbox, filter)
+│  │  └─ QuoteForm.tsx      # (planned) React island
+│  ├─ content/              # (planned)
 │  │  ├─ services/*.md      # weddings, private-events, …, private-chef, team-building (frontmatter: group catering|matat)
 │  │  ├─ menu.md
 │  │  └─ testimonials/*.md
-│  ├─ content.config.ts     # typed schemas for collections
+│  ├─ content.config.ts     # (planned) typed schemas for collections
 │  ├─ data/site.ts          # phone, email, address, socials, regions (single source of truth)
-│  ├─ layouts/BaseLayout.astro  ServiceLayout.astro
+│  ├─ data/nav.ts           # header/footer navigation
+│  ├─ lib/seo.ts            # formatTitle()
+│  ├─ lib/url.ts            # publicPath(), isActive()
+│  ├─ layouts/BaseLayout.astro  ServiceLayout.astro (planned)
 │  ├─ pages/
-│  │  ├─ index.astro  menu.astro  about.astro  gallery.astro  contact.astro
-│  │  ├─ catering/index.astro  catering/[service].astro   # hub + catering services
-│  │  ├─ matat/index.astro     matat/[service].astro      # hub + Matat experiences
-│  │  ├─ thank-you.astro  404.astro
-│  │  └─ api/quote.ts       # on-demand: Turnstile verify + send email
+│  │  ├─ index.astro  404.astro  styleguide.astro (internal, delete before launch)
+│  │  ├─ menu.astro  about.astro  gallery.astro  contact.astro  thank-you.astro   # (planned)
+│  │  ├─ catering/index.astro  catering/[service].astro   # (planned) hub + catering services
+│  │  ├─ matat/index.astro     matat/[service].astro      # (planned) hub + Matat experiences
+│  │  └─ api/health.ts  api/quote.ts (planned: Turnstile verify + send email)
 │  └─ styles/global.css     # Tailwind + design tokens
 ├─ astro.config.mjs
 ├─ wrangler.jsonc
@@ -239,11 +251,26 @@ ari-meat/
 
 ### Phase 0: Prep & assets (before coding)
 - [ ] Get from brother: original high-res photos/videos, logo files (or decide on a new logo), testimonials, list of past clients, kosher certification details (if any)
-- [ ] Decide the single official email + phone + WhatsApp number
+  - Skipped for now. Exact list of what's needed (and what the Wix export already covers) in
+    [assets.md](assets.md). Logo PNG downloaded to `content-migration/logo-wix.png`.
+- [x] Decide the single official email + phone + WhatsApp number
+  - Email `arielmaykab@gmail.com`, phone `052-8580775` (also the WhatsApp number). Already in `site.ts`.
 - [ ] Find out where the domain is registered (Wix or external) and get access
-- [ ] **Export a Search Console baseline**: current queries, impressions, top pages. Used to compare after launch. (If GSC isn't set up, set it up now on the Wix site.)
-- [ ] Copy all current text content into Markdown (raw migration)
-- [ ] Download all current images from Wix (Wix has no clean export; do it manually or by script)
+- [x] **Export a Search Console baseline**: current queries, impressions, top pages. Used to compare after launch. (If GSC isn't set up, set it up now on the Wix site.)
+  - 16 months, saved as CSV in `docs/gsc-baseline-2026-10-23/` with a summary README.
+    385 clicks / 34,651 impressions; nearly all clicks are branded, target keywords rank ~25–60.
+  - Revealed 10 old Wix URLs not in the sitemap (`/about-3*`, `/reviews`, Hebrew URLs, …),
+    two of them 404 on Wix today. All now 301 in `public/_redirects` (section 4 table updated).
+- [x] Copy all current text content into Markdown (raw migration)
+  - `scripts/wix-export.py` → `content-migration/pages/*.md` (13 pages, old title/description in
+    frontmatter). Findings in `content-migration/README.md`: both emails confirmed live, footer
+    service-area list is more detailed than `site.ts`, 5 pages share one generic description.
+- [x] Download all current images from Wix (Wix has no clean export; do it manually or by script)
+  - 66 images (57 distinct photos; 9 uploaded twice). Wix kept the full-size uploads (up to 8192px),
+    so these may be good enough without separate originals from Ari.
+  - Images are not in git: run `python3 scripts/wix-export.py` to get web copies in
+    `content-migration/images/` (max 2560px, EXIF/GPS stripped) and full-size originals in
+    `.wix-cache/`. `images.csv` (committed) indexes them. Phase 3 commits only the photos it uses.
 
 ### Phase 1: Project setup
 - [x] `npm create astro@latest` (TypeScript strict), add Tailwind, React, sitemap, Cloudflare adapter
@@ -251,6 +278,7 @@ ari-meat/
   - `imageService: 'compile'` (Sharp at build time, no paid Images binding), `session: false` (no KV namespace)
   - `build.format: 'file'` + `trailingSlash: 'never'` so URLs have no trailing slash (`/catering/weddings`)
 - [x] Prettier/ESLint, `astro check` (`npm run verify` runs all of them + build)
+  - Needs Node ≥ 22.23.4 (Astro refuses to run on older versions)
   - `eslint-plugin-jsx-a11y` skipped: doesn't support ESLint 10 yet; accessibility covered by axe in Phase 5
 - [x] Base skeleton: `BaseLayout` (`lang="he" dir="rtl"`, skip link), `Seo` component (title/description/canonical/OG), `src/data/site.ts`, draft palette tokens, placeholder home + 404, `/api/health` Worker endpoint
 - [x] `public/_redirects` (all old Wix URLs → new URL scheme, see section 4) and `robots.txt`
@@ -267,8 +295,8 @@ ari-meat/
 
 ### Phase 2: Design system
 - [ ] Moodboard + 2 design directions for the home hero → pick one with brother
-  - Blocked: needs Ari's original photos (Phase 0) and his input. Components were built on the
-    plan's palette in the meantime; `/styleguide` shows them for that review.
+  - Blocked on Ari's input. The Wix photos (`content-migration/`) are enough to start the moodboard.
+    Components were built on the plan's palette in the meantime; `/styleguide` shows them for review.
 - [x] Tokens in Tailwind theme (colors, fonts, spacing, radii)
   - Fonts: Frank Ruhl Libre (display) + Heebo (body), self-hosted via `@fontsource-variable`,
     Hebrew subsets preloaded
@@ -306,6 +334,8 @@ ari-meat/
 - [ ] JSON-LD on all pages, validated in Google Rich Results Test
 - [ ] Titles/descriptions reviewed against keyword list
 - [ ] `_redirects` for all old URLs; verify every old URL returns 200 or 301 (script it)
+  - Rules done: 19, covering the Wix sitemap plus the old URLs found in Search Console. Checked by hand
+    with curl in the local preview; the script is still to do.
 - [ ] Lighthouse (mobile) ≥ 95, axe accessibility check, test on real iPhone + Android
 - [ ] Cross-browser (Safari iOS especially for RTL + fonts)
 
@@ -322,12 +352,13 @@ ari-meat/
 - [ ] Google Business Profile optimization + review requests after each event
 - [ ] Compare GSC metrics vs baseline at 4 and 12 weeks
 - [ ] Consider region landing pages / a small blog (e.g. "how to plan an outdoor wedding menu") if data shows demand
+  - The baseline already shows regional demand: ~1,800 impressions for Jezreel Valley / north queries
 
 ---
 
 ## 8. Open questions for Ari
 1. Is the catering **kosher-certified**? By whom? (Big decision factor for many clients. Show it prominently if yes.)
-2. Which email is the real one?
+2. ~~Which email is the real one?~~ Answered: `arielmaykab@gmail.com`.
 3. Domain registrar: bought through Wix or elsewhere?
 4. Does he have original photos/videos (not Instagram-compressed)?
 5. Keep the current logo or refresh it as part of the redesign?
@@ -335,3 +366,5 @@ ari-meat/
 7. Any testimonials / notable clients we can feature?
 8. Hebrew only, or also an English version (tourists, international weddings)? Astro i18n can add `/en` later, with `hreflang`.
 9. Who will edit content after launch? (If Ari wants to self-edit, consider a Git-based CMS like Decap/Keystatic on top of the Markdown files.)
+10. The old `/reviews` page ranked #2 and "ארי חווית בשר ייחודית ביקורות" is the top branded query.
+    Does Ari have reviews to show? If yes, consider a dedicated `/reviews` page instead of redirecting it home.

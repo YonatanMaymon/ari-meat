@@ -16,7 +16,7 @@ export const site = {
   whatsapp: {
     href: `https://wa.me/${phoneE164.slice(1)}`,
   },
-  // TODO(open question): the Wix site shows two addresses (this one and Aricatering1998@gmail.com).
+  // Confirmed as the only official address. Aricatering1998@gmail.com (on the Wix homepage) is not used.
   email: 'arielmaykab@gmail.com',
 
   address: {

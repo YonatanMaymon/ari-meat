@@ -24,6 +24,8 @@ pnpm-debug.log*
 
 # scraped copy of the old Wix site (HTML + original images), local reference only
 .wix-cache/
+# web copies of the Wix images (scripts/wix-export.py), local reference only
+content-migration/images/
 
 # editor/notes
 .obsidian/
@@ -33,3 +35,4 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
