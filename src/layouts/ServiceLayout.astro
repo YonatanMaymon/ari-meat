@@ -1,6 +1,6 @@
 ---
 // Shared layout for the six service pages (plan.md section 3, "Service page"):
-// hero → intro → who it's for → what's included → sample menu → how it works → FAQs → related → CTA.
+// hero → Ari's text from the old site → how it works → FAQs → related → CTA.
 import { render } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import Hero from '../components/Hero.astro';
@@ -10,7 +10,6 @@ import FaqList from '../components/FaqList.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import CtaSection from '../components/CtaSection.astro';
 import Button from '../components/ui/Button.astro';
-import Icon from '../components/ui/Icon.astro';
 import { site } from '../data/site';
 import { quoteLink } from '../data/nav';
 import { groups, getServices, serviceHref, type Service } from '../lib/services';
@@ -62,59 +61,10 @@ const related = data.related
   </Hero>
 
   <Section>
-    <div class="max-w-3xl space-y-5 text-lg leading-relaxed">
+    <div class="max-w-3xl space-y-5 text-lg leading-relaxed [&_a]:font-semibold [&_a]:text-ember-deep [&_a]:underline [&_a]:underline-offset-4 [&_h2]:pt-8 [&_h2]:text-3xl [&_h2]:font-bold [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:ps-6">
       <Content />
     </div>
   </Section>
-
-  <Section tone="sand" heading="למי זה מתאים" eyebrow="האירוע שלכם">
-    <ul class="grid gap-4 sm:grid-cols-2">
-      {data.audience.map((item) => (
-        <li class="flex gap-3 rounded-card bg-cream p-5">
-          <Icon name="check" class="mt-1 size-5 shrink-0 text-ember-deep" />
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </Section>
-
-  <Section heading="מה כלול" eyebrow="השירות">
-    <ul class="grid gap-8 sm:grid-cols-2">
-      {data.included.map((item) => (
-        <li class="border-s-4 border-ember ps-5">
-          <h3 class="text-xl font-bold">{item.title}</h3>
-          <p class="mt-2 text-smoke-deep">{item.text}</p>
-        </li>
-      ))}
-    </ul>
-  </Section>
-
-  {data.menu && (
-    <Section
-      tone="dark"
-      heading="מה יכול להיות בתפריט"
-      eyebrow="דוגמאות"
-      intro="כל תפריט נבנה מחדש לכל אירוע. אלה כמה מהמנות שאפשר לבחור מהן."
-    >
-      <div class="grid gap-6 md:grid-cols-3">
-        {data.menu.map((group) => (
-          <div class="rounded-card bg-charcoal-soft p-6">
-            <h3 class="text-xl font-bold text-ember-light">{group.title}</h3>
-            <ul class="mt-4 space-y-2">
-              {group.items.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <p class="mt-8">
-        <a href="/menu" class="font-semibold text-ember-light underline underline-offset-4">
-          לתפריט המלא ולסגנון הבישול
-        </a>
-      </p>
-    </Section>
-  )}
 
   <Section heading="איך זה עובד" eyebrow="שלב אחר שלב">
     <StepList steps={data.steps} />

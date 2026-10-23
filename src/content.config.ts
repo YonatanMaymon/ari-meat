@@ -25,9 +25,6 @@ const services = defineCollection({
       summary: z.string(),
       /** Under the <h1> in the hero. */
       subtitle: z.string(),
-      audience: z.array(z.string()),
-      included: z.array(titledText),
-      menu: z.array(z.object({ title: z.string(), items: z.array(z.string()) })).optional(),
       steps: z.array(titledText),
       faqs: z.array(z.object({ question: z.string(), answer: z.string() })),
       /** Ids of related services, linked at the bottom of the page. */
