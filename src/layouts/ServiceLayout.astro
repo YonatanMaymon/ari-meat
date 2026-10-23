@@ -38,9 +38,11 @@ const related = data.related
 <BaseLayout
   title={data.seoTitle}
   description={data.description}
+  image={data.image}
+  imageAlt={data.imageAlt}
   jsonLd={[
     breadcrumbList(crumbs),
-    serviceSchema(data.title, data.description, href),
+    await serviceSchema(data.title, data.description, href),
     faqPage(data.faqs),
   ]}
 >

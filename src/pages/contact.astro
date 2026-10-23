@@ -7,7 +7,7 @@ import Section from '../components/Section.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import Icon from '../components/ui/Icon.astro';
 import { site } from '../data/site';
-import { breadcrumbList } from '../lib/schema';
+import { breadcrumbList, business } from '../lib/schema';
 
 const crumbs = [{ label: 'בית', href: '/' }, { label: 'יצירת קשר' }];
 
@@ -42,7 +42,7 @@ const channels = [
 <BaseLayout
   title="יצירת קשר והצעת מחיר"
   description={`קבלת הצעת מחיר לקייטרינג בשרי על האש: וואטסאפ, טלפון ${site.phone.display} או אימייל. ספרו לנו על האירוע ונחזור אליכם בהקדם.`}
-  jsonLd={breadcrumbList(crumbs)}
+  jsonLd={[breadcrumbList(crumbs), await business()]}
 >
   <Hero
     title="קבלת הצעת מחיר"

@@ -14,6 +14,7 @@ import Button from '../components/ui/Button.astro';
 import { site } from '../data/site';
 import { quoteLink } from '../data/nav';
 import { getServices, serviceHref } from '../lib/services';
+import { business, website } from '../lib/schema';
 
 const services = await getServices();
 
@@ -32,7 +33,12 @@ const dishes = [
 ];
 ---
 
-<BaseLayout description="קייטרינג בשרי על האש המשלב מטבח ארגנטינאי וגלילי. חתונות בטבע, אירועים פרטיים ועסקיים בכל הארץ, וחוויות במטעים במתת.">
+<BaseLayout
+  description="קייטרינג בשרי על האש, מטבח ארגנטינאי וגלילי. חתונות בטבע, אירועים פרטיים ועסקיים בצפון ובכל הארץ, וחוויות במטעים שלנו במתת. קבלו הצעת מחיר."
+  image={heroImage}
+  imageAlt="שף מסדר נתחי אסאדו על צלב מעל אש חיה"
+  jsonLd={[await business(), website()]}
+>
   <Hero
     image={heroImage}
     imageAlt="שף מסדר נתחי אסאדו על צלב מעל אש חיה"

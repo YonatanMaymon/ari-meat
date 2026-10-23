@@ -337,7 +337,7 @@ ari-meat/
   - BaseLayout renders Header, Footer, MobileCtaBar (body padded on phones so the bar never covers
     the footer) and a `head` slot
   - Seo adds `jsonLd` (escaped JSON-LD), `og:image:alt`, and a dev warning for descriptions over 155
-    chars. No default share image yet (needs a photo from Ari).
+    chars. Share images added in Phase 5.
 - [x] Home
   - Hero direction A with the ember glow; sections: Ari, six service cards, how it works, dishes,
     service areas, closing CTA. Gallery strip and testimonials wait for photos/testimonials.
@@ -396,17 +396,51 @@ ari-meat/
     automatic setup for the zone, so no token is needed. Then drop `webAnalyticsToken`.
 
 ### Phase 5: SEO & QA
-- [ ] JSON-LD on all pages, validated in Google Rich Results Test
-- [ ] Titles/descriptions reviewed against keyword list
-- [ ] `_redirects` for all old URLs; verify every old URL returns 200 or 301 (script it)
-  - Rules done: 19, covering the Wix sitemap plus the old URLs found in Search Console. Checked by hand
-    with curl in the local preview; the script is still to do.
+- [x] JSON-LD on all pages, validated in Google Rich Results Test
+  - Done in code (`src/lib/schema.ts`): home has `FoodEstablishment` (NAP, area served, Instagram,
+    a photo) + `WebSite`; contact repeats `FoodEstablishment`; `/menu` has `Menu` (dish names only,
+    no prices); service pages keep `Service` (provider linked by `@id`) + `FAQPage`; every inner page
+    has `BreadcrumbList`. No `priceRange`, `geo` or ratings: not confirmed facts.
+  - `npm run check:seo` (part of `verify`) checks every built page: one H1, title ≤ 60, description
+    ≤ 155, canonical, unique per page, alt text, and the JSON-LD fields Google requires per type.
+  - Validated 2026-10-23 by yonatan (Code tab; Google can't fetch workers.dev previews): home,
+    weddings and /menu all valid, no errors. The first run flagged the Service's provider stub as a
+    business missing address/phone/image, so services now nest the full business. Left as optional
+    warnings: `priceRange` (open question 6) and `postalCode` (ask Ari for Matat's postal code,
+    then add it to `site.address`).
+- [x] Titles/descriptions reviewed against keyword list
+  - Checked against `docs/gsc-baseline-2026-10-23/queries.csv`. Home title now adds the old brand
+    line ("קייטרינג בשרי על האש – חווית בשר ייחודית"), since "ארי חווית בשר ייחודית" is the top
+    branded query. Home description adds "בצפון"; `/catering` title adds "בטבע" (קייטרינג בטבע,
+    1,300 impressions); weddings adds "בשטח"; corporate adds "אירועים עסקיים".
+  - Share images: every page now has a 1200×630 `og:image` cropped from its hero photo (default: the
+    home hero), for WhatsApp/Facebook previews.
+- [x] `_redirects` for all old URLs; verify every old URL returns 200 or 301 (script it)
+  - Rules done: 19, covering the Wix sitemap plus the old URLs found in Search Console.
+  - `npm run check:redirects [base-url]` (default: the local preview): every rule answers 301 to its
+    target, every target and sitemap URL answers 200, and `/page/` and `/page.html` redirect to the
+    clean URL (Cloudflare uses 307 for those; fine, the canonical names the clean URL). 67/67 pass.
+  - Added `/llms.txt` (built from site.ts + services), so the old `/llms` redirect no longer 404s.
 - [ ] Lighthouse (mobile) ≥ 95, axe accessibility check, test on real iPhone + Android
-- [ ] Cross-browser (Safari iOS especially for RTL + fonts)
+  - axe (WCAG 2.2 AA + best practices) on all 15 pages at 390px and 1280px: 0 violations, no
+    horizontal scroll. Fixed: `smoke-deep` darkened to `#655e55` so muted text passes on cream-deep too.
+  - Lighthouse mobile in the local preview (no compression there, so a bit pessimistic):
+    accessibility, best practices and SEO 100 (contact 96 only because Turnstile is blocked in the
+    cloud workspace); performance 94–99 on 12 of 13 pages. Changes: CSS inlined
+    (`inlineStylesheets: 'always'`), hero photos at quality 60, cards/gallery at 70, cards cropped
+    to 4:3 at build time.
+  - `/matat/team-building` scores ~85: its olive-grove hero is a very detailed photo (≈400 KB even as
+    AVIF). Fix with a less busy photo from Ari or a different hero for that page.
+  - Real iPhone + Android check on the branch preview: no bugs (yonatan, 2026-10-23).
+  - Left unchecked only for `/matat/team-building` (below 95) until it gets a lighter hero photo.
+- [x] Cross-browser (Safari iOS especially for RTL + fonts)
+  - Only Chromium is available in the cloud workspace. yonatan checked the preview on a real iPhone
+    and Android phone (2026-10-23): no bugs.
 
 ### Phase 6: Launch
 - [ ] Move DNS to Cloudflare (or point domain), attach custom domain to the Worker
 - [ ] Unify `www`/apex with a 301
+- [ ] Run `npm run check:redirects https://www.aricatering.com` against production
 - [ ] Web Analytics: enable automatic setup for aricatering.com (dashboard → Web Analytics), remove
       `webAnalyticsToken` from `src/lib/config.ts`
 - [ ] Email Routing on aricatering.com: enable it, add + verify arielmaykab@gmail.com as a destination,

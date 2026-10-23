@@ -5,7 +5,7 @@ import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import CtaSection from '../components/CtaSection.astro';
 import Icon from '../components/ui/Icon.astro';
-import { breadcrumbList } from '../lib/schema';
+import { breadcrumbList, menu } from '../lib/schema';
 
 const crumbs = [{ label: 'בית', href: '/' }, { label: 'תפריט' }];
 
@@ -67,7 +67,9 @@ const questions = [
 <BaseLayout
   title="תפריט קייטרינג בשרי על האש"
   description="דוגמאות מהתפריט: אסאדו על האש, פיקנייה מעושנת, מנות צמחוניות וטבעוניות מהאש, סלטים גליליים ולחמים מהטאבון. כל תפריט נבנה לכל אירוע."
-  jsonLd={breadcrumbList(crumbs)}
+  image={heroImage}
+  imageAlt="מגש של מטבלים, לחם שטוח ושום קונפי"
+  jsonLd={[breadcrumbList(crumbs), menu('תפריט לדוגמה: אדמה, בשר ואש', '/menu', categories)]}
 >
   <Hero
     image={heroImage}

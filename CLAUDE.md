@@ -24,7 +24,11 @@ marketing site for a live-fire meat catering business, hosted on Cloudflare Work
 - `npm run build`: production build into `dist/`
 - `npm run preview`: serve the build locally in workerd (Cloudflare's runtime). Listens on
   `localhost` (IPv6), not `127.0.0.1`.
-- `npm run verify`: format check, lint, `astro check`, build. Must pass before a step is marked done.
+- `npm run verify`: format check, lint, `astro check`, build, `check:seo`. Must pass before a step
+  is marked done.
+- `npm run check:seo`: SEO checks on the built pages (titles, descriptions, H1, alt text, JSON-LD)
+- `npm run check:redirects [base-url]`: old Wix URLs and sitemap against a running copy (default:
+  the local preview)
 - `npm run format`: apply Prettier
 - `npm run deploy`: build + `wrangler deploy`
 

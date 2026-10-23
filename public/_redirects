@@ -1,6 +1,5 @@
 # Permanent redirects from old Wix URLs to the new URL scheme (see plan.md section 4).
 # Cloudflare applies these before serving static assets.
-# Targets that don't exist yet are created in Phase 3.
 
 /blank                /                           301
 /weddings             /catering/weddings          301
