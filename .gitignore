@@ -22,6 +22,11 @@ pnpm-debug.log*
 # wrangler local state
 .wrangler/
 
+# scraped copy of the old Wix site (HTML + original images), local reference only
+.wix-cache/
+# web copies of the Wix images (scripts/wix-export.py), local reference only
+content-migration/images/
+
 # editor/notes
 .obsidian/
 
@@ -31,6 +36,3 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# raw Wix export cache (full-size originals, scripts/wix-export.py)
-.wix-cache/
-content-migration/images/
