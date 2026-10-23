@@ -22,7 +22,7 @@ export const site = {
   address: {
     street: 'הזייתים 2',
     locality: 'מתת',
-    region: 'גליל עליון',
+    region: 'גליל מערבי',
     country: 'IL',
   },
 

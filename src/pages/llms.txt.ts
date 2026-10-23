@@ -16,7 +16,7 @@ export const GET: APIRoute = async () => {
   const body = [
     `# ${site.name}`,
     '',
-    `> ${site.name}: ${site.tagline}. קייטרינג בשרי על האש, מטבח ארגנטינאי וגלילי, ממושב ${site.address.locality} שבגליל העליון. ` +
+    `> ${site.name}: ${site.tagline}. קייטרינג בשרי על האש, מטבח ארגנטינאי וגלילי, ממושב ${site.address.locality} שבגליל המערבי. ` +
       'מגיעים לאירועים בכל הארץ, ומארחים במטעים במתת.',
     '',
     `טלפון ווואטסאפ: ${site.phone.display}. אימייל: ${site.email}. ` +
