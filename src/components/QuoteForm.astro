@@ -1,0 +1,354 @@
+---
+// The quote form (plan.md Phase 4). A plain HTML form that posts to /api/quote; the script below
+// adds Hebrew inline errors, Turnstile, sending with fetch and the "send in WhatsApp" alternative.
+// Validation rules are shared with the server in src/lib/quote.ts.
+import Icon from './ui/Icon.astro';
+import { turnstileSiteKey } from '../lib/config';
+import { eventTypes, HONEYPOT, limits, regions, todayInIsrael } from '../lib/quote';
+
+const input =
+  'w-full rounded-lg border border-charcoal/25 bg-white px-4 py-3 text-base text-charcoal placeholder:text-smoke-deep/70 focus:border-ember-deep focus:ring-2 focus:ring-ember/30 focus:outline-none aria-invalid:border-ember-deep';
+const label = 'mb-1.5 block font-semibold';
+const error = 'mt-1.5 text-sm font-semibold text-ember-deep empty:hidden';
+---
+
+<form
+  id="quote-form"
+  action="/api/quote"
+  method="post"
+  class="scroll-mt-24 rounded-card bg-white p-6 shadow-sm ring-1 ring-charcoal/5 sm:p-8"
+  aria-labelledby="quote-form-heading"
+  data-sitekey={turnstileSiteKey}
+>
+  <h2 id="quote-form-heading" class="text-2xl font-bold sm:text-3xl">
+    ספרו לנו על האירוע
+  </h2>
+  <p class="mt-2 text-smoke-deep">
+    שדות עם <span aria-hidden="true">*</span>
+    <span class="sr-only">כוכבית</span> הם חובה. כל השאר עוזר לנו לחזור עם הצעה מדויקת.
+  </p>
+
+  <div class="mt-6 grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="q-name" class={label}>
+        שם <span aria-hidden="true">*</span>
+      </label>
+      <input
+        id="q-name"
+        name="name"
+        type="text"
+        required
+        minlength="2"
+        maxlength={limits.name}
+        autocomplete="name"
+        class={input}
+        aria-describedby="q-name-error"
+      />
+      <p id="q-name-error" class={error}></p>
+    </div>
+
+    <div>
+      <label for="q-phone" class={label}>
+        טלפון <span aria-hidden="true">*</span>
+      </label>
+      <input
+        id="q-phone"
+        name="phone"
+        type="tel"
+        required
+        inputmode="tel"
+        autocomplete="tel"
+        dir="ltr"
+        placeholder="050-0000000"
+        class:list={[input, 'text-end']}
+        aria-describedby="q-phone-error"
+      />
+      <p id="q-phone-error" class={error}></p>
+    </div>
+
+    <div>
+      <label for="q-email" class={label}>
+        אימייל
+      </label>
+      <input
+        id="q-email"
+        name="email"
+        type="email"
+        maxlength={limits.email}
+        autocomplete="email"
+        dir="ltr"
+        class:list={[input, 'text-end']}
+        aria-describedby="q-email-error"
+      />
+      <p id="q-email-error" class={error}></p>
+    </div>
+
+    <div>
+      <label for="q-eventType" class={label}>
+        סוג האירוע <span aria-hidden="true">*</span>
+      </label>
+      <select
+        id="q-eventType"
+        name="eventType"
+        required
+        class={input}
+        aria-describedby="q-eventType-error"
+      >
+        <option value="">בחרו</option>
+        {eventTypes.map((t) => (
+          <option value={t.value}>{t.label}</option>
+        ))}
+      </select>
+      <p id="q-eventType-error" class={error}></p>
+    </div>
+
+    <div>
+      <label for="q-date" class={label}>
+        תאריך
+      </label>
+      <input
+        id="q-date"
+        name="date"
+        type="date"
+        min={todayInIsrael()}
+        class={input}
+        aria-describedby="q-date-hint q-date-error"
+      />
+      <p id="q-date-hint" class="mt-1.5 text-sm text-smoke-deep">
+        עוד לא סגור? כתבו בהודעה.
+      </p>
+      <p id="q-date-error" class={error}></p>
+    </div>
+
+    <div>
+      <label for="q-guests" class={label}>
+        מספר אורחים משוער
+      </label>
+      <input
+        id="q-guests"
+        name="guests"
+        type="number"
+        min="1"
+        max={limits.maxGuests}
+        step="1"
+        inputmode="numeric"
+        class={input}
+        aria-describedby="q-guests-error"
+      />
+      <p id="q-guests-error" class={error}></p>
+    </div>
+
+    <div class="sm:col-span-2">
+      <label for="q-region" class={label}>
+        איפה האירוע
+      </label>
+      <select id="q-region" name="region" class={input} aria-describedby="q-region-error">
+        <option value="">עוד לא יודעים</option>
+        {regions.map((r) => (
+          <option value={r.value}>{r.label}</option>
+        ))}
+      </select>
+      <p id="q-region-error" class={error}></p>
+    </div>
+
+    <div class="sm:col-span-2">
+      <label for="q-message" class={label}>
+        עוד משהו שכדאי שנדע
+      </label>
+      <textarea
+        id="q-message"
+        name="message"
+        rows="4"
+        maxlength={limits.message}
+        placeholder="מה חוגגים, המקום, העדפות מיוחדות כמו הרבה צמחונים"
+        class={input}
+        aria-describedby="q-message-error"
+      ></textarea>
+      <p id="q-message-error" class={error}></p>
+    </div>
+  </div>
+
+  <!-- Honeypot: hidden from people and screen readers, bots fill it in. -->
+  <div class="hidden" aria-hidden="true">
+    <label for="q-hp">אתר החברה</label>
+    <input id="q-hp" name={HONEYPOT} type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="mt-6 min-h-[65px]" data-turnstile></div>
+
+  <noscript>
+    <p class="mt-4 rounded-lg bg-cream-deep p-4">
+      הטופס צריך JavaScript כדי לשלוח. אפשר גם לכתוב לנו בוואטסאפ או להתקשר.
+    </p>
+  </noscript>
+
+  <p
+    class="mt-4 rounded-lg bg-cream-deep p-4 font-semibold empty:hidden"
+    role="alert"
+    data-status
+  ></p>
+
+  <div class="mt-6 flex flex-wrap items-center gap-3">
+    <button
+      type="submit"
+      class="inline-flex items-center justify-center gap-2 rounded-full bg-ember-deep px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-ember focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-deep disabled:cursor-wait disabled:opacity-70"
+    >
+      <Icon name="mail" class="size-5" />
+      <span data-submit-label>שליחה</span>
+    </button>
+    <button
+      type="button"
+      hidden
+      data-whatsapp
+      class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-whatsapp px-6 py-3.5 font-semibold text-whatsapp transition-colors hover:bg-whatsapp hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp"
+    >
+      <Icon name="whatsapp" class="size-5" />
+      או שלחו את הפרטים בוואטסאפ
+    </button>
+  </div>
+</form>
+
+<script>
+  import {
+    eventTypeByService,
+    fields,
+    quoteSummary,
+    validateQuote,
+    whatsappLink,
+    type Field,
+    type QuoteErrors,
+    type QuoteInput,
+  } from '../lib/quote';
+  import { track } from '../lib/track';
+
+  interface Turnstile {
+    render(el: HTMLElement, options: Record<string, unknown>): string;
+    reset(id?: string): void;
+  }
+  const w = window as Window & { turnstile?: Turnstile; onQuoteTurnstile?: () => void };
+
+  const form = document.querySelector<HTMLFormElement>('#quote-form');
+  if (form) enhance(form);
+
+  function enhance(form: HTMLFormElement) {
+    form.noValidate = true; // Our Hebrew messages replace the browser's.
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const submit = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]')!;
+    const whatsapp = form.querySelector<HTMLButtonElement>('[data-whatsapp]')!;
+    const widget = form.querySelector<HTMLElement>('[data-turnstile]')!;
+    const control = (f: Field) =>
+      form.elements.namedItem(f) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+    const values = () => Object.fromEntries(fields.map((f) => [f, control(f).value])) as QuoteInput;
+
+    // Opened from a service page (/contact?service=weddings): preselect its event type.
+    const params = new URLSearchParams(location.search);
+    const preset = eventTypeByService[params.get('service') ?? ''];
+    if (preset) control('eventType').value = preset;
+    if (params.has('error')) status.textContent = 'השליחה לא הצליחה. נסו שוב, או שלחו לנו וואטסאפ.';
+
+    // Turnstile's script is only loaded once the form is near the screen.
+    let widgetId: string | undefined;
+    w.onQuoteTurnstile = () => {
+      widgetId = w.turnstile?.render(widget, {
+        sitekey: form.dataset.sitekey,
+        language: 'he',
+        theme: 'light',
+        size: 'flexible',
+        action: 'quote',
+      });
+    };
+    new IntersectionObserver(
+      (entries, observer) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        observer.disconnect();
+        const script = document.createElement('script');
+        script.src =
+          'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onQuoteTurnstile';
+        script.async = true;
+        script.onerror = () => {
+          status.textContent =
+            'בדיקת האבטחה לא נטענה, אז אי אפשר לשלוח את הטופס. אפשר לשלוח לנו את הפרטים בוואטסאפ.';
+        };
+        document.head.appendChild(script);
+      },
+      { rootMargin: '400px' },
+    ).observe(form);
+
+    function showErrors(errors: QuoteErrors) {
+      for (const f of fields) {
+        const message = errors[f] ?? '';
+        const el = control(f);
+        if (message) el.setAttribute('aria-invalid', 'true');
+        else el.removeAttribute('aria-invalid');
+        form.querySelector(`#q-${f}-error`)!.textContent = message;
+      }
+      const first = fields.find((f) => errors[f]);
+      if (first) control(first).focus();
+    }
+
+    // Clear a field's error as soon as it's fixed.
+    form.addEventListener('change', (event) => {
+      const name = (event.target as HTMLInputElement).name as Field;
+      if (!fields.includes(name) || !control(name).hasAttribute('aria-invalid')) return;
+      const result = validateQuote(values());
+      if (result.ok || !result.errors[name]) {
+        control(name).removeAttribute('aria-invalid');
+        form.querySelector(`#q-${name}-error`)!.textContent = '';
+      }
+    });
+
+    whatsapp.hidden = false;
+    whatsapp.addEventListener('click', () => {
+      const summary = quoteSummary(values());
+      const text = summary ? `היי, אשמח להצעת מחיר.\n\n${summary}` : 'היי, אשמח להצעת מחיר.';
+      track('quote_whatsapp');
+      window.open(whatsappLink(text), '_blank', 'noopener');
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      status.textContent = '';
+      const result = validateQuote(values());
+      if (!result.ok) {
+        showErrors(result.errors);
+        return;
+      }
+      showErrors({});
+
+      const data = new FormData(form);
+      if (!data.get('cf-turnstile-response')) {
+        status.textContent = 'רגע, מוודאים שאתם לא רובוט. נסו לשלוח שוב בעוד כמה שניות.';
+        return;
+      }
+
+      submit.disabled = true;
+      submitLabel.textContent = 'שולחים...';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { accept: 'application/json' },
+        });
+        const body = (await res.json()) as { ok: boolean; error?: string; errors?: QuoteErrors };
+        if (body.ok) {
+          location.assign('/thank-you');
+          return;
+        }
+        if (body.error === 'invalid' && body.errors) showErrors(body.errors);
+        status.textContent =
+          body.error === 'turnstile'
+            ? 'לא הצלחנו לוודא שאתם לא רובוט. נסו שוב, או שלחו לנו וואטסאפ.'
+            : body.error === 'invalid'
+              ? 'יש פרטים שצריך לתקן.'
+              : 'השליחה לא הצליחה. נסו שוב, או שלחו לנו וואטסאפ.';
+      } catch {
+        status.textContent = 'אין חיבור כרגע. נסו שוב, או שלחו לנו וואטסאפ.';
+      }
+      // A Turnstile token works once, so get a fresh one for the next try.
+      w.turnstile?.reset(widgetId);
+      submit.disabled = false;
+      submitLabel.textContent = 'שליחה';
+    });
+  }
+</script>
