@@ -78,7 +78,7 @@ A plain **React SPA (Vite) is worse**: content would render client-side, which i
   - delivery via **Cloudflare Email Routing `send_email` binding** to the brother's verified inbox (free), or Resend as a fallback
   - optional: log submissions to **Cloudflare D1** so no lead is ever lost
 - **Analytics**: Cloudflare Web Analytics (free, cookie-less, so no consent banner needed) + Google Search Console
-- **CI/CD**: GitHub repo → Cloudflare Workers Builds (auto-deploy on push to `main`, preview URLs per branch)
+- **CI/CD**: GitHub repo → Cloudflare Workers Builds (auto-deploy on push to `master`, preview URLs per branch)
 - **Quality**: Prettier, ESLint, `astro check`, Lighthouse CI on PRs
 
 ---
@@ -233,10 +233,19 @@ ari-meat/
 - [ ] Download all current images from Wix (Wix has no clean export; do it manually or by script)
 
 ### Phase 1: Project setup
-- [ ] `npm create astro@latest` (TypeScript strict), add Tailwind, React, sitemap, Cloudflare adapter
-- [ ] Prettier/ESLint, `astro check`
-- [ ] GitHub repo, `main` branch, connect Cloudflare Workers Builds → preview deploys
-- [ ] `wrangler.jsonc` with Turnstile secret, email binding (and D1 if used)
+- [x] `npm create astro@latest` (TypeScript strict), add Tailwind, React, sitemap, Cloudflare adapter
+  - Astro 7 + Tailwind 4 + React 19 + `@astrojs/cloudflare` 14
+  - `imageService: 'compile'` (Sharp at build time, no paid Images binding), `session: false` (no KV namespace)
+  - `build.format: 'file'` + `trailingSlash: 'never'` so URLs match Wix (`/weddings`, no trailing slash)
+- [x] Prettier/ESLint, `astro check` (`npm run verify` runs all of them + build)
+  - `eslint-plugin-jsx-a11y` skipped: doesn't support ESLint 10 yet; accessibility covered by axe in Phase 5
+- [x] Base skeleton: `BaseLayout` (`lang="he" dir="rtl"`, skip link), `Seo` component (title/description/canonical/OG), `src/data/site.ts`, draft palette tokens, placeholder home + 404, `/api/health` Worker endpoint
+- [x] `public/_redirects` (`/blank`, `/priveteventinmatat`, `/llms`) and `robots.txt`
+- [x] Verified in local workerd preview: redirects return 301, `/page/` and `/page.html` redirect to `/page`, canonicals clean
+- [x] Initial git commit (branch: `master`)
+- [ ] `formatTitle()` in `src/lib/seo.ts`: decide the title format (currently a placeholder)
+- [ ] GitHub repo, push `master`, connect Cloudflare Workers Builds → preview deploys (needs your GitHub/Cloudflare accounts + `wrangler login`)
+- [ ] `wrangler.jsonc` bindings for Turnstile secret + email (and D1 if used): moved to Phase 4, when the form is built
 
 ### Phase 2: Design system
 - [ ] Moodboard + 2 design directions for the home hero → pick one with brother
