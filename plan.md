@@ -214,30 +214,30 @@ ari-meat/
 │  ├─ llms.txt              # (planned)
 │  └─ favicon.svg
 ├─ src/
-│  ├─ assets/images/        # (planned) photos used on the site; optimized at build time
+│  ├─ assets/images/        # photos used on the site; optimized at build time
 │  ├─ components/
 │  │  ├─ ui/Button.astro  ui/Icon.astro
 │  │  ├─ Header.astro  Footer.astro  MobileCtaBar.astro
 │  │  ├─ Hero.astro  Section.astro  ServiceCard.astro
-│  │  ├─ FaqList.astro  Testimonial.astro  ServiceAreas.astro (planned)
+│  │  ├─ FaqList.astro  Testimonial.astro  ServiceAreas.astro  StepList.astro  CtaSection.astro  Breadcrumbs.astro
 │  │  ├─ Seo.astro          # title/meta/OG/canonical/JSON-LD
 │  │  ├─ Gallery.tsx        # (planned) React island (lightbox, filter)
 │  │  └─ QuoteForm.tsx      # (planned) React island
-│  ├─ content/              # (planned)
+│  ├─ content/
 │  │  ├─ services/*.md      # weddings, private-events, …, private-chef, team-building (frontmatter: group catering|matat)
 │  │  ├─ menu.md
 │  │  └─ testimonials/*.md
-│  ├─ content.config.ts     # (planned) typed schemas for collections
+│  ├─ content.config.ts     # typed schemas for collections
 │  ├─ data/site.ts          # phone, email, address, socials, regions (single source of truth)
 │  ├─ data/nav.ts           # header/footer navigation
 │  ├─ lib/seo.ts            # formatTitle()
 │  ├─ lib/url.ts            # publicPath(), isActive()
-│  ├─ layouts/BaseLayout.astro  ServiceLayout.astro (planned)
+│  ├─ layouts/BaseLayout.astro  ServiceLayout.astro
 │  ├─ pages/
 │  │  ├─ index.astro  404.astro  styleguide.astro + styleguide/hero.astro (internal, delete before launch)
-│  │  ├─ menu.astro  about.astro  gallery.astro  contact.astro  thank-you.astro   # (planned)
-│  │  ├─ catering/index.astro  catering/[service].astro   # (planned) hub + catering services
-│  │  ├─ matat/index.astro     matat/[service].astro      # (planned) hub + Matat experiences
+│  │  ├─ menu.astro  about.astro  gallery.astro  contact.astro  thank-you.astro
+│  │  ├─ catering/index.astro  catering/[service].astro   # hub + catering services
+│  │  ├─ matat/index.astro     matat/[service].astro      # hub + Matat experiences
 │  │  └─ api/health.ts  api/quote.ts (planned: Turnstile verify + send email)
 │  └─ styles/global.css     # Tailwind + design tokens
 ├─ astro.config.mjs
@@ -336,11 +336,27 @@ ari-meat/
     the footer) and a `head` slot
   - Seo adds `jsonLd` (escaped JSON-LD), `og:image:alt`, and a dev warning for descriptions over 155
     chars. No default share image yet (needs a photo from Ari).
-- [ ] Home
-- [ ] `ServiceLayout` + six service pages from content collection (`/catering/*`, `/matat/*`)
-- [ ] `/catering` and `/matat` hub pages + breadcrumbs
-- [ ] Menu, About, Gallery, Contact, Thank-you, 404
-- [ ] Copy rewrite pass (Hebrew), with FAQs per service page
+- [x] Home
+  - Hero direction A with the ember glow; sections: Ari, six service cards, how it works, dishes,
+    service areas, closing CTA. Gallery strip and testimonials wait for photos/testimonials.
+- [x] `ServiceLayout` + six service pages from content collection (`/catering/*`, `/matat/*`)
+  - `src/content/services/*.md` (schema in `content.config.ts`): hero → intro → who it's for →
+    what's included → sample menu → how it works → FAQs → related → CTA.
+  - JSON-LD added already: `BreadcrumbList`, `Service`, `FAQPage` (`src/lib/schema.ts`).
+- [x] `/catering` and `/matat` hub pages + breadcrumbs
+  - Visible breadcrumbs in the hero (`Breadcrumbs.astro`) on every inner page, plus JSON-LD.
+- [x] Menu, About, Gallery, Contact, Thank-you, 404
+  - Contact lists WhatsApp, phone and email until the quote form lands in Phase 4.
+  - Gallery reads `src/assets/images/gallery/`; alt text and category per photo in
+    `src/data/gallery.ts` (the build fails without it). Empty for now, so it links to Instagram.
+- [x] Copy rewrite pass (Hebrew), with FAQs per service page
+  - Rewritten from `content-migration/pages/`: shorter, one intent per page, no invented facts
+    (no prices, guest minimums or booking lead times). "כשר" left out until Ari confirms
+    certification (assets.md 4). Price FAQs say "depends on guests, menu and location".
+- [ ] Photos: hero, service cards and gallery
+  - Blocked: the Wix CDN isn't reachable from the cloud workspace. The photos are downloaded on
+    yonatan's laptop (`content-migration/images/`); they need to be pushed (temporary branch) so
+    the chosen ones can be committed to `src/assets/images/`. Pages already accept `image`.
 
 ### Phase 4: Forms & integrations
 - [ ] Quote form fields: name, phone (required), email (optional), event type (select), date, guest count, region, message

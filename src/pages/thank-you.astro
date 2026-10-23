@@ -1,0 +1,27 @@
+---
+// Shown after the quote form is sent (Phase 4). noindex and kept out of the sitemap.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="תודה, קיבלנו את הפרטים"
+  description="הפרטים שלכם התקבלו. נחזור אליכם בהקדם."
+  noindex
+>
+  <section class="container-content flex min-h-[60svh] flex-col items-center justify-center gap-6 py-16 text-center">
+    <h1 class="text-4xl font-bold sm:text-5xl">תודה, קיבלנו את הפרטים</h1>
+    <p class="max-w-xl text-lg text-smoke-deep">
+      נחזור אליכם בהקדם. אם בא לכם לדבר כבר עכשיו, אפשר לשלוח וואטסאפ או להתקשר.
+    </p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <Button href={site.whatsapp.href} variant="whatsapp" icon="whatsapp">
+        וואטסאפ
+      </Button>
+      <Button href="/" variant="secondary">
+        חזרה לדף הבית
+      </Button>
+    </div>
+  </section>
+</BaseLayout>
