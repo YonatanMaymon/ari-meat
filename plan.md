@@ -240,6 +240,8 @@ ari-meat/
 
 ### Phase 0: Prep & assets (before coding)
 - [ ] Get from brother: original high-res photos/videos, logo files (or decide on a new logo), testimonials, list of past clients, kosher certification details (if any)
+  - Skipped for now. Exact list of what's needed (and what the Wix export already covers) in
+    [assets.md](assets.md). Logo PNG downloaded to `content-migration/logo-wix.png`.
 - [x] Decide the single official email + phone + WhatsApp number
   - Email `arielmaykab@gmail.com`, phone `052-8580775` (also the WhatsApp number). Already in `site.ts`.
 - [ ] Find out where the domain is registered (Wix or external) and get access

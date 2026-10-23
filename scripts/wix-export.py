@@ -5,8 +5,9 @@ Fetches every page in the Wix sitemap and writes:
   content-migration/pages/<old-slug>.md   page text as Markdown, with the old title/description
   content-migration/images/<page>-NN.jpg  web copies of every image (max 2560px, EXIF stripped)
   content-migration/images.csv            image index: file, Wix id, old alt text, pages, original size
+  content-migration/logo-wix.png          the logo (Wix uses it as favicon and share image)
 
-Images are gitignored (web copies and the ~270 MB of full-size originals in the cache directory).
+Images except the logo are gitignored (web copies and the ~270 MB of full-size originals in the cache directory).
 Re-running skips anything already in the cache.
 
 Requires: Python 3.10+, beautifulsoup4, Pillow (with AVIF support).
@@ -105,6 +106,7 @@ def main() -> None:
 
     images: dict[str, dict] = {}  # Wix media id -> row for images.csv
     shared: list[str] | None = None
+    logo_id: str | None = None
 
     for slug in slugs:
         url = ORIGIN if slug == 'home' else f'{ORIGIN}/{slug}'
@@ -114,6 +116,9 @@ def main() -> None:
             tag.decompose()
 
         title = soup.title.get_text(strip=True) if soup.title else ''
+        icon = soup.find('link', rel='apple-touch-icon')
+        if logo_id is None and icon and (m := MEDIA_RE.search(icon['href'].replace('%7E', '~'))):
+            logo_id = m.group(1)
         desc_tag = soup.find('meta', attrs={'name': 'description'})
         desc = clean(desc_tag['content']) if desc_tag else ''
 
@@ -171,6 +176,10 @@ def main() -> None:
         (pages_dir / f'{slug}.md').write_text(collapse(md), encoding='utf-8')
 
     (pages_dir / '_shared-header-footer.md').write_text(collapse(shared or []), encoding='utf-8')
+
+    if logo_id:
+        logo = fetch(MEDIA + logo_id, args.cache / 'originals' / logo_id)
+        (args.out / 'logo-wix.png').write_bytes(logo.read_bytes())
 
     for row in images.values():
         original = fetch(MEDIA + row['wix_id'], args.cache / 'originals' / row['wix_id'])
