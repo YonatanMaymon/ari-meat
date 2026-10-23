@@ -234,7 +234,7 @@ ari-meat/
 │  ├─ lib/url.ts            # publicPath(), isActive()
 │  ├─ layouts/BaseLayout.astro  ServiceLayout.astro (planned)
 │  ├─ pages/
-│  │  ├─ index.astro  404.astro  styleguide.astro (internal, delete before launch)
+│  │  ├─ index.astro  404.astro  styleguide.astro + styleguide/hero.astro (internal, delete before launch)
 │  │  ├─ menu.astro  about.astro  gallery.astro  contact.astro  thank-you.astro   # (planned)
 │  │  ├─ catering/index.astro  catering/[service].astro   # (planned) hub + catering services
 │  │  ├─ matat/index.astro     matat/[service].astro      # (planned) hub + Matat experiences
@@ -309,6 +309,11 @@ ari-meat/
 - [ ] Moodboard + 2 design directions for the home hero → pick one with brother
   - Blocked on Ari's input. The Wix photos (`content-migration/`) are enough to start the moodboard.
     Components were built on the plan's palette in the meantime; `/styleguide` shows them for review.
+  - Moodboard + 2 directions done: `/styleguide/hero` (noindex, out of the sitemap). A: "fire at
+    night", full-bleed dark photo. B: "the Galilee by day", light split layout with a portrait photo
+    in an arch, which fits the mostly-portrait Wix photos. Photo areas are placeholders named after
+    the Wix photo each would use (the Wix CDN isn't reachable from the cloud workspace).
+    Still open: Ari picks a direction, then Phase 3 builds the home hero from it.
 - [x] Tokens in Tailwind theme (colors, fonts, spacing, radii)
   - Fonts: Frank Ruhl Libre (display) + Heebo (body), self-hosted via `@fontsource-variable`,
     Hebrew subsets preloaded
@@ -358,7 +363,7 @@ ari-meat/
 - [ ] Keep Wix live (unpublished, not cancelled) for ~2 weeks as a rollback
 - [ ] Monitor GSC for 404s/coverage errors daily for the first 2 weeks
 - [ ] Cancel Wix plan once stable
-- [ ] Delete `/styleguide` (internal component preview)
+- [ ] Delete `/styleguide` and `/styleguide/hero` (internal previews)
 
 ### Phase 7: Post-launch growth
 - [ ] Google Business Profile optimization + review requests after each event

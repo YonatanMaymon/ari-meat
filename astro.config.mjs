@@ -26,7 +26,7 @@ export default defineConfig({
     react(),
     sitemap({
       // Keep noindex pages out of the sitemap.
-      filter: (page) => !/\/(thank-you|styleguide)$/.test(page),
+      filter: (page) => !/\/(thank-you|styleguide)(\/|$)/.test(page),
     }),
   ],
 

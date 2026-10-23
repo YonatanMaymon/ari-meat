@@ -1,0 +1,139 @@
+---
+// Two design directions for the home hero, to choose one with Ari (plan.md Phase 2).
+// Internal: noindex, out of the sitemap, deleted with /styleguide before launch.
+// The photo areas are placeholders named after the Wix photo each direction would use
+// (content-migration/images.csv); the real photos replace them in Phase 3.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import { site } from '../../data/site';
+
+const moodboard = [
+  { word: 'אש חיה', note: 'להבות, גחלים, צלב האסאדו. הצבע: ember.' },
+  { word: 'אדמה ועץ', note: 'פחם, עץ זית, ברזל של המעשנות שארי בונה. הצבע: charcoal.' },
+  { word: 'הגליל', note: 'מטעים, זיתים, שקיעה לכיוון הים ממתת. הצבע: olive.' },
+  { word: 'שולחן ארוך', note: 'פשתן, אור חם, אנשים סביב אוכל. הצבע: cream.' },
+];
+---
+
+<BaseLayout
+  title="כיווני עיצוב ל-Hero"
+  description="שני כיווני עיצוב לראש עמוד הבית, לבחירה."
+  noindex
+>
+  <section class="bg-cream py-12">
+    <div class="container-content">
+      <h1 class="text-4xl font-bold">שני כיוונים לראש עמוד הבית</h1>
+      <p class="mt-4 max-w-2xl text-lg">
+        אותו טקסט, אותם צבעים וגופנים, שתי גישות. התמונות הן מקום שמור: כל אחת מסומנת בשם התמונה
+        מאתר ה-Wix שהייתה נכנסת אליה.
+      </p>
+
+      <h2 class="mt-10 text-2xl font-bold">לוח השראה</h2>
+      <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {moodboard.map(({ word, note }) => (
+          <li class="rounded-card bg-cream-deep p-5">
+            <p class="font-display text-xl font-bold">{word}</p>
+            <p class="mt-2">{note}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Direction A: full-bleed photo, dark, the fire is the hero. -->
+  <section class="bg-charcoal py-6 text-cream">
+    <p class="container-content font-bold">
+      כיוון א׳: "אש בלילה". תמונה רחבה על כל המסך, כהה ודרמטית.
+    </p>
+  </section>
+  <section class="grain relative flex min-h-[85svh] items-end overflow-hidden bg-charcoal text-cream">
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_bottom,rgb(200_85_43/0.55),transparent_70%)]"
+    >
+      <p class="absolute top-24 start-4 rounded-full bg-charcoal/70 px-4 py-1 text-sm sm:start-6">
+        תמונה רחבה: home-13.jpg או home-05.jpg
+      </p>
+    </div>
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 -z-10 bg-linear-to-t from-charcoal via-charcoal/60 to-charcoal/10"
+    ></div>
+    <div class="container-content pt-16 pb-14 sm:pb-20">
+      <p class="flex items-center gap-3 font-semibold text-ember-light">
+        <span aria-hidden="true" class="h-0.5 w-10 bg-ember"></span>
+        מתת, הגליל העליון
+      </p>
+      <h2 class="mt-4 max-w-3xl text-5xl leading-tight font-bold sm:text-7xl">
+        קייטרינג בשרי על האש
+      </h2>
+      <p class="mt-5 max-w-2xl text-lg text-cream/90 sm:text-xl">
+        מטבח ארגנטינאי וגלילי על אש חיה. חתונות בטבע, אירועים פרטיים ועסקיים בכל הארץ.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button href="/contact" size="lg">
+          קבלת הצעת מחיר
+        </Button>
+        <Button href={site.whatsapp.href} variant="whatsapp" size="lg" icon="whatsapp">
+          וואטסאפ
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Direction B: light, editorial split with a portrait photo in an arch. -->
+  <section class="bg-charcoal py-6 text-cream">
+    <p class="container-content font-bold">
+      כיוון ב׳: "הגליל באור יום". רקע בהיר, טקסט ותמונה זה לצד זה.
+    </p>
+  </section>
+  <section class="bg-cream py-(--spacing-section)">
+    <div class="container-content grid items-center gap-10 md:grid-cols-2">
+      <div>
+        <p class="flex items-center gap-3 font-semibold text-olive">
+          <span aria-hidden="true" class="h-0.5 w-10 bg-olive"></span>
+          מתת, הגליל העליון
+        </p>
+        <h2 class="mt-4 text-5xl leading-tight font-bold sm:text-6xl">
+          קייטרינג בשרי <span class="text-ember">על האש</span>
+        </h2>
+        <p class="mt-5 max-w-xl text-lg text-smoke-deep sm:text-xl">
+          מטבח ארגנטינאי וגלילי על אש חיה. חתונות בטבע, אירועים פרטיים ועסקיים בכל הארץ.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/contact" size="lg">
+            קבלת הצעת מחיר
+          </Button>
+          <Button href={site.whatsapp.href} variant="secondary" size="lg" icon="whatsapp">
+            וואטסאפ
+          </Button>
+        </div>
+      </div>
+      <div
+        aria-hidden="true"
+        class="grain relative flex aspect-[3/4] items-end justify-center overflow-hidden rounded-t-full rounded-b-card bg-charcoal bg-[radial-gradient(ellipse_at_bottom,rgb(200_85_43/0.6),transparent_70%)] p-6 text-cream"
+      >
+        <p class="rounded-full bg-charcoal/70 px-4 py-1 text-sm">
+          תמונה לאורך: weddings-04.jpg או about-02.jpg
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream-deep py-12">
+    <div class="container-content max-w-3xl">
+      <h2 class="text-2xl font-bold">ההבדל בקצרה</h2>
+      <ul class="mt-4 list-disc space-y-3 ps-6">
+        <li>
+          <strong>כיוון א׳</strong> נותן את הרושם החזק ביותר, אבל צריך תמונה רחבה ובאיכות גבוהה של
+          אש. לא ברור שיש כזו: רוב התמונות הרחבות מה-Wix הן של אורחים ושולחנות, לא של אש.
+        </li>
+        <li>
+          <strong>כיוון ב׳</strong> עובד עם תמונות לאורך (טלפון), שהן רוב מה שיש לנו (30 מתוך 57).
+          הוא מרגיש יותר כמו מסעדה איכותית, ופחות דרמטי.
+        </li>
+        <li>אפשר גם לשלב: כיוון א׳ לדף הבית, כיוון ב׳ לדפי השירות.</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
