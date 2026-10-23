@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout description="קייטרינג בשרי על האש המשלב מטבח ארגנטינאי וגלילי. חתונות בטבע, אירועים פרטיים ועסקיים בכל הארץ.">
+  <section class="flex min-h-svh flex-col items-center justify-center gap-6 px-4 text-center">
+    <h1 class="text-4xl font-bold sm:text-6xl">{site.name}</h1>
+    <p class="text-smoke text-xl">{site.tagline}</p>
+    <p>האתר החדש בבנייה.</p>
+    <div class="flex gap-3">
+      <a class="bg-ember rounded px-5 py-3 font-semibold text-white" href={site.whatsapp.href}>
+        וואטסאפ
+      </a>
+      <a class="border-charcoal rounded border px-5 py-3 font-semibold" href={site.phone.href}>
+        {site.phone.display}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

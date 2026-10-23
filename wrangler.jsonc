@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ari-catering",
+  "compatibility_date": "2026-10-19",
+  "compatibility_flags": ["global_fetch_strictly_public"],
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // Serves dist/weddings.html at /weddings and redirects /weddings.html -> /weddings.
+    "html_handling": "auto-trailing-slash",
+  },
+  "observability": {
+    "enabled": true,
+  },
+
+  // Phase 4 (quote form) will add:
+  //   - "send_email": [{ "name": "QUOTE_EMAIL", "destination_address": "<verified inbox>" }]
+  //   - TURNSTILE_SECRET_KEY via `wrangler secret put` (locally in .dev.vars, never committed)
+  // Phase 6 (launch) will add "routes" for www.aricatering.com once DNS is on Cloudflare.
+}

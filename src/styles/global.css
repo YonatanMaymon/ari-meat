@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+
+/* Draft palette from plan.md. Finalised (with contrast checks) in Phase 2. */
+@theme {
+  --color-charcoal: #1c1a17;
+  --color-ember: #c8552b;
+  --color-olive: #5e6b3a;
+  --color-cream: #f3ede3;
+  --color-smoke: #8a8278;
+}

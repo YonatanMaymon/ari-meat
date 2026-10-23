@@ -1,0 +1,37 @@
+---
+import { site } from '../data/site';
+import { formatTitle } from '../lib/seo';
+
+export interface Props {
+  /** Keyword-focused page title, without the brand. Omit on the homepage. */
+  title?: string;
+  /** Unique meta description, ideally under 155 characters. */
+  description: string;
+  /** Absolute or root-relative share image for WhatsApp/Facebook previews. */
+  image?: string;
+  noindex?: boolean;
+}
+
+const { title, description, image, noindex = false } = Astro.props;
+
+const fullTitle = formatTitle(title);
+// With build.format 'file', prerendered pages see "/index.html" or "/weddings.html" here.
+// Strip that so the canonical matches the public URL ("/" and "/weddings").
+const pathname = Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/';
+const canonical = new URL(pathname, Astro.site).href;
+const ogImage = image ? new URL(image, Astro.site).href : undefined;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content={site.locale} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />

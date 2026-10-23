@@ -1,0 +1,7 @@
+# Permanent redirects from old Wix URLs (see plan.md section 4).
+# Cloudflare applies these before serving static assets.
+# Targets that don't exist yet are created in Phase 3.
+
+/blank                /                     301
+/priveteventinmatat   /private-chef-matat   301
+/llms                 /llms.txt             301
