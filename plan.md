@@ -242,8 +242,16 @@ ari-meat/
 - [ ] Decide the single official email + phone + WhatsApp number
 - [ ] Find out where the domain is registered (Wix or external) and get access
 - [ ] **Export a Search Console baseline**: current queries, impressions, top pages. Used to compare after launch. (If GSC isn't set up, set it up now on the Wix site.)
-- [ ] Copy all current text content into Markdown (raw migration)
-- [ ] Download all current images from Wix (Wix has no clean export; do it manually or by script)
+- [x] Copy all current text content into Markdown (raw migration)
+  - `scripts/wix-export.py` → `content-migration/pages/*.md` (13 pages, old title/description in
+    frontmatter). Findings in `content-migration/README.md`: both emails confirmed live, footer
+    service-area list is more detailed than `site.ts`, 5 pages share one generic description.
+- [x] Download all current images from Wix (Wix has no clean export; do it manually or by script)
+  - 66 images (57 distinct photos; 9 uploaded twice). Wix kept the full-size uploads (up to 8192px),
+    so these may be good enough without separate originals from Ari.
+  - Images are not in git: run `python3 scripts/wix-export.py` to get web copies in
+    `content-migration/images/` (max 2560px, EXIF/GPS stripped) and full-size originals in
+    `.wix-cache/`. `images.csv` (committed) indexes them. Phase 3 commits only the photos it uses.
 
 ### Phase 1: Project setup
 - [x] `npm create astro@latest` (TypeScript strict), add Tailwind, React, sitemap, Cloudflare adapter

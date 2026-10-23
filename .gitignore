@@ -30,3 +30,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# raw Wix export cache (full-size originals, scripts/wix-export.py)
+.wix-cache/
+content-migration/images/
