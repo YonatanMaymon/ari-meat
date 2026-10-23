@@ -16,6 +16,9 @@ export default defineConfig({
   trailingSlash: 'never',
   build: {
     format: 'file',
+    // Inline the CSS (about 8 KB compressed) so it doesn't block the first render on a slow phone
+    // connection. Visitors see one to three pages, so a cached stylesheet saves little.
+    inlineStylesheets: 'always',
   },
 
   vite: {

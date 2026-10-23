@@ -4,7 +4,7 @@ import { site } from '../data/site';
 export const TITLE_MAX_LENGTH = 60;
 
 /** Keyword the homepage ranks for. Other pages pass their own keyword title. */
-export const HOME_TITLE = 'קייטרינג בשרי על האש';
+export const HOME_TITLE = 'קייטרינג בשרי על האש – חווית בשר ייחודית';
 
 const SEPARATOR = ' | ';
 
