@@ -149,6 +149,7 @@ the current SEO is weak enough that the cleaner structure is worth it.)
 | `/contact` | Contact / get a quote | `/contacts` |
 | `/thank-you` | Form success page (`noindex`) *(new)* | n/a |
 | `/llms.txt` | LLM summary of the site | `/llms` |
+| | *Older Wix URLs found in Search Console* | `/about-3` → weddings, `/about-3-1` → corporate-events, `/about-3-2` & `/service-page/*` → `/catering`, `/גלרייה` → `/gallery`, `/דרכי-התקשרות` & `/booking` → `/contact`, `/reviews`, `/ביקורות` & `/event-list` → `/` |
 | `/404` | Branded 404 *(new)* | n/a |
 
 Breadcrumbs (`בית › קייטרינג › חתונות בטבע`) come from this structure, both visible and as
@@ -241,7 +242,11 @@ ari-meat/
 - [ ] Get from brother: original high-res photos/videos, logo files (or decide on a new logo), testimonials, list of past clients, kosher certification details (if any)
 - [ ] Decide the single official email + phone + WhatsApp number
 - [ ] Find out where the domain is registered (Wix or external) and get access
-- [ ] **Export a Search Console baseline**: current queries, impressions, top pages. Used to compare after launch. (If GSC isn't set up, set it up now on the Wix site.)
+- [x] **Export a Search Console baseline**: current queries, impressions, top pages. Used to compare after launch. (If GSC isn't set up, set it up now on the Wix site.)
+  - 16 months, saved as CSV in `docs/gsc-baseline-2026-10-23/` with a summary README.
+    385 clicks / 34,651 impressions; nearly all clicks are branded, target keywords rank ~25–60.
+  - Revealed 10 old Wix URLs not in the sitemap (`/about-3*`, `/reviews`, Hebrew URLs, …),
+    two of them 404 on Wix today. All now 301 in `public/_redirects` (section 4 table updated).
 - [x] Copy all current text content into Markdown (raw migration)
   - `scripts/wix-export.py` → `content-migration/pages/*.md` (13 pages, old title/description in
     frontmatter). Findings in `content-migration/README.md`: both emails confirmed live, footer
@@ -342,3 +347,5 @@ ari-meat/
 7. Any testimonials / notable clients we can feature?
 8. Hebrew only, or also an English version (tourists, international weddings)? Astro i18n can add `/en` later, with `hreflang`.
 9. Who will edit content after launch? (If Ari wants to self-edit, consider a Git-based CMS like Decap/Keystatic on top of the Markdown files.)
+10. The old `/reviews` page ranked #2 and "ארי חווית בשר ייחודית ביקורות" is the top branded query.
+    Does Ari have reviews to show? If yes, consider a dedicated `/reviews` page instead of redirecting it home.

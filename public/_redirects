@@ -11,3 +11,20 @@
 /offsitematat         /matat/team-building        301
 /contacts             /contact                    301
 /llms                 /llms.txt                   301
+
+# Older Wix URLs that Google still shows (found in the Search Console baseline,
+# docs/gsc-baseline-2026-10-23). Hebrew paths are percent-encoded, as browsers request them.
+/about-3              /catering/weddings          301
+/about-3-1            /catering/corporate-events  301
+/about-3-2            /catering                   301
+/reviews              /                           301
+/event-list           /                           301
+/booking              /contact                    301
+# /גלרייה
+/%D7%92%D7%9C%D7%A8%D7%99%D7%99%D7%94  /gallery  301
+# /ביקורות
+/%D7%91%D7%99%D7%A7%D7%95%D7%A8%D7%95%D7%AA  /  301
+# /דרכי-התקשרות
+/%D7%93%D7%A8%D7%9B%D7%99-%D7%94%D7%AA%D7%A7%D7%A9%D7%A8%D7%95%D7%AA  /contact  301
+# Splats last (Cloudflare matches static rules faster).
+/service-page/*       /catering                   301
