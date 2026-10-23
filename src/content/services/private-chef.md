@@ -57,6 +57,8 @@ faqs:
     answer: כן. אפשר לשלב סדנת בשרים, סיור במטעים, וסדנאות כמו תיפוף, תנועה או יוגה מול הנוף.
   - question: כמה זה עולה?
     answer: המחיר תלוי במספר האורחים ובסוג הארוחה. ספרו לנו על האירוע ונחזור עם הצעת מחיר.
+image: ../../assets/images/heroes/matat-outdoor-kitchen.jpg
+imageAlt: 'המטבח החיצוני במתת, עם טאבון וירקות טריים על שולחן עץ'
 related:
   - team-building
   - private-events

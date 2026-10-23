@@ -1,4 +1,5 @@
 ---
+import heroImage from '../assets/images/heroes/dips-and-flatbread.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
@@ -69,6 +70,8 @@ const questions = [
   jsonLd={breadcrumbList(crumbs)}
 >
   <Hero
+    image={heroImage}
+    imageAlt="מגש של מטבלים, לחם שטוח ושום קונפי"
     title="התפריט: אדמה, בשר ואש"
     subtitle="אין אצלנו קטלוג סגור. כל תפריט נבנה מחדש לכל אירוע, מחומרי הגלם הטובים של הגליל ומסורת הצלייה הארגנטינאית."
     breadcrumbs={crumbs}

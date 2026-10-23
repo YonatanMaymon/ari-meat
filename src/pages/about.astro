@@ -1,4 +1,5 @@
 ---
+import heroImage from '../assets/images/heroes/fire-pit-grill.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
@@ -33,6 +34,8 @@ const values = [
   jsonLd={breadcrumbList(crumbs)}
 >
   <Hero
+    image={heroImage}
+    imageAlt="גריל דרום אמריקאי מעל בור אש בגינה"
     title="ארי: אש, בשר ואדמה"
     subtitle="הסיפור של ארי קייטרינג הוא לא סיפור של עסק לאוכל. זו תשוקה ישנה לאדמה, לאש ולאנשים."
     breadcrumbs={crumbs}

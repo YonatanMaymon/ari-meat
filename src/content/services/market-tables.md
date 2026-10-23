@@ -56,6 +56,8 @@ faqs:
     answer: כן. יש ירקות צלויים, סלטים, לחמים ורטבים, ואפשר להוסיף מנות עיקריות צמחוניות וטבעוניות מהאש.
   - question: כמה זה עולה?
     answer: המחיר תלוי במספר האורחים, בנתחים ובמיקום. שלחו לנו פרטים ונחזור עם הצעת מחיר.
+image: ../../assets/images/heroes/market-table-spread.jpg
+imageAlt: 'שולחן שוק מלמעלה: פוקצ׳ות, נקניקיות, סלטים ומטבלים'
 related:
   - private-events
   - corporate-events

@@ -2,6 +2,7 @@
 // Homepage (plan.md section 3): hero → Ari → services → how it works → featured dishes →
 // service areas → CTA. The hero is direction A, "fire at night" (Phase 2).
 // Gallery strip and testimonials are added when the photos and testimonials arrive (assets.md).
+import heroImage from '../assets/images/heroes/asado-cross-fire.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
@@ -33,6 +34,8 @@ const dishes = [
 
 <BaseLayout description="קייטרינג בשרי על האש המשלב מטבח ארגנטינאי וגלילי. חתונות בטבע, אירועים פרטיים ועסקיים בכל הארץ, וחוויות במטעים במתת.">
   <Hero
+    image={heroImage}
+    imageAlt="שף מסדר נתחי אסאדו על צלב מעל אש חיה"
     title="קייטרינג בשרי על האש"
     eyebrow="מתת, הגליל העליון"
     subtitle="מטבח ארגנטינאי וגלילי על אש חיה. חתונות בטבע, אירועים פרטיים ועסקיים בכל הארץ, וחוויות אצלנו במטעים."
@@ -71,7 +74,13 @@ const dishes = [
   >
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {services.map((s) => (
-        <ServiceCard title={s.data.label} description={s.data.summary} href={serviceHref(s)} />
+        <ServiceCard
+          title={s.data.label}
+          description={s.data.summary}
+          href={serviceHref(s)}
+          image={s.data.image}
+          imageAlt={s.data.imageAlt}
+        />
       ))}
     </div>
   </Section>

@@ -1,4 +1,5 @@
 ---
+import heroImage from '../../assets/images/heroes/event-tables.jpg';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import Section from '../../components/Section.astro';
@@ -20,6 +21,8 @@ const crumbs = [{ label: 'בית', href: '/' }, { label: groups.catering.label }
   jsonLd={breadcrumbList(crumbs)}
 >
   <Hero
+    image={heroImage}
+    imageAlt="שולחנות עגולים ערוכים לאירוע בגינה"
     title="קייטרינג בשרי לאירועים"
     subtitle="אנחנו מגיעים אליכם: לחצר, למשרד, ליער, לחוף או למדבר. עם גרילים, מעשנות, צוות וכל הציוד, גם במקום בלי תשתיות."
     breadcrumbs={crumbs}
@@ -35,7 +38,13 @@ const crumbs = [{ label: 'בית', href: '/' }, { label: groups.catering.label }
   >
     <div class="grid gap-6 sm:grid-cols-2">
       {services.map((s) => (
-        <ServiceCard title={s.data.label} description={s.data.summary} href={serviceHref(s)} />
+        <ServiceCard
+          title={s.data.label}
+          description={s.data.summary}
+          href={serviceHref(s)}
+          image={s.data.image}
+          imageAlt={s.data.imageAlt}
+        />
       ))}
     </div>
   </Section>
