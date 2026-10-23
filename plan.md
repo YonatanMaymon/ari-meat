@@ -260,8 +260,9 @@ ari-meat/
   - `<keyword> | ארי קייטרינג`; homepage uses `HOME_TITLE` ("קייטרינג בשרי על האש")
   - If keyword + brand exceeds 60 chars, the brand is dropped so the keyword is never truncated
 - [ ] GitHub repo, push `master`, connect Cloudflare Workers Builds → preview deploys (needs your GitHub/Cloudflare accounts + `wrangler login`)
-  - GitHub part done: `YonatanMaymon/ari-meat`, `master` pushed. Still blocked on Cloudflare
-    account access to connect Workers Builds.
+  - GitHub part done: `YonatanMaymon/ari-meat`, `master` pushed.
+  - First manual deploy done on Ari's Cloudflare account: https://ari-catering.ari-catering.workers.dev
+    (home 200, `/api/health` 200, old Wix URLs 301). Still to do: connect Workers Builds in the dashboard.
 - [ ] `wrangler.jsonc` bindings for Turnstile secret + email (and D1 if used): moved to Phase 4, when the form is built
 
 ### Phase 2: Design system

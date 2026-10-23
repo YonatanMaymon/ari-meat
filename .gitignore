@@ -22,6 +22,9 @@ pnpm-debug.log*
 # wrangler local state
 .wrangler/
 
+# scraped copy of the old Wix site (HTML + original images), local reference only
+.wix-cache/
+
 # editor/notes
 .obsidian/
 
