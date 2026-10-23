@@ -13,6 +13,10 @@
   "observability": {
     "enabled": true,
   },
+  // Workers Builds uploads each non-master branch as a version; this serves it at
+  // <version>-ari-catering.ari-catering.workers.dev. Canonicals point to www.aricatering.com.
+  "workers_dev": true,
+  "preview_urls": true,
 
   // Phase 4 (quote form) will add:
   //   - "send_email": [{ "name": "QUOTE_EMAIL", "destination_address": "<verified inbox>" }]

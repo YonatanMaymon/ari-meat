@@ -297,13 +297,14 @@ ari-meat/
   - GitHub part done: `YonatanMaymon/ari-meat`, `master` pushed.
   - First manual deploy done on Ari's Cloudflare account: https://ari-catering.ari-catering.workers.dev
     (home 200, `/api/health` 200, old Wix URLs 301). Still to do: connect Workers Builds in the dashboard.
+  - `preview_urls: true` in `wrangler.jsonc` (defaults to false). Tested with `wrangler versions upload`:
+    the version is served at `<version>-ari-catering.ari-catering.workers.dev` without touching production.
   - Blocked on you (dashboard only, can't be done from code). `.nvmrc` pins Node 22.23.4 so the
     Workers Builds image uses a version Astro accepts. Steps: Cloudflare dashboard → Workers & Pages →
     `ari-catering` → Settings → Builds → Connect → GitHub `YonatanMaymon/ari-meat`. Production branch
     `master`, build command `npm run build`, deploy command `npx wrangler deploy`, and turn on
     builds for non-production branches (each PR then gets its own preview URL, deployed with
     `npx wrangler versions upload`).
-- [ ] `wrangler.jsonc` bindings for Turnstile secret + email (and D1 if used): moved to Phase 4, when the form is built
 
 ### Phase 2: Design system
 - [x] Moodboard + 2 design directions for the home hero → pick one with brother
@@ -347,6 +348,7 @@ ari-meat/
 - [ ] Quote form fields: name, phone (required), email (optional), event type (select), date, guest count, region, message
 - [ ] Client + server validation, Turnstile, honeypot
 - [ ] Email delivery to brother; optional D1 log; WhatsApp deep link with prefilled message as alternative
+- [ ] `wrangler.jsonc` bindings for Turnstile secret + email (and D1 if used) (moved here from Phase 1)
 - [ ] Cloudflare Web Analytics; track form submits / WhatsApp / call clicks as events
 
 ### Phase 5: SEO & QA
