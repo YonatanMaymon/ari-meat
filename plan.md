@@ -431,10 +431,11 @@ ari-meat/
     to 4:3 at build time.
   - `/matat/team-building` scores ~85: its olive-grove hero is a very detailed photo (≈400 KB even as
     AVIF). Fix with a less busy photo from Ari or a different hero for that page.
-  - Waiting on yonatan: real iPhone + Android check, and a Lighthouse run on the deployed preview.
+  - Real phone check on the branch preview: works (yonatan, 2026-10-23).
+  - Left unchecked only for `/matat/team-building` (below 95) until it gets a lighter hero photo.
 - [ ] Cross-browser (Safari iOS especially for RTL + fonts)
-  - Only Chromium is available in the cloud workspace. Needs a real iPhone (Safari) and an Android
-    phone: see the checklist in the Phase 5 PR.
+  - Only Chromium is available in the cloud workspace. yonatan checked the preview on his phone
+    (2026-10-23): works. Still to confirm on the other platform (iPhone Safari or Android).
 
 ### Phase 6: Launch
 - [ ] Move DNS to Cloudflare (or point domain), attach custom domain to the Worker
