@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
+import keystatic from '@keystatic/astro';
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,9 +28,11 @@ export default defineConfig({
 
   integrations: [
     react(),
+    // Admin for Ari at /keystatic (keystatic.config.ts). Its routes are rendered on demand.
+    keystatic(),
     sitemap({
       // Keep noindex pages out of the sitemap.
-      filter: (page) => !/\/(thank-you|styleguide)(\/|$)/.test(page),
+      filter: (page) => !/\/(thank-you|styleguide|keystatic)(\/|$)/.test(page),
     }),
   ],
 

@@ -1,7 +1,10 @@
 // Typed content collections. Service pages (/catering/*, /matat/*) are generated from these files.
+// Ari edits gallery.yaml through the admin at /keystatic (keystatic.config.ts).
 import { defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { parse } from 'yaml';
+import { galleryCategories, type GalleryCategory } from './data/gallery';
 
 const titledText = z.object({ title: z.string(), text: z.string() });
 
@@ -39,4 +42,26 @@ const services = defineCollection({
     }),
 });
 
-export const collections = { services };
+const gallery = defineCollection({
+  // One entry per photo, keyed by its position so the page keeps the order Ari chose.
+  loader: file('src/content/gallery.yaml', {
+    parser: (text) =>
+      (parse(text) as { photos?: object[] }).photos?.map((photo, i) => ({
+        id: String(i),
+        ...photo,
+      })) ?? [],
+  }),
+  schema: z.object({
+    /**
+     * Relative to gallery.yaml: ../assets/images/gallery/photos/<slug>/image.jpg. A plain string
+     * rather than image(), so a photo in a format Astro can't optimise (an iPhone .heic) is skipped
+     * by the gallery page instead of failing the build and blocking every later edit.
+     */
+    image: z.string(),
+    /** Hebrew alt text (`name`), required so no photo goes live without it. `slug` names the folder. */
+    alt: z.object({ name: z.string().trim().min(1), slug: z.string() }),
+    category: z.enum(Object.keys(galleryCategories) as [GalleryCategory, ...GalleryCategory[]]),
+  }),
+});
+
+export const collections = { services, gallery };

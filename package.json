@@ -26,6 +26,8 @@
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource-variable/frank-ruhl-libre": "^5.3.0",
     "@fontsource-variable/heebo": "^5.3.0",
+    "@keystatic/astro": "^6.0.0",
+    "@keystatic/core": "^0.6.9",
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -33,7 +35,8 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "tailwindcss": "^4.3.3",
-    "wrangler": "^4.152.0"
+    "wrangler": "^4.152.0",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
