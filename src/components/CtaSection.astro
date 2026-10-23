@@ -1,0 +1,40 @@
+---
+// The one strong closing call to action at the bottom of every page (plan.md section 3).
+import Button from './ui/Button.astro';
+import { site } from '../data/site';
+import { quoteLink } from '../data/nav';
+
+export interface Props {
+  heading?: string;
+  text?: string;
+}
+
+const {
+  heading = 'בואו נדליק את האש',
+  text = 'ספרו לנו על האירוע: מה חוגגים, כמה אורחים ואיפה. נחזור אליכם עם רעיונות לתפריט והצעת מחיר.',
+} = Astro.props;
+---
+
+<section aria-labelledby="cta-heading" class="grain bg-charcoal py-(--spacing-section) text-cream">
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_bottom,rgb(200_85_43/0.35),transparent_70%)]"
+  ></div>
+  <div class="container-content max-w-3xl text-center">
+    <h2 id="cta-heading" class="text-3xl font-bold sm:text-5xl">
+      {heading}
+    </h2>
+    <p class="mt-5 text-lg text-cream/90">{text}</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <Button href={quoteLink.href} size="lg">
+        {quoteLink.label}
+      </Button>
+      <Button href={site.whatsapp.href} variant="whatsapp" size="lg" icon="whatsapp">
+        וואטסאפ
+      </Button>
+      <Button href={site.phone.href} variant="secondary-dark" size="lg" icon="phone">
+        <span dir="ltr">{site.phone.display}</span>
+      </Button>
+    </div>
+  </div>
+</section>

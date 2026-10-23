@@ -1,0 +1,105 @@
+---
+// Quote form (React island, Turnstile, email) is added in Phase 4. Until then the page offers
+// the direct channels, with WhatsApp first: that's how most clients reach Ari.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import Icon from '../components/ui/Icon.astro';
+import { site } from '../data/site';
+import { breadcrumbList } from '../lib/schema';
+
+const crumbs = [{ label: 'בית', href: '/' }, { label: 'יצירת קשר' }];
+
+const channels = [
+  {
+    icon: 'whatsapp',
+    title: 'וואטסאפ',
+    text: 'הכי מהיר. כתבו לנו כמה פרטים על האירוע.',
+    href: site.whatsapp.href,
+    value: 'שליחת הודעה',
+    external: true,
+  },
+  {
+    icon: 'phone',
+    title: 'טלפון',
+    text: 'הכי טוב פשוט להתקשר.',
+    href: site.phone.href,
+    value: site.phone.display,
+    ltr: true,
+  },
+  {
+    icon: 'mail',
+    title: 'אימייל',
+    text: 'לשאלות, הצעות ומסמכים.',
+    href: `mailto:${site.email}`,
+    value: site.email,
+    ltr: true,
+  },
+] as const;
+
+const details = [
+  'סוג האירוע ומה חוגגים',
+  'תאריך, או תאריכים אפשריים',
+  'מספר אורחים משוער',
+  'איפה: עיר, אזור או סוג המקום',
+  'העדפות מיוחדות, למשל הרבה צמחונים',
+];
+---
+
+<BaseLayout
+  title="יצירת קשר והצעת מחיר"
+  description={`קבלת הצעת מחיר לקייטרינג בשרי על האש: וואטסאפ, טלפון ${site.phone.display} או אימייל. ספרו לנו על האירוע ונחזור אליכם בהקדם.`}
+  jsonLd={breadcrumbList(crumbs)}
+>
+  <Hero
+    title="קבלת הצעת מחיר"
+    subtitle="ספרו לנו על האירוע ונחזור אליכם בהקדם עם רעיונות לתפריט והצעת מחיר."
+    breadcrumbs={crumbs}
+  />
+
+  <Section>
+    <ul class="grid gap-6 md:grid-cols-3">
+      {channels.map((c) => (
+        <li class="relative flex flex-col gap-3 rounded-card bg-white p-7 shadow-sm ring-1 ring-charcoal/5 transition-shadow hover:shadow-lg">
+          <Icon name={c.icon} class="size-8 text-ember-deep" />
+          <h2 class="text-2xl font-bold">{c.title}</h2>
+          <p class="flex-1 text-smoke-deep">{c.text}</p>
+          <a
+            href={c.href}
+            class="font-semibold text-ember-deep after:absolute after:inset-0"
+            {...('external' in c && { target: '_blank', rel: 'noopener' })}
+          >
+            <span dir={'ltr' in c ? 'ltr' : undefined}>{c.value}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Section
+    tone="sand"
+    heading="מה כדאי לספר לנו"
+    intro="כמה פרטים שיעזרו לנו לחזור אליכם עם הצעה מדויקת:"
+  >
+    <ul class="max-w-2xl space-y-3 text-lg">
+      {details.map((d) => (
+        <li class="flex gap-3">
+          <Icon name="check" class="mt-1 size-5 shrink-0 text-ember-deep" />
+          <span>{d}</span>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Section heading="איפה אנחנו">
+    <address class="text-lg not-italic">
+      <p class="font-semibold">{site.name}</p>
+      <p>
+        {site.address.street}, {site.address.locality}, {site.address.region}
+      </p>
+    </address>
+    <p class="mt-4 max-w-2xl text-smoke-deep">
+      לאירועים אנחנו מגיעים לכל הארץ. לארוחות שף וימי גיבוש במטעים, מגיעים אלינו למתת בתיאום מראש.
+    </p>
+  </Section>
+</BaseLayout>

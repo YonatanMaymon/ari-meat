@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import Button from '../../components/ui/Button.astro';
+import { quoteLink } from '../../data/nav';
+import { getServices, groups, serviceHref } from '../../lib/services';
+import { breadcrumbList } from '../../lib/schema';
+
+const services = await getServices('matat');
+const crumbs = [{ label: 'בית', href: '/' }, { label: groups.matat.label }];
+const produce = [
+  { title: 'שמן זית', text: 'מהעצים במטעים שלנו.' },
+  { title: 'יין', text: 'מהגפנים שלנו, מהיקב המשפחתי.' },
+  { title: 'גבינות ולאבנה', text: 'מהעיזים שלנו.' },
+  { title: 'גינת ירק', text: 'ירקות שנקטפים בבוקר של האירוע.' },
+];
+---
+
+<BaseLayout
+  title="חוויות במטעים במתת, בגליל"
+  description="אירוח במטעים שלנו במושב מתת: ארוחות שף פרטיות, ימי גיבוש לצוותים, סדנאות וסיורים, מול נוף הגליל המערבי והים. בואו לבקר."
+  jsonLd={breadcrumbList(crumbs)}
+>
+  <Hero
+    title="חוויות במטעים במתת"
+    subtitle="אתם מגיעים אלינו: למרפסת מול הנוף, למטעים ולגינת הירק. ארוחות שף, סדנאות וימי גיבוש, בפרטיות מלאה."
+    eyebrow="מושב מתת, הגליל העליון"
+    breadcrumbs={crumbs}
+  >
+    <Button href={quoteLink.href} size="lg">
+      {quoteLink.label}
+    </Button>
+  </Hero>
+
+  <Section
+    heading="המקום"
+    intro="מתת יושבת על הר שמשקיף על קפלי הגליל המערבי עד הים התיכון, ממש על גבול הלבנון. מה שהיה פעם כיפת הר קירחת הוא היום בוסתן של חקלאות אורגנית: זיתים, גפנים, תאנים ודובדבנים."
+  >
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {produce.map((item) => (
+        <li class="rounded-card bg-cream-deep p-5">
+          <h3 class="text-xl font-bold">{item.title}</h3>
+          <p class="mt-1">{item.text}</p>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Section tone="sand" heading="מה אפשר לעשות אצלנו">
+    <div class="grid gap-6 sm:grid-cols-2">
+      {services.map((s) => (
+        <ServiceCard title={s.data.label} description={s.data.summary} href={serviceHref(s)} />
+      ))}
+    </div>
+  </Section>
+
+  <CtaSection
+    heading="בואו לבקר במתת"
+    text="ספרו לנו מה אתם מתכננים וכמה תהיו, ונבנה יחד את היום או הערב."
+  />
+</BaseLayout>

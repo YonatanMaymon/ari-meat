@@ -1,0 +1,130 @@
+---
+// Shared layout for the six service pages (plan.md section 3, "Service page"):
+// hero → intro → who it's for → what's included → sample menu → how it works → FAQs → related → CTA.
+import { render } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import StepList from '../components/StepList.astro';
+import FaqList from '../components/FaqList.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CtaSection from '../components/CtaSection.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import { site } from '../data/site';
+import { quoteLink } from '../data/nav';
+import { groups, getServices, serviceHref, type Service } from '../lib/services';
+import { breadcrumbList, faqPage, service as serviceSchema } from '../lib/schema';
+
+export interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+const { data } = service;
+const { Content } = await render(service);
+const href = serviceHref(service);
+const group = groups[data.group];
+
+const crumbs = [{ label: 'בית', href: '/' }, group, { label: data.label }];
+const all = await getServices();
+const related = data.related
+  .map((id) => all.find((s) => s.id === id))
+  .filter((s): s is Service => Boolean(s));
+---
+
+<BaseLayout
+  title={data.seoTitle}
+  description={data.description}
+  jsonLd={[
+    breadcrumbList(crumbs),
+    serviceSchema(data.title, data.description, href),
+    faqPage(data.faqs),
+  ]}
+>
+  <Hero title={data.title} subtitle={data.subtitle} breadcrumbs={crumbs}>
+    <Button href={quoteLink.href} size="lg">
+      {quoteLink.label}
+    </Button>
+    <Button href={site.whatsapp.href} variant="whatsapp" size="lg" icon="whatsapp">
+      וואטסאפ
+    </Button>
+  </Hero>
+
+  <Section>
+    <div class="max-w-3xl space-y-5 text-lg leading-relaxed">
+      <Content />
+    </div>
+  </Section>
+
+  <Section tone="sand" heading="למי זה מתאים" eyebrow="האירוע שלכם">
+    <ul class="grid gap-4 sm:grid-cols-2">
+      {data.audience.map((item) => (
+        <li class="flex gap-3 rounded-card bg-cream p-5">
+          <Icon name="check" class="mt-1 size-5 shrink-0 text-ember-deep" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Section heading="מה כלול" eyebrow="השירות">
+    <ul class="grid gap-8 sm:grid-cols-2">
+      {data.included.map((item) => (
+        <li class="border-s-4 border-ember ps-5">
+          <h3 class="text-xl font-bold">{item.title}</h3>
+          <p class="mt-2 text-smoke-deep">{item.text}</p>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  {data.menu && (
+    <Section
+      tone="dark"
+      heading="מה יכול להיות בתפריט"
+      eyebrow="דוגמאות"
+      intro="כל תפריט נבנה מחדש לכל אירוע. אלה כמה מהמנות שאפשר לבחור מהן."
+    >
+      <div class="grid gap-6 md:grid-cols-3">
+        {data.menu.map((group) => (
+          <div class="rounded-card bg-charcoal-soft p-6">
+            <h3 class="text-xl font-bold text-ember-light">{group.title}</h3>
+            <ul class="mt-4 space-y-2">
+              {group.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p class="mt-8">
+        <a href="/menu" class="font-semibold text-ember-light underline underline-offset-4">
+          לתפריט המלא ולסגנון הבישול
+        </a>
+      </p>
+    </Section>
+  )}
+
+  <Section heading="איך זה עובד" eyebrow="שלב אחר שלב">
+    <StepList steps={data.steps} />
+  </Section>
+
+  <Section tone="sand" heading="שאלות נפוצות" eyebrow="לפני שמתקשרים">
+    <div class="max-w-3xl">
+      <FaqList items={data.faqs} />
+    </div>
+  </Section>
+
+  {related.length > 0 && (
+    <Section heading="אולי יעניין אתכם גם">
+      <div class="grid gap-6 sm:grid-cols-2">
+        {related.map((s) => (
+          <ServiceCard title={s.data.label} description={s.data.summary} href={serviceHref(s)} />
+        ))}
+      </div>
+    </Section>
+  )}
+
+  <CtaSection />
+</BaseLayout>

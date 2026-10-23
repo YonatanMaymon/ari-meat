@@ -1,18 +1,114 @@
 ---
+// Homepage (plan.md section 3): hero → Ari → services → how it works → featured dishes →
+// service areas → CTA. The hero is direction A, "fire at night" (Phase 2).
+// Gallery strip and testimonials are added when the photos and testimonials arrive (assets.md).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import StepList from '../components/StepList.astro';
+import ServiceAreas from '../components/ServiceAreas.astro';
+import CtaSection from '../components/CtaSection.astro';
 import Button from '../components/ui/Button.astro';
 import { site } from '../data/site';
+import { quoteLink } from '../data/nav';
+import { getServices, serviceHref } from '../lib/services';
+
+const services = await getServices();
+
+const steps = [
+  { title: 'מדברים', text: 'מספרים לנו מה חוגגים, כמה אורחים ואיפה.' },
+  { title: 'בונים תפריט', text: 'תפריט שנבנה בשבילכם, עם הצעת מחיר מסודרת.' },
+  { title: 'מדליקים את האש', text: 'מגיעים לפחות 5 שעות לפני ומקימים מטבח שלם.' },
+  { title: 'אתם אורחים', text: 'אנחנו מבשלים, מגישים ומפנים. אתם נהנים.' },
+];
+
+const dishes = [
+  { title: 'אסאדו על האש', text: 'נצלה שעות ארוכות מול אש גלויה, עד שהוא מתפרק מהעצם.' },
+  { title: 'פיקנייה מעושנת', text: 'עשן של עצי אלון ודובדבן מהמטעים שלנו במתת.' },
+  { title: 'סטייק חציל', text: 'על טחינה, עם עגבניות שרי, רימונים ופיסטוקים. מהאש, כמו הבשר.' },
+  { title: 'פוקצ׳ה מהטאבון', text: 'יוצאת חמה, עם שום, עגבניות שרי ופלפלים מעושנים.' },
+];
 ---
 
-<BaseLayout description="קייטרינג בשרי על האש המשלב מטבח ארגנטינאי וגלילי. חתונות בטבע, אירועים פרטיים ועסקיים בכל הארץ.">
-  <!-- Placeholder until the real homepage is built in Phase 3. -->
-  <Hero title={site.name} subtitle={`${site.tagline}. האתר החדש בבנייה.`} size="full">
+<BaseLayout description="קייטרינג בשרי על האש המשלב מטבח ארגנטינאי וגלילי. חתונות בטבע, אירועים פרטיים ועסקיים בכל הארץ, וחוויות במטעים במתת.">
+  <Hero
+    title="קייטרינג בשרי על האש"
+    eyebrow="מתת, הגליל העליון"
+    subtitle="מטבח ארגנטינאי וגלילי על אש חיה. חתונות בטבע, אירועים פרטיים ועסקיים בכל הארץ, וחוויות אצלנו במטעים."
+    size="full"
+  >
+    <Button href={quoteLink.href} size="lg">
+      {quoteLink.label}
+    </Button>
     <Button href={site.whatsapp.href} variant="whatsapp" size="lg" icon="whatsapp">
       וואטסאפ
     </Button>
-    <Button href={site.phone.href} variant="secondary-dark" size="lg" icon="phone">
-      <span dir="ltr">{site.phone.display}</span>
-    </Button>
   </Hero>
+
+  <Section heading="נעים להכיר, אני ארי" eyebrow="הסיפור">
+    <div class="max-w-3xl space-y-5 text-lg leading-relaxed">
+      <p>
+        הסיפור שלי עם בשר, אדמה ואש חיה התחיל מגיל קטן. אני גר במתת, יישוב קטן על גבול הלבנון, עם
+        גינת ירק ומטעים של זיתים, גפנים, תאנים ודובדבנים, שכולם מגודלים בחקלאות אורגנית ומסורתית.
+      </p>
+      <p>
+        את התשוקה הזו אני מביא לכל אירוע. אני בוחר בעצמי כל נתח, צולה על גרילים ומעשנות שתכננתי
+        ובניתי, ומגיע עם צוות, ציוד ושירות של מסעדת שף, גם באמצע השטח.
+      </p>
+    </div>
+    <p class="mt-8">
+      <a href="/about" class="font-semibold text-ember-deep underline underline-offset-4">
+        עוד על ארי והמטבח
+      </a>
+    </p>
+  </Section>
+
+  <Section
+    tone="sand"
+    heading="מה אנחנו עושים"
+    intro="אנחנו מגיעים לאירוע שלכם בכל מקום בארץ, או מארחים אתכם אצלנו במטעים במתת."
+  >
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((s) => (
+        <ServiceCard title={s.data.label} description={s.data.summary} href={serviceHref(s)} />
+      ))}
+    </div>
+  </Section>
+
+  <Section heading="איך זה עובד" eyebrow="ארבעה שלבים">
+    <StepList steps={steps} />
+  </Section>
+
+  <Section
+    tone="dark"
+    heading="מה יוצא מהאש"
+    eyebrow="טעימה מהתפריט"
+    intro="מסורת הצלייה הארגנטינאית, עם חומרי הגלם של הגליל. וגם מנות צמחוניות וטבעוניות שנעשות על האש."
+  >
+    <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {dishes.map((dish) => (
+        <li class="rounded-card bg-charcoal-soft p-6">
+          <h3 class="text-xl font-bold text-ember-light">{dish.title}</h3>
+          <p class="mt-2">{dish.text}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-8">
+      <a href="/menu" class="font-semibold text-ember-light underline underline-offset-4">
+        לתפריט
+      </a>
+    </p>
+  </Section>
+
+  <Section
+    tone="sand"
+    heading="מגיעים לכל הארץ"
+    eyebrow="אזורי שירות"
+    intro="מהגולן ועד הערבה, עם מטבח שטח עצמאי שלא צריך תשתיות."
+  >
+    <ServiceAreas />
+  </Section>
+
+  <CtaSection />
 </BaseLayout>

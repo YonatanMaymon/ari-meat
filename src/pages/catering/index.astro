@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import ServiceAreas from '../../components/ServiceAreas.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import Button from '../../components/ui/Button.astro';
+import { quoteLink } from '../../data/nav';
+import { getServices, groups, serviceHref } from '../../lib/services';
+import { breadcrumbList } from '../../lib/schema';
+
+const services = await getServices('catering');
+const crumbs = [{ label: 'בית', href: '/' }, { label: groups.catering.label }];
+---
+
+<BaseLayout
+  title="קייטרינג בשרי לאירועים בכל הארץ"
+  description="קייטרינג בשרי על האש לחתונות בטבע, אירועים פרטיים, אירועי חברה ושולחנות שוק. מטבח שטח עצמאי שמגיע לכל מקום בארץ. קבלו הצעת מחיר."
+  jsonLd={breadcrumbList(crumbs)}
+>
+  <Hero
+    title="קייטרינג בשרי לאירועים"
+    subtitle="אנחנו מגיעים אליכם: לחצר, למשרד, ליער, לחוף או למדבר. עם גרילים, מעשנות, צוות וכל הציוד, גם במקום בלי תשתיות."
+    breadcrumbs={crumbs}
+  >
+    <Button href={quoteLink.href} size="lg">
+      {quoteLink.label}
+    </Button>
+  </Hero>
+
+  <Section
+    heading="איזה אירוע אתם מתכננים?"
+    intro="כל אירוע מקבל תפריט משלו. בחרו את סוג האירוע כדי לראות מה כלול, דוגמאות לתפריט ותשובות לשאלות נפוצות."
+  >
+    <div class="grid gap-6 sm:grid-cols-2">
+      {services.map((s) => (
+        <ServiceCard title={s.data.label} description={s.data.summary} href={serviceHref(s)} />
+      ))}
+    </div>
+  </Section>
+
+  <Section
+    tone="sand"
+    heading="מגיעים לכל הארץ"
+    eyebrow="אזורי שירות"
+    intro="הבית שלנו במתת שבגליל, והאש נודדת איתנו לכל מקום. אלה האזורים שבהם אנחנו עובדים הכי הרבה."
+  >
+    <ServiceAreas />
+  </Section>
+
+  <CtaSection />
+</BaseLayout>

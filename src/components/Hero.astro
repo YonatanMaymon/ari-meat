@@ -1,10 +1,16 @@
 ---
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import type { Crumb } from '../lib/schema';
 
 export interface Props {
   /** The page's single <h1>. */
   title: string;
+  /** Breadcrumbs shown above the title on inner pages. */
+  breadcrumbs?: readonly Crumb[];
+  /** Short line above the title, e.g. the location. */
+  eyebrow?: string;
   subtitle?: string;
   /** Full-bleed background photo. Without one, a charcoal + ember glow background is used. */
   image?: ImageMetadata;
@@ -14,7 +20,15 @@ export interface Props {
   size?: 'full' | 'compact';
 }
 
-const { title, subtitle, image, imageAlt = '', size = 'compact' } = Astro.props;
+const {
+  title,
+  breadcrumbs,
+  eyebrow,
+  subtitle,
+  image,
+  imageAlt = '',
+  size = 'compact',
+} = Astro.props;
 ---
 
 <section
@@ -47,6 +61,13 @@ const { title, subtitle, image, imageAlt = '', size = 'compact' } = Astro.props;
   ></div>
 
   <div class="container-content pt-16 pb-14 sm:pb-20">
+    {breadcrumbs && <Breadcrumbs crumbs={breadcrumbs} />}
+    {eyebrow && (
+      <p class="mb-4 flex items-center gap-3 font-semibold text-ember-light">
+        <span aria-hidden="true" class="h-0.5 w-10 bg-ember"></span>
+        {eyebrow}
+      </p>
+    )}
     <h1 class="max-w-3xl text-4xl leading-tight font-bold sm:text-6xl">{title}</h1>
     {subtitle && <p class="mt-5 max-w-2xl text-lg text-cream/90 sm:text-xl">{subtitle}</p>}
     {Astro.slots.has('default') && (

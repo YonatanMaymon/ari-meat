@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/ui/Button.astro';
+import { mainNav, quoteLink } from '../data/nav';
 ---
 
 <BaseLayout title="הדף לא נמצא" description="הדף שחיפשתם לא קיים." noindex>
@@ -10,5 +11,14 @@ import Button from '../components/ui/Button.astro';
     <Button href="/" icon="arrow">
       חזרה לדף הבית
     </Button>
+    <ul class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 font-semibold">
+      {[...mainNav, quoteLink].map((link) => (
+        <li>
+          <a href={link.href} class="text-ember-deep underline underline-offset-4">
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
   </section>
 </BaseLayout>

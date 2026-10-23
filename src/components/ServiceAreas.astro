@@ -1,0 +1,13 @@
+---
+// Where Ari cooks, as one compact visual instead of four text lists on every page.
+import { site } from '../data/site';
+---
+
+<ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  {site.serviceAreas.map((area) => (
+    <li class="rounded-card bg-white p-6 shadow-sm ring-1 ring-charcoal/5">
+      <h3 class="text-xl font-bold">{area.name}</h3>
+      <p class="mt-2 text-smoke-deep">{area.places.join(' · ')}</p>
+    </li>
+  ))}
+</ul>

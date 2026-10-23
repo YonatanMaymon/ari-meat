@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import CtaSection from '../components/CtaSection.astro';
+import Icon from '../components/ui/Icon.astro';
+import { breadcrumbList } from '../lib/schema';
+
+const crumbs = [{ label: 'בית', href: '/' }, { label: 'תפריט' }];
+
+const categories = [
+  {
+    title: 'פתיחה וקבלת פנים',
+    intro: 'הריח של בצק, ירקות חרוכים ועשן עדין, מהרגע שהאורחים נכנסים.',
+    items: [
+      'פוקצ׳ות חמות מהטאבון עם שום, עגבניות שרי ופלפלים מעושנים',
+      'סביצ׳ה עונתי של דג טרי עם בצל סגול',
+      'אמפנדס פריכים במילויים שונים',
+      'צ׳וריסוס ארגנטינאיות עם צ׳ימיצ׳ורי',
+      'עראייס עסיסי עם טחינות',
+      'סופלאקי עוף או פטריות על פיתה בעבודת יד',
+    ],
+  },
+  {
+    title: 'הנתחים מהאש',
+    intro: 'כל נתח מקבל את זמן הצלייה והעישון שהוא צריך, על עצי אלון ודובדבן.',
+    items: [
+      'אסאדו על הקרוס, שעות מול אש גלויה',
+      'אנטריקוט משויש, נפרס מול האורחים',
+      'פיקנייה מעושנת',
+      'טומהוק',
+      'שוק טלה במרינדה לימונית על הפריג׳ה',
+      'סלמון מעושן ודגים שלמים על האש',
+    ],
+  },
+  {
+    title: 'מהאדמה: צמחוני וטבעוני',
+    intro: 'ירק שקיבל טיפול נכון על האש מרגש לא פחות מנתח פרימיום.',
+    items: [
+      'סטייק חציל על טחינה, עם עגבניות שרי, רימונים ופיסטוקים',
+      'פויקה צמחוני ביין אדום וירקות שורש',
+      'סטייקים של כרוב או ברוקולי',
+      'סופלאקי פטריות',
+    ],
+  },
+  {
+    title: 'סלטים ותוספות',
+    intro: 'האיזון של הארוחה. הכול טרי, עונתי וגלילי.',
+    items: [
+      'סלט קינואה עם סלק חרוך',
+      'סלט עלים עונתי',
+      'תפוחי אדמה מדורה עם איולי עשבי תיבול',
+      'ברוקולי צלוי ואספרגוס',
+      'לחמים חמים מהטאבון',
+    ],
+  },
+];
+
+const questions = [
+  'מי האורחים שלכם? קהל של פודיז שמחפש נתחים מיוחדים, או אירוע משפחתי שצריך שפע ונגישות?',
+  'מה האווירה? שולחן שוק צבעוני ודינמי, או הגשה מוקפדת לשולחנות?',
+  'אילו העדפות יש? נתאים את היחס בין המנות הבשריות, הצמחוניות והטבעוניות.',
+];
+---
+
+<BaseLayout
+  title="תפריט קייטרינג בשרי על האש"
+  description="דוגמאות מהתפריט: אסאדו על האש, פיקנייה מעושנת, מנות צמחוניות וטבעוניות מהאש, סלטים גליליים ולחמים מהטאבון. כל תפריט נבנה לכל אירוע."
+  jsonLd={breadcrumbList(crumbs)}
+>
+  <Hero
+    title="התפריט: אדמה, בשר ואש"
+    subtitle="אין אצלנו קטלוג סגור. כל תפריט נבנה מחדש לכל אירוע, מחומרי הגלם הטובים של הגליל ומסורת הצלייה הארגנטינאית."
+    breadcrumbs={crumbs}
+  />
+
+  <Section heading="חומר גלם, אש וזמן" eyebrow="הפילוסופיה">
+    <div class="max-w-3xl space-y-5 text-lg leading-relaxed">
+      <p>
+        כל ירק וכל נתח עוברים תחת הידיים של ארי לפני שהם פוגשים את האש. הבשר נבחר לפי שיוש ויישון,
+        הירקות מגיעים מהגינה וממשקים פרטיים בגליל המערבי, והעשן מגיע מעצים שנאספים במטעים במתת.
+      </p>
+      <p>אלה כמה מהמנות שמהן נבנה את התפריט שלכם:</p>
+    </div>
+  </Section>
+
+  <Section tone="sand" heading="דוגמאות מהתפריט">
+    <div class="grid gap-6 md:grid-cols-2">
+      {categories.map((category) => (
+        <section class="rounded-card bg-cream p-7">
+          <h3 class="text-2xl font-bold">{category.title}</h3>
+          <p class="mt-2 text-smoke-deep">{category.intro}</p>
+          <ul class="mt-5 space-y-3">
+            {category.items.map((item) => (
+              <li class="flex gap-3">
+                <Icon name="check" class="mt-1 size-5 shrink-0 text-ember-deep" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+    <p class="mt-8 text-lg">ובסוף: קינוחים, ואם הערב נמשך, גם אפטר.</p>
+  </Section>
+
+  <Section heading="תפריט שנתפר לאירוע שלכם" eyebrow="איך בונים תפריט">
+    <ol class="max-w-3xl list-decimal space-y-4 ps-6 text-lg marker:font-bold marker:text-ember-deep">
+      {questions.map((q) => (
+        <li>{q}</li>
+      ))}
+    </ol>
+  </Section>
+
+  <CtaSection
+    heading="בואו נבנה את התפריט שלכם"
+    text="ספרו לנו על האירוע ועל האורחים, ונחזור עם הצעה לתפריט ומחיר."
+  />
+</BaseLayout>
