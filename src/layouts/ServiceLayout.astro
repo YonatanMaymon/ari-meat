@@ -42,7 +42,7 @@ const related = data.related
   imageAlt={data.imageAlt}
   jsonLd={[
     breadcrumbList(crumbs),
-    serviceSchema(data.title, data.description, href),
+    await serviceSchema(data.title, data.description, href),
     faqPage(data.faqs),
   ]}
 >

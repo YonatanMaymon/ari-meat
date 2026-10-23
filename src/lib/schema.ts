@@ -17,10 +17,14 @@ const WEBSITE_ID = abs('/#website');
 
 /** The business as a LocalBusiness (FoodEstablishment), for the homepage and the contact page. */
 export async function business() {
+  return { '@context': 'https://schema.org', ...(await businessEntity()) };
+}
+
+/** The business without @context, for nesting inside another item (a Service's provider). */
+async function businessEntity() {
   const photo = await getImage({ src: businessPhoto, width: 1200, format: 'jpg' });
   const sameAs = Object.values(site.social).filter(Boolean);
   return {
-    '@context': 'https://schema.org',
     '@type': 'FoodEstablishment',
     '@id': BUSINESS_ID,
     name: site.name,
@@ -101,7 +105,11 @@ export function faqPage(faqs: readonly { question: string; answer: string }[]) {
   };
 }
 
-export function service(name: string, description: string, path: string) {
+/**
+ * A service page's Service. The provider is the full business: Google reads a provider typed as a
+ * local business as a LocalBusiness item of its own and flags every missing field.
+ */
+export async function service(name: string, description: string, path: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -110,6 +118,6 @@ export function service(name: string, description: string, path: string) {
     url: abs(path),
     serviceType: 'Catering',
     areaServed: { '@type': 'Country', name: 'Israel' },
-    provider: { '@type': 'FoodEstablishment', '@id': BUSINESS_ID, name: site.name, url: site.url },
+    provider: await businessEntity(),
   };
 }
