@@ -1,5 +1,4 @@
 ---
-import heroImage from '../../assets/images/heroes/matat-sunset.jpg';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import Section from '../../components/Section.astro';
@@ -9,30 +8,26 @@ import Button from '../../components/ui/Button.astro';
 import { quoteLink } from '../../data/nav';
 import { getServices, groups, serviceHref } from '../../lib/services';
 import { breadcrumbList } from '../../lib/schema';
+import { getPage } from '../../lib/pages';
 
+const page = await getPage('matatPage');
 const services = await getServices('matat');
 const crumbs = [{ label: 'בית', href: '/' }, { label: groups.matat.label }];
-const produce = [
-  { title: 'שמן זית', text: 'מהעצים במטעים שלנו.' },
-  { title: 'יין', text: 'מהגפנים שלנו, מהיקב המשפחתי.' },
-  { title: 'גבינות ולאבנה', text: 'מהעיזים שלנו.' },
-  { title: 'גינת ירק', text: 'ירקות שנקטפים בבוקר של האירוע.' },
-];
 ---
 
 <BaseLayout
   title="חוויות במטעים במתת, בגליל"
   description="אירוח במטעים שלנו במושב מתת: ארוחות שף פרטיות, ימי גיבוש לצוותים, סדנאות וסיורים, מול נוף הגליל המערבי והים. בואו לבקר."
-  image={heroImage}
-  imageAlt="שקיעה מעל הרי הגליל, כפי שהיא נשקפת ממתת"
+  image={page.heroImage}
+  imageAlt={page.heroAlt}
   jsonLd={breadcrumbList(crumbs)}
 >
   <Hero
-    image={heroImage}
-    imageAlt="שקיעה מעל הרי הגליל, כפי שהיא נשקפת ממתת"
-    title="חוויות במטעים במתת"
-    subtitle="אתם מגיעים אלינו: למרפסת מול הנוף, למטעים ולגינת הירק. ארוחות שף, סדנאות וימי גיבוש, בפרטיות מלאה."
-    eyebrow="מושב מתת, הגליל המערבי"
+    image={page.heroImage}
+    imageAlt={page.heroAlt}
+    title={page.heroTitle}
+    subtitle={page.heroSubtitle}
+    eyebrow={page.heroEyebrow || undefined}
     breadcrumbs={crumbs}
   >
     <Button href={quoteLink.href} size="lg">
@@ -40,12 +35,9 @@ const produce = [
     </Button>
   </Hero>
 
-  <Section
-    heading="המקום"
-    intro="מתת יושבת על הר שמשקיף על קפלי הגליל המערבי עד הים התיכון, ממש על גבול הלבנון. מה שהיה פעם כיפת הר קירחת הוא היום בוסתן של חקלאות אורגנית: זיתים, גפנים, תאנים ודובדבנים."
-  >
+  <Section heading={page.placeHeading} intro={page.placeIntro || undefined}>
     <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {produce.map((item) => (
+      {page.produce.map((item) => (
         <li class="rounded-card bg-cream-deep p-5">
           <h3 class="text-xl font-bold">{item.title}</h3>
           <p class="mt-1">{item.text}</p>
@@ -54,7 +46,7 @@ const produce = [
     </ul>
   </Section>
 
-  <Section tone="sand" heading="מה אפשר לעשות אצלנו">
+  <Section tone="sand" heading={page.servicesHeading}>
     <div class="grid gap-6 sm:grid-cols-2">
       {services.map((s) => (
         <ServiceCard
@@ -68,8 +60,5 @@ const produce = [
     </div>
   </Section>
 
-  <CtaSection
-    heading="בואו לבקר במתת"
-    text="ספרו לנו מה אתם מתכננים וכמה תהיו, ונבנה יחד את היום או הערב."
-  />
+  <CtaSection heading={page.ctaHeading} text={page.ctaText} />
 </BaseLayout>

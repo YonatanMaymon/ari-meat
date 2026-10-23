@@ -2,7 +2,7 @@
 // the login; each save is a commit to master, which Workers Builds deploys in about two minutes.
 // Cloud mode runs in the browser, so the Worker only serves the admin page. (Local mode can't be
 // used: it needs Node's file system, and `npm run dev` runs on-demand routes in workerd.)
-import { collection, config, fields, singleton } from '@keystatic/core';
+import { collection, config, fields, singleton, type ComponentSchema } from '@keystatic/core';
 import { galleryCategories } from './src/data/gallery';
 
 // Hebrew to Latin letters, for file names made from the Hebrew description.
@@ -20,6 +20,67 @@ function slugify(text: string) {
     .replace(/^-|-$/g, '')
     .slice(0, 60);
 }
+
+// Shared fields for the hand-built pages (src/content/pages/<id>.yaml, read in content.config.ts).
+const mdHelp = 'שורה ריקה מתחילה פסקה חדשה. קישור: [הטקסט](/menu). מודגש: **טקסט**.';
+const longText = (label: string, description = mdHelp) =>
+  fields.text({ label, description, multiline: true });
+const line = (label: string, description?: string) => fields.text({ label, description });
+const required = (label: string, description?: string) =>
+  fields.text({ label, description, validation: { isRequired: true } });
+const titledItems = (label: string) =>
+  fields.array(
+    fields.object({
+      title: required('כותרת'),
+      text: fields.text({ label: 'טקסט', multiline: true }),
+    }),
+    { label, itemLabel: (props) => props.fields.title.value },
+  );
+const hero = (id: string) => ({
+  heroImage: fields.image({
+    label: 'תמונה ראשית',
+    description: 'התמונה הגדולה בראש הדף.',
+    directory: `src/assets/images/pages/${id}`,
+    publicPath: `../../assets/images/pages/${id}/`,
+    validation: { isRequired: true },
+  }),
+  heroAlt: required(
+    'תיאור התמונה הראשית',
+    'משפט קצר שמתאר מה רואים בתמונה. גוגל וקוראי מסך משתמשים בו.',
+  ),
+  heroTitle: required('כותרת ראשית'),
+  heroSubtitle: fields.text({
+    label: 'כותרת משנה',
+    multiline: true,
+    validation: { isRequired: true },
+  }),
+});
+const sections = fields.array(
+  fields.object({
+    heading: line('כותרת', 'אפשר להשאיר ריק.'),
+    tone: fields.select({
+      label: 'רקע',
+      options: [
+        { label: 'בהיר', value: 'light' },
+        { label: 'חול', value: 'sand' },
+        { label: 'כהה', value: 'dark' },
+      ],
+      defaultValue: 'light',
+    }),
+    text: fields.text({
+      label: 'טקסט',
+      description: mdHelp,
+      multiline: true,
+      validation: { isRequired: true },
+    }),
+  }),
+  { label: 'חלקים בדף', itemLabel: (props) => props.fields.heading.value || '(בלי כותרת)' },
+);
+const pageSingleton = <S extends Record<string, ComponentSchema>>(
+  id: string,
+  label: string,
+  schema: S,
+) => singleton({ label, path: `src/content/pages/${id}`, format: { data: 'yaml' }, schema });
 
 export default config({
   storage: { kind: 'cloud' },
@@ -104,6 +165,126 @@ export default config({
     }),
   },
   singletons: {
+    home: pageSingleton('home', 'דף הבית', {
+      ...hero('home'),
+      heroEyebrow: line('שורה מעל הכותרת'),
+      about: fields.object(
+        {
+          eyebrow: line('שורה מעל הכותרת'),
+          heading: required('כותרת'),
+          text: fields.text({
+            label: 'טקסט',
+            description: mdHelp,
+            multiline: true,
+            validation: { isRequired: true },
+          }),
+          moreHeading: line('כותרת ב"להמשך קריאה"'),
+          moreText: longText('טקסט ב"להמשך קריאה"'),
+        },
+        { label: 'נעים להכיר' },
+      ),
+      services: fields.object(
+        {
+          heading: required('כותרת'),
+          intro: line('משפט פתיחה'),
+          more: fields.array(
+            fields.object({
+              label: required('כותרת'),
+              text: fields.text({
+                label: 'טקסט',
+                description: mdHelp,
+                multiline: true,
+                validation: { isRequired: true },
+              }),
+            }),
+            { label: 'הרחבות מתחת לכרטיסים', itemLabel: (props) => props.fields.label.value },
+          ),
+        },
+        { label: 'מה אנחנו עושים' },
+      ),
+      steps: fields.object(
+        {
+          eyebrow: line('שורה מעל הכותרת'),
+          heading: required('כותרת'),
+          items: titledItems('שלבים'),
+        },
+        { label: 'איך זה עובד' },
+      ),
+      expertise: fields.object(
+        {
+          eyebrow: line('שורה מעל הכותרת'),
+          heading: required('כותרת'),
+          text: fields.text({
+            label: 'טקסט',
+            description: mdHelp,
+            multiline: true,
+            validation: { isRequired: true },
+          }),
+          moreText: longText('טקסט ב"להמשך קריאה"'),
+        },
+        { label: 'המומחיות שלי' },
+      ),
+      areas: fields.object(
+        {
+          eyebrow: line('שורה מעל הכותרת'),
+          heading: required('כותרת'),
+          text: fields.text({
+            label: 'טקסט מעל רשימת האזורים',
+            description: mdHelp,
+            multiline: true,
+            validation: { isRequired: true },
+          }),
+          closing: longText(
+            'טקסט מתחת לרשימת האזורים',
+            `${mdHelp} הטלפון והמייל מופיעים אחריו לבד.`,
+          ),
+        },
+        { label: 'אזורי שירות' },
+      ),
+    }),
+    about: pageSingleton('about', 'אודות', { ...hero('about'), sections }),
+    menu: pageSingleton('menu', 'תפריט', {
+      ...hero('menu'),
+      sections,
+      ctaHeading: required('כותרת בתחתית הדף'),
+      ctaText: fields.text({
+        label: 'טקסט בתחתית הדף',
+        multiline: true,
+        validation: { isRequired: true },
+      }),
+    }),
+    catering: pageSingleton('catering', 'קייטרינג לאירועים', {
+      ...hero('catering'),
+      servicesHeading: required('כותרת מעל סוגי האירועים'),
+      servicesIntro: fields.text({ label: 'משפט מתחת לכותרת', multiline: true }),
+      areasEyebrow: line('שורה מעל כותרת האזורים'),
+      areasHeading: required('כותרת אזורי שירות'),
+      areasIntro: fields.text({ label: 'משפט מתחת לכותרת האזורים', multiline: true }),
+    }),
+    matat: pageSingleton('matat', 'חוויות במתת', {
+      ...hero('matat'),
+      heroEyebrow: line('שורה מעל הכותרת'),
+      placeHeading: required('כותרת "המקום"'),
+      placeIntro: fields.text({ label: 'טקסט על המקום', multiline: true }),
+      produce: titledItems('כרטיסים: מה מגדלים ומייצרים'),
+      servicesHeading: required('כותרת מעל החוויות'),
+      ctaHeading: required('כותרת בתחתית הדף'),
+      ctaText: fields.text({
+        label: 'טקסט בתחתית הדף',
+        multiline: true,
+        validation: { isRequired: true },
+      }),
+    }),
+    contact: pageSingleton('contact', 'יצירת קשר', {
+      heroTitle: required('כותרת ראשית'),
+      heroSubtitle: line('כותרת משנה'),
+      channelsHeading: required('כותרת ליד הטופס'),
+      whatsappText: required('טקסט ליד וואטסאפ'),
+      phoneText: required('טקסט ליד הטלפון'),
+      emailText: required('טקסט ליד המייל'),
+      locationHeading: required('כותרת "איפה אנחנו"'),
+      locationText: fields.text({ label: 'טקסט "איפה אנחנו"', multiline: true }),
+    }),
     gallery: singleton({
       label: 'גלריה',
       // Read by the `gallery` collection in src/content.config.ts.

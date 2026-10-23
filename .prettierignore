@@ -11,3 +11,4 @@ content-migration/images.csv
 # written by the admin (Keystatic), in its own format
 src/content/services/
 src/content/gallery.yaml
+src/content/pages/
