@@ -402,8 +402,8 @@ ari-meat/
     can't optimise (e.g. .heic) is skipped with a build warning instead of failing the deploy.
   - Storage is Keystatic Cloud (free up to 3 users; editors don't need a GitHub account). Each save
     is a commit to master. Local mode isn't usable because `npm run dev` runs routes in workerd.
-  - Waiting on yonatan: create the Keystatic Cloud team + project connected to this repo, put its
-    `<team>/<project>` in `keystatic.config.ts`, invite Ari, then test one save end to end.
+  - Keystatic Cloud project `ari-cataring/ari-meat` created by yonatan (2026-10-23).
+  - Waiting on yonatan: log in on the preview, test one save end to end, then invite Ari to the team.
 - [ ] Admin: service pages (hero photo + text), after the copy rewrite (PR #11) merges
 
 ### Phase 5: SEO & QA

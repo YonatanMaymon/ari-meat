@@ -23,8 +23,8 @@ function slugify(text: string) {
 
 export default config({
   storage: { kind: 'cloud' },
-  // TODO: the Keystatic Cloud project, "<team>/<project>" (keystatic.cloud).
-  cloud: { project: 'ari-catering/ari-catering' },
+  // keystatic.cloud: team "ari-cataring", project "ari-meat". Editors are invited to the team.
+  cloud: { project: 'ari-cataring/ari-meat' },
   ui: {
     brand: { name: 'ארי קייטרינג' },
   },
