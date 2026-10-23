@@ -60,26 +60,6 @@ export function website() {
   };
 }
 
-/** A menu page's sections and dishes. Dishes have names only: there are no fixed prices. */
-export function menu(
-  name: string,
-  path: string,
-  sections: readonly { title: string; items: readonly string[] }[],
-) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Menu',
-    name,
-    url: abs(path),
-    inLanguage: 'he',
-    hasMenuSection: sections.map((section) => ({
-      '@type': 'MenuSection',
-      name: section.title,
-      hasMenuItem: section.items.map((item) => ({ '@type': 'MenuItem', name: item })),
-    })),
-  };
-}
-
 export function breadcrumbList(crumbs: readonly Crumb[]) {
   return {
     '@context': 'https://schema.org',

@@ -1,0 +1,47 @@
+---
+// Folds long text behind a "read more" toggle, so a page can carry all of Ari's text and still
+// scan quickly. Uses <details>, so it works without JS and the text stays in the HTML for SEO.
+import Icon from './ui/Icon.astro';
+
+export interface Props {
+  /** The toggle's label, or the item's heading when used as an accordion row. */
+  label?: string;
+  /** `link`: a small toggle under a paragraph. `row`: a full-width accordion row with a heading. */
+  variant?: 'link' | 'row';
+  /** Text colour of the toggle on dark sections. */
+  dark?: boolean;
+}
+
+const { label = 'להמשך קריאה', variant = 'link', dark = false } = Astro.props;
+const accent = dark ? 'text-ember-light' : 'text-ember-deep';
+---
+
+{variant === 'row' ? (
+  <details class="group py-2">
+    <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-3 text-xl font-bold [&::-webkit-details-marker]:hidden">
+      <h3>{label}</h3>
+      <Icon
+        name="chevron"
+        class:list={['size-6 shrink-0 transition-transform group-open:rotate-180', accent]}
+      />
+    </summary>
+    <div class="space-y-5 pb-6 text-lg leading-relaxed">
+      <slot />
+    </div>
+  </details>
+) : (
+  <details class="group">
+    <summary
+      class:list={[
+        'inline-flex cursor-pointer list-none items-center gap-1 font-semibold underline underline-offset-4 group-open:hidden [&::-webkit-details-marker]:hidden',
+        accent,
+      ]}
+    >
+      {label}
+      <Icon name="chevron" class="size-5" />
+    </summary>
+    <div class="space-y-5">
+      <slot />
+    </div>
+  </details>
+)}

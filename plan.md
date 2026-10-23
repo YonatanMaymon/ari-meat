@@ -113,8 +113,8 @@ The story is strong and currently buried: a chef who builds his own grills and s
 
 ### Page templates
 1. **Home**: hero → short intro to Ari → service cards (6) → "how it works" (3–4 steps) → featured dishes → gallery strip → testimonials → service areas → CTA
-2. **Service page** (shared layout ×6): hero → who it's for → what's included → sample menu → logistics → gallery → FAQs → CTA
-3. **Menu**: philosophy → categories (starters / cuts from the fire / from the earth: veg & vegan / desserts) as structured cards, with "every menu is built per event" messaging
+2. **Service page** (shared layout ×6): hero → Ari's text from the old site, word for word → how it works → FAQs → related → CTA
+3. **Menu**: Ari's text from the old site, word for word. No sample-menu cards and no `Menu` JSON-LD: nothing about dishes that the old site didn't say (yonatan, 2026-10-23)
 4. **About**: Ari's story, the grills he builds, the orchards in Matat, values
 5. **Gallery**: masonry grid, filterable by event type, lightbox, all with Hebrew alt text
 6. **Contact**: short form + WhatsApp + phone + map of Matat
@@ -181,7 +181,7 @@ Redirects live in `public/_redirects` (Cloudflare applies them before serving as
 - `Service` on each service page
 - `FAQPage` on pages with FAQs
 - `BreadcrumbList`
-- `Menu` on the menu page (optional)
+- ~~`Menu` on the menu page~~ dropped with the sample-menu cards (2026-10-23)
 
 ### Content
 - Add an **FAQ section** to each service page (price range factors, minimum guests (15+), how far in advance to book, kosher, vegan options, what logistics are included, travel to remote locations)
