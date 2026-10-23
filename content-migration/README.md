@@ -19,7 +19,7 @@ from the repo root. It writes the web copies to `images/` (43 MB) and the full-s
 ## Notes from the export
 
 - **Two emails confirmed:** the footer shows `arielmaykab@gmail.com`, the homepage body
-  `Aricatering1998@gmail.com` (open question 2 in plan.md).
+  `Aricatering1998@gmail.com` (confirmed: `arielmaykab@gmail.com` is the official one).
 - **Service areas:** the footer list is more detailed than `src/data/site.ts` (e.g. קריות, זכרון יעקב,
   רעננה, מכבים-רעות). Reconcile when the service-areas section is built.
 - **Meta descriptions:** five pages (about, menu, contacts, blank, llms) share one generic site-wide description, so in practice they have none of their own.

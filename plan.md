@@ -240,7 +240,8 @@ ari-meat/
 
 ### Phase 0: Prep & assets (before coding)
 - [ ] Get from brother: original high-res photos/videos, logo files (or decide on a new logo), testimonials, list of past clients, kosher certification details (if any)
-- [ ] Decide the single official email + phone + WhatsApp number
+- [x] Decide the single official email + phone + WhatsApp number
+  - Email `arielmaykab@gmail.com`, phone `052-8580775` (also the WhatsApp number). Already in `site.ts`.
 - [ ] Find out where the domain is registered (Wix or external) and get access
 - [x] **Export a Search Console baseline**: current queries, impressions, top pages. Used to compare after launch. (If GSC isn't set up, set it up now on the Wix site.)
   - 16 months, saved as CSV in `docs/gsc-baseline-2026-10-23/` with a summary README.
@@ -339,7 +340,7 @@ ari-meat/
 
 ## 8. Open questions for Ari
 1. Is the catering **kosher-certified**? By whom? (Big decision factor for many clients. Show it prominently if yes.)
-2. Which email is the real one?
+2. ~~Which email is the real one?~~ Answered: `arielmaykab@gmail.com`.
 3. Domain registrar: bought through Wix or elsewhere?
 4. Does he have original photos/videos (not Instagram-compressed)?
 5. Keep the current logo or refresh it as part of the redesign?
