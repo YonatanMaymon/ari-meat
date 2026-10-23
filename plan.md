@@ -222,7 +222,7 @@ ari-meat/
 │  │  ├─ FaqList.astro  Testimonial.astro  ServiceAreas.astro  StepList.astro  CtaSection.astro  Breadcrumbs.astro
 │  │  ├─ Seo.astro          # title/meta/OG/canonical/JSON-LD
 │  │  ├─ Gallery.tsx        # (planned) React island (lightbox, filter)
-│  │  └─ QuoteForm.tsx      # (planned) React island
+│  │  └─ QuoteForm.astro    # quote form + small enhancement script
 │  ├─ content/
 │  │  ├─ services/*.md      # weddings, private-events, …, private-chef, team-building (frontmatter: group catering|matat)
 │  │  ├─ menu.md
@@ -232,13 +232,15 @@ ari-meat/
 │  ├─ data/nav.ts           # header/footer navigation
 │  ├─ lib/seo.ts            # formatTitle()
 │  ├─ lib/url.ts            # publicPath(), isActive()
+│  ├─ lib/quote.ts          # quote fields + validation (browser and server)
+│  ├─ lib/db.ts  lib/track.ts  lib/config.ts   # D1 storage, click events, public service keys
 │  ├─ layouts/BaseLayout.astro  ServiceLayout.astro
 │  ├─ pages/
 │  │  ├─ index.astro  404.astro  styleguide.astro + styleguide/hero.astro (internal, delete before launch)
 │  │  ├─ menu.astro  about.astro  gallery.astro  contact.astro  thank-you.astro
 │  │  ├─ catering/index.astro  catering/[service].astro   # hub + catering services
 │  │  ├─ matat/index.astro     matat/[service].astro      # hub + Matat experiences
-│  │  └─ api/health.ts  api/quote.ts (planned: Turnstile verify + send email)
+│  │  └─ api/health.ts  api/quote.ts (Turnstile, D1, email)  api/event.ts (click events)
 │  └─ styles/global.css     # Tailwind + design tokens
 ├─ astro.config.mjs
 ├─ wrangler.jsonc
@@ -360,11 +362,38 @@ ari-meat/
   - Alt text doesn't name Ari: we still don't know which person in the photos he is (assets.md 3).
 
 ### Phase 4: Forms & integrations
-- [ ] Quote form fields: name, phone (required), email (optional), event type (select), date, guest count, region, message
-- [ ] Client + server validation, Turnstile, honeypot
-- [ ] Email delivery to brother; optional D1 log; WhatsApp deep link with prefilled message as alternative
+- [x] Quote form fields: name, phone (required), email (optional), event type (select), date, guest count, region, message
+  - `QuoteForm.astro` on `/contact` (an `.astro` form + small script, not a React island: no React
+    runtime needed). Name, phone and event type are required. Service pages link to
+    `/contact?service=<slug>#quote-form`, which preselects the event type.
+- [x] Client + server validation, Turnstile, honeypot
+  - One validator in `src/lib/quote.ts`, used by the browser and `/api/quote`; Hebrew inline
+    errors. Phone accepts any common Israeli spelling (+972, dashes) or an international number.
+  - Turnstile loads only when the form is near the screen. Dev uses Cloudflare's test keys
+    (`.dev.vars.example`). Production keys: see the bindings step below.
+  - Honeypot field `company_website`: bots get a fake success, nothing is stored or sent.
+- [x] Email delivery to brother; optional D1 log; WhatsApp deep link with prefilled message as alternative
+  - Every quote is saved to D1 first (tables `quotes`, `events`, created on first use by
+    `src/lib/db.ts`), then emailed with the `send_email` binding (reply-to = client's email, plus a
+    wa.me link to the client). If either works the client sees success.
+  - Email can't actually send until aricatering.com is on Cloudflare with Email Routing (added to
+    Phase 6). Until then leads are in D1: dashboard → D1 → the Worker's database → Explore data.
+  - "או שלחו את הפרטים בוואטסאפ" builds a prefilled wa.me message from whatever is filled in.
+  - Verified in the local workerd preview: D1 rows, email content, honeypot, invalid input (422).
+    Turnstile's siteverify call can't be reached from the cloud workspace, so it was stubbed there.
 - [ ] `wrangler.jsonc` bindings for Turnstile secret + email (and D1 if used) (moved here from Phase 1)
+  - Done in code: `DB` (D1, created automatically by `wrangler deploy`, no id needed) and
+    `QUOTE_EMAIL` (`send_email`, restricted to arielmaykab@gmail.com).
+  - Turnstile widget created (2026-10-23); its site key is in `src/lib/config.ts`.
+  - Waiting on yonatan: the secret key in the Worker as `TURNSTILE_SECRET_KEY` (dashboard → Workers
+    → ari-catering → Settings → Variables and Secrets), then a test submit on the preview. Until
+    then the deployed form refuses submissions (fails closed) and points people to WhatsApp.
 - [ ] Cloudflare Web Analytics; track form submits / WhatsApp / call clicks as events
+  - Events done: Web Analytics has no custom events, so `src/lib/track.ts` sends WhatsApp / phone /
+    email clicks and the form's WhatsApp button to `/api/event` (D1 `events` table); `/api/quote`
+    logs `quote_submit`.
+  - Decided (2026-10-23): turn Web Analytics on after the DNS move (Phase 6), with Cloudflare's
+    automatic setup for the zone, so no token is needed. Then drop `webAnalyticsToken`.
 
 ### Phase 5: SEO & QA
 - [ ] JSON-LD on all pages, validated in Google Rich Results Test
@@ -378,6 +407,10 @@ ari-meat/
 ### Phase 6: Launch
 - [ ] Move DNS to Cloudflare (or point domain), attach custom domain to the Worker
 - [ ] Unify `www`/apex with a 301
+- [ ] Web Analytics: enable automatic setup for aricatering.com (dashboard → Web Analytics), remove
+      `webAnalyticsToken` from `src/lib/config.ts`
+- [ ] Email Routing on aricatering.com: enable it, add + verify arielmaykab@gmail.com as a destination,
+      then send a test quote from the live form and check it arrives (Phase 4 email code is ready)
 - [ ] Submit new sitemap in Search Console, request indexing of key pages
 - [ ] Keep Wix live (unpublished, not cancelled) for ~2 weeks as a rollback
 - [ ] Monitor GSC for 404s/coverage errors daily for the first 2 weeks

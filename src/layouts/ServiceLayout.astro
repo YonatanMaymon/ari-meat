@@ -25,6 +25,8 @@ const { data } = service;
 const { Content } = await render(service);
 const href = serviceHref(service);
 const group = groups[data.group];
+// Opens the quote form with this service's event type already selected.
+const quoteHref = `${quoteLink.href}?service=${service.id}#quote-form`;
 
 const crumbs = [{ label: 'בית', href: '/' }, group, { label: data.label }];
 const all = await getServices();
@@ -49,7 +51,7 @@ const related = data.related
     image={data.image}
     imageAlt={data.imageAlt}
   >
-    <Button href={quoteLink.href} size="lg">
+    <Button href={quoteHref} size="lg">
       {quoteLink.label}
     </Button>
     <Button href={site.whatsapp.href} variant="whatsapp" size="lg" icon="whatsapp">
@@ -138,5 +140,5 @@ const related = data.related
     </Section>
   )}
 
-  <CtaSection />
+  <CtaSection quoteHref={quoteHref} />
 </BaseLayout>

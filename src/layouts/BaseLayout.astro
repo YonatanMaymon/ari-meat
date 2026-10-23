@@ -4,6 +4,7 @@ import Seo, { type Props as SeoProps } from '../components/Seo.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileCtaBar from '../components/MobileCtaBar.astro';
+import { webAnalyticsToken } from '../lib/config';
 // Preload the Hebrew subsets of both fonts so headings and body text don't swap in late.
 import heeboHebrew from '@fontsource-variable/heebo/files/heebo-hebrew-wght-normal.woff2?url';
 import frankHebrew from '@fontsource-variable/frank-ruhl-libre/files/frank-ruhl-libre-hebrew-wght-normal.woff2?url';
@@ -39,5 +40,20 @@ export type Props = SeoProps;
     </main>
     <Footer />
     <MobileCtaBar />
+    {
+      // Cookie-less page views (no consent banner needed). Off until the token is set in config.ts.
+      webAnalyticsToken && !import.meta.env.DEV && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: webAnalyticsToken })}
+        />
+      )
+    }
+    <script>
+      import { trackContactLinks } from '../lib/track';
+      trackContactLinks();
+    </script>
   </body>
 </html>

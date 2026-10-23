@@ -18,8 +18,16 @@
   "workers_dev": true,
   "preview_urls": true,
 
-  // Phase 4 (quote form) will add:
-  //   - "send_email": [{ "name": "QUOTE_EMAIL", "destination_address": "<verified inbox>" }]
-  //   - TURNSTILE_SECRET_KEY via `wrangler secret put` (locally in .dev.vars, never committed)
+  // Quote requests and contact-click events (src/lib/db.ts). No database_id: `wrangler deploy`
+  // creates the database on first deploy and finds it by name after that.
+  "d1_databases": [{ "binding": "DB" }],
+
+  // Quote emails to Ari (src/pages/api/quote.ts). Restricted to his inbox. Sending only works once
+  // aricatering.com is on Cloudflare with Email Routing on and this address verified (Phase 6).
+  "send_email": [{ "name": "QUOTE_EMAIL", "destination_address": "arielmaykab@gmail.com" }],
+
+  // Secrets (not in this file):
+  //   TURNSTILE_SECRET_KEY: dashboard → Workers → ari-catering → Settings → Variables and Secrets.
+  //   Locally in .dev.vars (copy .dev.vars.example).
   // Phase 6 (launch) will add "routes" for www.aricatering.com once DNS is on Cloudflare.
 }

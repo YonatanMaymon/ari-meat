@@ -7,9 +7,12 @@ import { quoteLink } from '../data/nav';
 export interface Props {
   heading?: string;
   text?: string;
+  /** Defaults to the contact page. Service pages add `?service=` to preselect the event type. */
+  quoteHref?: string;
 }
 
 const {
+  quoteHref = quoteLink.href,
   heading = 'בואו נדליק את האש',
   text = 'ספרו לנו על האירוע: מה חוגגים, כמה אורחים ואיפה. נחזור אליכם עם רעיונות לתפריט והצעת מחיר.',
 } = Astro.props;
@@ -26,7 +29,7 @@ const {
     </h2>
     <p class="mt-5 text-lg text-cream/90">{text}</p>
     <div class="mt-8 flex flex-wrap justify-center gap-3">
-      <Button href={quoteLink.href} size="lg">
+      <Button href={quoteHref} size="lg">
         {quoteLink.label}
       </Button>
       <Button href={site.whatsapp.href} variant="whatsapp" size="lg" icon="whatsapp">
