@@ -1,0 +1,206 @@
+photos:
+  - image: ../assets/images/gallery/photos/asado-crosses-and-chefs/image.jpg
+    alt:
+      name: שני שפים ליד בור אש גדול, עם נתחי אסאדו על צלבים מעל הגחלים
+      slug: asado-crosses-and-chefs
+    category: fire
+  - image: ../assets/images/gallery/photos/guests-at-buffet/image.jpg
+    alt:
+      name: אורחים מתמלאים מעמדת אוכל באירוע בגינה
+      slug: guests-at-buffet
+    category: events
+  - image: ../assets/images/gallery/photos/fig-salad/image.jpg
+    alt:
+      name: סלט עלים עם תאנים, עגבניות ובצל סגול
+      slug: fig-salad
+    category: food
+  - image: ../assets/images/gallery/photos/chef-slicing-steak/image.jpg
+    alt:
+      name: שף פורס סטייק על קרש עץ באירוע ערב
+      slug: chef-slicing-steak
+    category: fire
+  - image: ../assets/images/gallery/photos/goats-in-matat/image.jpg
+    alt:
+      name: עיזים בדיר במתת
+      slug: goats-in-matat
+    category: matat
+  - image: ../assets/images/gallery/photos/rack-of-lamb/image.jpg
+    alt:
+      name: קרה טלה צלוי על קרש חיתוך
+      slug: rack-of-lamb
+    category: fire
+  - image: ../assets/images/gallery/photos/empanadas-with-dips/image.jpg
+    alt:
+      name: צלחת אמפנדס זהובות עם מטבלים ועשבי תיבול
+      slug: empanadas-with-dips
+    category: food
+  - image: ../assets/images/gallery/photos/garden-tables-set/image.jpg
+    alt:
+      name: שולחנות ערוכים עם מפות לבנות בגינה, תחת שרשרת נורות
+      slug: garden-tables-set
+    category: events
+  - image: ../assets/images/gallery/photos/sausages-on-grill/image.jpg
+    alt:
+      name: נקניקיות ולחמניות על גריל גדול
+      slug: sausages-on-grill
+    category: fire
+  - image: ../assets/images/gallery/photos/cherries-and-wine/image.jpg
+    alt:
+      name: דובדבנים טריים וכוס יין אדום על שולחן עץ
+      slug: cherries-and-wine
+    category: matat
+  - image: ../assets/images/gallery/photos/grilled-vegetables-board/image.jpg
+    alt:
+      name: קרש ארוך עם כרובית צלויה, פלפלים ובצלים מהאש
+      slug: grilled-vegetables-board
+    category: food
+  - image: ../assets/images/gallery/photos/guests-at-night-buffet/image.jpg
+    alt:
+      name: אורחים שמחים בתור לאוכל באירוע ערב בחוץ
+      slug: guests-at-night-buffet
+    category: events
+  - image: ../assets/images/gallery/photos/eggplants-on-fire/image.jpg
+    alt:
+      name: חצילים חצויים נצלים על רשת מעל גחלים
+      slug: eggplants-on-fire
+    category: fire
+  - image: ../assets/images/gallery/photos/tomato-salad/image.jpg
+    alt:
+      name: סלט עגבניות צלויות עם גבינה לבנה ועלי בזיליקום
+      slug: tomato-salad
+    category: food
+  - image: ../assets/images/gallery/photos/chef-with-vegetable-board/image.jpg
+    alt:
+      name: שף מחזיק קרש ארוך עמוס ירקות צלויים, מתחת לאוהל אירוע
+      slug: chef-with-vegetable-board
+    category: events
+  - image: ../assets/images/gallery/photos/sliced-tbone/image.jpg
+    alt:
+      name: סטייק טי-בון פרוס בצלחת לבנה
+      slug: sliced-tbone
+    category: fire
+  - image: ../assets/images/gallery/photos/strawberry-tree/image.jpg
+    alt:
+      name: עץ קטלב אדום ונוף הגליל שמאחוריו
+      slug: strawberry-tree
+    category: matat
+  - image: ../assets/images/gallery/photos/ceviche-cups/image.jpg
+    alt:
+      name: קעריות סביצ׳ה על מגש קרח
+      slug: ceviche-cups
+    category: food
+  - image: ../assets/images/gallery/photos/chef-with-hanging-meat/image.jpg
+    alt:
+      name: שף מחייך ליד גריל, עם נתחי בשר תלויים מעליו
+      slug: chef-with-hanging-meat
+    category: fire
+  - image: ../assets/images/gallery/photos/dinner-with-a-view/image.jpg
+    alt:
+      name: שתי אורחות סועדות על המרפסת במתת מול נוף ההרים
+      slug: dinner-with-a-view
+    category: matat
+  - image: ../assets/images/gallery/photos/roast-beef-focaccia/image.jpg
+    alt:
+      name: פוקצ׳ה עם רוסטביף, עגבניות שרי ורוקט
+      slug: roast-beef-focaccia
+    category: food
+  - image: ../assets/images/gallery/photos/chefs-with-platter/image.jpg
+    alt:
+      name: שני שפים מחזיקים מגש ארוך של בשרים וירקות
+      slug: chefs-with-platter
+    category: events
+  - image: ../assets/images/gallery/photos/asado-on-grill/image.jpg
+    alt:
+      name: נתחי אסאדו צלויים על הגריל עם ענף טימין
+      slug: asado-on-grill
+    category: fire
+  - image: ../assets/images/gallery/photos/fish-carpaccio/image.jpg
+    alt:
+      name: קרפצ׳יו דג עם תותי עץ ורוקט בצלחת אדומה
+      slug: fish-carpaccio
+    category: food
+  - image: ../assets/images/gallery/photos/vegetable-boxes/image.jpg
+    alt:
+      name: 'ארגזי ירקות טריים: דלעות, כרוב, חצילים ופלפלים'
+      slug: vegetable-boxes
+    category: matat
+  - image: ../assets/images/gallery/photos/flatbreads-on-board/image.jpg
+    alt:
+      name: לחמים שטוחים עם עוף ויוגורט על קרש עץ
+      slug: flatbreads-on-board
+    category: food
+  - image: ../assets/images/gallery/photos/carving-board/image.jpg
+    alt:
+      name: פריסת נתח בשר על קרש עץ חרוט
+      slug: carving-board
+    category: fire
+  - image: ../assets/images/gallery/photos/grilled-asparagus/image.jpg
+    alt:
+      name: אספרגוס צלוי ופלפלים ירוקים בצלחת
+      slug: grilled-asparagus
+    category: food
+  - image: ../assets/images/gallery/photos/grill-with-vegetables/image.jpg
+    alt:
+      name: גריל עם נתחי בשר, בצלים, עגבניות ותירס
+      slug: grill-with-vegetables
+    category: fire
+  - image: ../assets/images/gallery/photos/shakshuka-and-flatbread/image.jpg
+    alt:
+      name: מחבת ביצים עם עשבים ולחם טאבון
+      slug: shakshuka-and-flatbread
+    category: matat
+  - image: ../assets/images/gallery/photos/empanadas-tray/image.jpg
+    alt:
+      name: מגש אמפנדס אפויות
+      slug: empanadas-tray
+    category: food
+  - image: ../assets/images/gallery/photos/sliced-steak-board/image.jpg
+    alt:
+      name: נתחי סטייק פרוסים על לחם וסלק, על קרש ארוך
+      slug: sliced-steak-board
+    category: fire
+  - image: ../assets/images/gallery/photos/baked-fish/image.jpg
+    alt:
+      name: דג אפוי עם לימון, גזר ועשבי תיבול בתבנית חרס
+      slug: baked-fish
+    category: food
+  - image: ../assets/images/gallery/photos/plated-beef/image.jpg
+    alt:
+      name: מנת בשר פרוס עם חמאה וסלסה ירוקה בצלחת קרמיקה
+      slug: plated-beef
+    category: food
+  - image: ../assets/images/gallery/photos/grilled-eggplants/image.jpg
+    alt:
+      name: מגש חצילים צרובים בפסים
+      slug: grilled-eggplants
+    category: food
+  - image: ../assets/images/gallery/photos/tahini-plate/image.jpg
+    alt:
+      name: צלחת טחינה עם שמן זית
+      slug: tahini-plate
+    category: food
+  - image: ../assets/images/gallery/photos/grilled-bread-spread/image.jpg
+    alt:
+      name: לחם צלוי עם ממרח לבן על קרש עץ
+      slug: grilled-bread-spread
+    category: food
+  - image: ../assets/images/gallery/photos/charred-bread-and-herb-sauce/image.jpg
+    alt:
+      name: לחם חרוך וקערת רוטב עשבים ירוק
+      slug: charred-bread-and-herb-sauce
+    category: food
+  - image: ../assets/images/gallery/photos/mushrooms/image.jpg
+    alt:
+      name: פטריות פורטבלו טריות על שולחן עץ
+      slug: mushrooms
+    category: matat
+  - image: ../assets/images/gallery/photos/flatbread-with-shrimp/image.jpg
+    alt:
+      name: לחם שטוח עם שרימפס, רוקט ויוגורט
+      slug: flatbread-with-shrimp
+    category: food
+  - image: ../assets/images/gallery/photos/vegetables-prepped/image.jpg
+    alt:
+      name: מגשים של כרוב, עגבניות שרי ותפוחי אדמה מוכנים לאש
+      slug: vegetables-prepped
+    category: food

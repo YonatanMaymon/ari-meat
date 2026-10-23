@@ -394,6 +394,17 @@ ari-meat/
     logs `quote_submit`.
   - Decided (2026-10-23): turn Web Analytics on after the DNS move (Phase 6), with Cloudflare's
     automatic setup for the zone, so no token is needed. Then drop `webAnalyticsToken`.
+- [ ] Admin for Ari at `/keystatic` (Keystatic, chosen by yonatan 2026-10-23): gallery first
+  - Done in code: the gallery list moved from `src/data/gallery.ts` to `src/content/gallery.yaml`
+    (photo, Hebrew alt text, category, in display order). Ari can upload, describe, recategorise,
+    reorder and delete photos. Photos live in `src/assets/images/gallery/photos/<slug>/image.jpg`,
+    the layout Keystatic writes, and are still optimised at build time. A photo in a format Astro
+    can't optimise (e.g. .heic) is skipped with a build warning instead of failing the deploy.
+  - Storage is Keystatic Cloud (free up to 3 users; editors don't need a GitHub account). Each save
+    is a commit to master. Local mode isn't usable because `npm run dev` runs routes in workerd.
+  - Keystatic Cloud project `ari-cataring/ari-meat` created by yonatan (2026-10-23).
+  - Waiting on yonatan: log in on the preview, test one save end to end, then invite Ari to the team.
+- [ ] Admin: service pages (hero photo + text), after the copy rewrite (PR #11) merges
 
 ### Phase 5: SEO & QA
 - [x] JSON-LD on all pages, validated in Google Rich Results Test
