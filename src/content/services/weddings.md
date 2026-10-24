@@ -47,7 +47,7 @@ faqs:
     answer: >-
       כן. אנחנו עושים גם חתונות בוטיק אינטימיות של עשרות אורחים, וגם אירועים
       גדולים.
-image: ../../assets/images/services/weddings/image.jpg
+image: ../../assets/images/services/weddings/image.jpeg
 imageAlt: אורחים בבגדים לבנים באירוע בגינה, והשף משוחח איתם ליד השולחן
 related:
   - market-tables
