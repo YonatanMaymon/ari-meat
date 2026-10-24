@@ -428,6 +428,14 @@ ari-meat/
     `components/FontFaces.astro` writes `@font-face` + `--font-sans`/`--font-display` for only the
     chosen fonts and preloads their Hebrew files. Display-only fonts (Suez One, Bellefair, Secular
     One) are offered for headings only. Default stays Frank Ruhl Libre + Heebo.
+- [ ] Admin: optional photo beside each text section of the service pages (asked by yonatan 2026-10-24)
+  - Done in code: the service files are now YAML (`src/content/services/<id>.yaml`); the Markdown
+    body became a `sections` array (heading, Markdown text, optional photo + alt), so Ari edits the
+    text in a plain text box like the other pages instead of the rich-text editor. With a photo the
+    section is two columns from `lg` (photo on the left in RTL), stacked with the photo under the
+    text below that. Photos: `src/assets/images/services/<id>/sections/<heading slug>/image.jpg`.
+  - Built pages checked against the previous build: same text and links; only the typographic
+    quotes differ (Astro's Markdown curled " and ', `marked` keeps them straight, as on other pages).
 
 ### Phase 5: SEO & QA
 - [x] JSON-LD on all pages, validated in Google Rich Results Test
