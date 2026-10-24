@@ -1,5 +1,5 @@
 // Public keys for third-party services. None of these are secrets: they end up in the HTML.
-// Secrets (TURNSTILE_SECRET_KEY) live in the Worker's settings, and locally in .dev.vars.
+// Secrets (TURNSTILE_SECRET_KEY, GOOGLE_PLACES_API_KEY) live in the Worker's settings, and locally in .dev.vars.
 
 // Cloudflare's always-pass test key, used in dev and until the real widget exists.
 // https://developers.cloudflare.com/turnstile/troubleshooting/testing/
@@ -18,3 +18,10 @@ export const webAnalyticsToken = '';
 
 /** Sender of the quote emails. Must be on a domain with Cloudflare Email Routing enabled. */
 export const quoteEmailFrom = { name: 'אתר ארי קייטרינג', email: 'website@aricatering.com' };
+
+/**
+ * Google Business Profile of Ari Catering, for the reviews section (src/lib/reviews.ts). Not a
+ * secret. Find it at https://developers.google.com/maps/documentation/places/web-service/place-id
+ * Empty: no reviews section. The API key is the GOOGLE_PLACES_API_KEY secret.
+ */
+export const googlePlaceId = 'ChIJ6WJOyvtv5GMR9sYsxYhbfDs';

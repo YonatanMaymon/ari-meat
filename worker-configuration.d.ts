@@ -6,6 +6,7 @@ interface __BaseEnv_Env {
 	QUOTE_EMAIL: SendEmail;
 	ASSETS: Fetcher;
 	TURNSTILE_SECRET_KEY: string;
+	GOOGLE_PLACES_API_KEY: string;
 }
 declare namespace Cloudflare {
 	interface Env extends __BaseEnv_Env {}
@@ -15,7 +16,7 @@ type StringifyValues<EnvType extends Record<string, unknown>> = {
 	[Binding in keyof EnvType]: EnvType[Binding] extends string ? EnvType[Binding] : string;
 };
 declare namespace NodeJS {
-	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "TURNSTILE_SECRET_KEY">> {}
+	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "TURNSTILE_SECRET_KEY" | "GOOGLE_PLACES_API_KEY">> {}
 }
 declare module "*.txt" {
 	const value: string;

@@ -1,3 +1,6 @@
 # Local secrets for `npm run dev` / `npm run preview`. Copy to .dev.vars (gitignored).
+# `npm run preview` reads it from dist/server/ (next to the built wrangler.json): copy it there after a build.
 # Cloudflare's always-pass Turnstile test secret: https://developers.cloudflare.com/turnstile/troubleshooting/testing/
 TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+# Google Places API key for the reviews section (src/lib/reviews.ts). Leave empty to hide it.
+GOOGLE_PLACES_API_KEY=

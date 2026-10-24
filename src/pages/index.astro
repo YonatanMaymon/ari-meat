@@ -1,5 +1,5 @@
 ---
-// Homepage: hero → Ari → services → how it works → expertise → service areas → CTA.
+// Homepage: hero → Ari → services → how it works → expertise → service areas → Google reviews → CTA.
 // All of the text is Ari's own, word for word from the old Wix homepage
 // (content-migration/pages/home.md), and edited by him in the admin (src/content/pages/home.yaml).
 // Longer parts fold behind ReadMore toggles. The hero is direction A, "fire at night" (Phase 2).
@@ -11,6 +11,7 @@ import ServiceCard from '../components/ServiceCard.astro';
 import StepList from '../components/StepList.astro';
 import ServiceAreas from '../components/ServiceAreas.astro';
 import CtaSection from '../components/CtaSection.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
 import ReadMore from '../components/ReadMore.astro';
 import { site } from '../data/site';
 import { getPage } from '../lib/pages';
@@ -114,6 +115,8 @@ const prose = 'max-w-3xl text-lg leading-relaxed';
       </p>
     </div>
   </Section>
+
+  <GoogleReviews />
 
   <CtaSection />
 </BaseLayout>
