@@ -1,0 +1,155 @@
+---
+// Google reviews (src/lib/reviews.ts). The page is static, so the reviews are fetched from
+// /api/reviews once the section is near the screen. Hidden until real reviews arrive: there is no
+// placeholder text, and nothing shows while the Place ID or API key isn't set.
+// Google's terms require the reviewer's name (linked to their profile) and a Google attribution.
+import Section from './Section.astro';
+import Icon from './ui/Icon.astro';
+
+const star = 'size-5';
+const link = 'font-semibold text-ember-deep underline underline-offset-4 hover:text-charcoal';
+---
+
+<div data-reviews-sentinel></div>
+<Section id="reviews" heading="מה אומרים עלינו" eyebrow="ביקורות ב-Google" hidden data-reviews>
+  <div class="mb-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+    <p class="flex items-center gap-3">
+      <span data-rating class="text-4xl font-bold" dir="ltr"></span>
+      <span data-stars class="flex gap-0.5" role="img">
+        {[1, 2, 3, 4, 5].map(() => (
+          <Icon name="star" class={star} />
+        ))}
+      </span>
+      <span data-count class="text-smoke-deep"></span>
+    </p>
+    <p class="flex gap-6">
+      <a data-all class={link} rel="noopener" target="_blank">
+        לכל הביקורות ב-Google
+      </a>
+      <a data-write class={link} rel="noopener" target="_blank">
+        כתבו ביקורת
+      </a>
+    </p>
+  </div>
+
+  <ul
+    data-list
+    class="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-4 px-4 pb-4"
+    aria-label="ביקורות"
+  ></ul>
+
+  <template data-card>
+    <li class="w-[85%] max-w-sm shrink-0 snap-start sm:w-[22rem]">
+      <figure class="flex h-full flex-col gap-4 rounded-card bg-cream-deep p-6">
+        <span data-stars class="flex gap-0.5" role="img">
+          {[1, 2, 3, 4, 5].map(() => (
+            <Icon name="star" class="size-4" />
+          ))}
+        </span>
+        <blockquote class="flex-1 leading-relaxed">
+          <p data-text class="line-clamp-8 whitespace-pre-line"></p>
+        </blockquote>
+        <a data-more class:list={[link, 'text-sm']} rel="noopener" target="_blank" hidden>
+          להמשך הביקורת ב-Google
+        </a>
+        <figcaption class="flex items-center gap-3">
+          <span data-photo class="contents"></span>
+          <span>
+            <a data-author class="font-semibold hover:underline" rel="noopener" target="_blank"></a>
+            <span data-when class="block text-sm text-smoke-deep"></span>
+          </span>
+        </figcaption>
+      </figure>
+    </li>
+  </template>
+</Section>
+
+<script>
+  import type { Reviews } from '../lib/reviews';
+
+  // Longer reviews are cut to eight lines and link to the full text on Google.
+  const LONG_REVIEW = 280;
+
+  const section = document.querySelector<HTMLElement>('[data-reviews]');
+  const sentinel = document.querySelector('[data-reviews-sentinel]');
+
+  const $ = <T extends Element = HTMLElement>(root: HTMLElement | DocumentFragment, name: string) =>
+    root.querySelector<T>(`[data-${name}]`)!;
+
+  function setLink(a: HTMLAnchorElement, href: string | null) {
+    if (href) a.href = href;
+    else a.removeAttribute('href');
+  }
+
+  function setStars(el: HTMLElement, rating: number) {
+    el.setAttribute('aria-label', `${rating.toFixed(1)} מתוך 5 כוכבים`);
+    el.querySelectorAll('svg').forEach((svg, i) => {
+      svg.classList.add(i < Math.round(rating) ? 'text-ember' : 'text-charcoal/20');
+    });
+  }
+
+  function render(section: HTMLElement, data: Reviews) {
+    $(section, 'rating').textContent = data.rating.toFixed(1);
+    setStars($(section, 'stars'), data.rating);
+    $(section, 'count').textContent = `${data.count} ביקורות`;
+    setLink($<HTMLAnchorElement>(section, 'all'), data.allUri);
+    const write = $<HTMLAnchorElement>(section, 'write');
+    setLink(write, data.writeUri);
+    write.hidden = !data.writeUri;
+
+    const template = $<HTMLTemplateElement>(section, 'card');
+    const list = $(section, 'list');
+    for (const review of data.reviews) {
+      const card = template.content.cloneNode(true) as DocumentFragment;
+      setStars($(card, 'stars'), review.rating);
+      $(card, 'text').textContent = review.text;
+      const more = $<HTMLAnchorElement>(card, 'more');
+      if (review.uri && review.text.length > LONG_REVIEW) {
+        more.href = review.uri;
+        more.hidden = false;
+      }
+      const author = $<HTMLAnchorElement>(card, 'author');
+      author.textContent = review.author;
+      setLink(author, review.authorUri);
+      $(card, 'when').textContent = review.when;
+      if (review.authorPhoto) {
+        const img = document.createElement('img');
+        Object.assign(img, {
+          src: review.authorPhoto,
+          alt: '',
+          width: 40,
+          height: 40,
+          loading: 'lazy',
+          referrerPolicy: 'no-referrer',
+        });
+        img.setAttribute('aria-hidden', 'true');
+        img.className = 'size-10 rounded-full';
+        $(card, 'photo').appendChild(img);
+      }
+      list.appendChild(card);
+    }
+    section.hidden = false;
+  }
+
+  async function load(section: HTMLElement) {
+    try {
+      const response = await fetch('/api/reviews');
+      if (response.status !== 200) return;
+      render(section, (await response.json()) as Reviews);
+    } catch {
+      // No reviews: the section stays hidden.
+    }
+  }
+
+  if (section && sentinel) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        observer.disconnect();
+        void load(section);
+      },
+      { rootMargin: '800px 0px' },
+    );
+    observer.observe(sentinel);
+  }
+</script>
