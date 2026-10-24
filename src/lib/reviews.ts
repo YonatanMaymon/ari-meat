@@ -80,10 +80,11 @@ async function fetchFromGoogle(apiKey: string): Promise<Reviews> {
   };
 }
 
-/** The reviews to show, or null when they aren't set up or can't be had. */
-export async function getReviews(): Promise<Reviews | null> {
+/** The reviews to show, or why there are none (shown by /api/reviews, to debug the setup). */
+export async function getReviews(): Promise<{ reviews: Reviews } | { reason: string }> {
   const apiKey = env.GOOGLE_PLACES_API_KEY;
-  if (!googlePlaceId || !apiKey) return null;
+  if (!googlePlaceId) return { reason: 'googlePlaceId is not set in src/lib/config.ts' };
+  if (!apiKey) return { reason: 'the GOOGLE_PLACES_API_KEY secret is not set on this Worker' };
 
   let cached: Awaited<ReturnType<typeof getCachedReviews>> = null;
   try {
@@ -92,16 +93,28 @@ export async function getReviews(): Promise<Reviews | null> {
     console.error('reviews: reading the D1 cache failed', error);
   }
   const age = cached ? Date.now() - cached.fetchedAt : Infinity;
-  if (cached && age < CACHE_HOURS * 3_600_000) return JSON.parse(cached.data) as Reviews;
+  const cachedReviews = cached ? (JSON.parse(cached.data) as Reviews) : null;
+  // An empty answer may be cached by an older version of this code: ask Google again.
+  if (cachedReviews?.reviews.length && age < CACHE_HOURS * 3_600_000) {
+    return { reviews: cachedReviews };
+  }
 
+  let reviews: Reviews;
   try {
-    const reviews = await fetchFromGoogle(apiKey);
-    await saveCachedReviews(JSON.stringify(reviews)).catch((error: unknown) =>
-      console.error('reviews: saving the D1 cache failed', error),
-    );
-    return reviews;
+    reviews = await fetchFromGoogle(apiKey);
   } catch (error) {
     console.error('reviews: fetching from Google failed', error);
-    return cached && age < STALE_DAYS * 86_400_000 ? (JSON.parse(cached.data) as Reviews) : null;
+    if (cachedReviews?.reviews.length && age < STALE_DAYS * 86_400_000) {
+      return { reviews: cachedReviews };
+    }
+    return { reason: `Google answered with an error: ${String(error).slice(0, 500)}` };
   }
+  if (reviews.reviews.length === 0) {
+    console.warn('reviews: Google returned no reviews with text', reviews);
+    return { reason: `Google returned no reviews with text (${reviews.count} ratings in total)` };
+  }
+  await saveCachedReviews(JSON.stringify(reviews)).catch((error: unknown) =>
+    console.error('reviews: saving the D1 cache failed', error),
+  );
+  return { reviews };
 }
