@@ -79,7 +79,7 @@ sections:
       בהפיכת השטח למסעדת שף בשרית, ומביאים את החוויה לרמה הגבוהה ביותר שיש.
     image: >-
       ../../assets/images/services/weddings/sections/lmh-lbhvr-bhtvnh-bshth/image.jpeg
-    imageAlt: זמני
+    imageAlt: דקורציות לעמדות בופה של חתונת שטח
   - heading:
       name: מטבח שף בשרים שנודד איתכם לכל מקום
       slug: mtbh-shf-bshrym-shnvdd-aytkm-lkl-mkvm
@@ -119,6 +119,8 @@ sections:
       המומחיות שלנו בארגון אירועים בשטח מאפשרת לכם להתמקד ביום שלכם ובאהבה, בזמן
       שאנחנו מנהלים את האופרציה המורכבת של קייטרינג לאירועי חוץ בסטנדרט של חמישה
       כוכבים.
+    image: >-
+      ../../assets/images/services/weddings/sections/hlvgystykh-hshkt-shlkm-btvk-htba-hpray/image.jpeg
   - heading:
       name: 'התפריט: מסע של טעמים מהגליל ועד ארגנטינה'
       slug: htpryt-msa-shl-tamym-mhglyl-vad-argntynh
@@ -154,6 +156,8 @@ sections:
 
       בנוסף יש גם קינוחים מעלפים ואופציות לאפטרים. לקריאה מורחבת על התפריטים
       והסגנון שלנו [לחצו כאן](/menu)
+    image: >-
+      ../../assets/images/services/weddings/sections/htpryt-msa-shl-tamym-mhglyl-vad-argntynh/image.jpeg
   - heading:
       name: 'חתונת בוטיק בטבע: שירות אישי לכל איזור בארץ'
       slug: htvnt-bvtyk-btba-shyrvt-ayshy-lkl-ayzvr-bartz
