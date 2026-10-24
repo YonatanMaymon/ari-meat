@@ -5,6 +5,7 @@ import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { parse } from 'yaml';
 import { galleryCategories, type GalleryCategory } from './data/gallery';
+import { defaultFonts, fontLabels, type FontId } from './data/font-options';
 
 const titledText = z.object({ title: z.string(), text: z.string() });
 
@@ -147,8 +148,19 @@ const contactPage = page('contact', () => ({
   locationText: optional,
 }));
 
+// Site-wide design settings Ari picks in the admin (src/content/settings.yaml).
+const fontId = z.enum(Object.keys(fontLabels) as [FontId, ...FontId[]]);
+const settings = defineCollection({
+  loader: glob({ pattern: 'settings.yaml', base: './src/content' }),
+  schema: z.object({
+    headingFont: fontId.default(defaultFonts.heading),
+    bodyFont: fontId.default(defaultFonts.body),
+  }),
+});
+
 export const collections = {
   services,
+  settings,
   gallery,
   homePage,
   aboutPage,

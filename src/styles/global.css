@@ -1,6 +1,4 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/heebo';
-@import '@fontsource-variable/frank-ruhl-libre';
 
 /*
  * Design tokens. Palette from plan.md, with extra shades where the brand colour fails WCAG AA
@@ -29,8 +27,9 @@
   --color-smoke-deep: #655e55;
   --color-whatsapp: #0f7a41;
 
-  --font-sans: 'Heebo Variable', 'Arial Hebrew', Arial, sans-serif;
-  --font-display: 'Frank Ruhl Libre Variable', 'Times New Roman', serif;
+  /* Fallbacks only: the fonts chosen in the admin are set by components/FontFaces.astro. */
+  --font-sans: 'Arial Hebrew', Arial, sans-serif;
+  --font-display: 'Times New Roman', serif;
 
   --radius-card: 1rem;
   --spacing-section: clamp(4rem, 10vw, 7rem);

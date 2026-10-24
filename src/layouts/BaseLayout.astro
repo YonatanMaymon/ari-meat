@@ -5,9 +5,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileCtaBar from '../components/MobileCtaBar.astro';
 import { webAnalyticsToken } from '../lib/config';
-// Preload the Hebrew subsets of both fonts so headings and body text don't swap in late.
-import heeboHebrew from '@fontsource-variable/heebo/files/heebo-hebrew-wght-normal.woff2?url';
-import frankHebrew from '@fontsource-variable/frank-ruhl-libre/files/frank-ruhl-libre-hebrew-wght-normal.woff2?url';
+import FontFaces from '../components/FontFaces.astro';
 
 export type Props = SeoProps;
 ---
@@ -21,8 +19,7 @@ export type Props = SeoProps;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="preload" href={heeboHebrew} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={frankHebrew} as="font" type="font/woff2" crossorigin />
+    <FontFaces />
     <Seo {...Astro.props} />
     <slot name="head" />
   </head>
