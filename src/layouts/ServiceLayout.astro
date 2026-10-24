@@ -81,9 +81,9 @@ const sections = data.sections.map(({ heading, text, image, imageAlt }) => {
   <Section>
     <div class="space-y-12 text-lg leading-relaxed">
       {sections.map(({ heading, text, photo, alt }) => (
-        // With a photo: text on the right and photo on the left on desktop (RTL), photo under the
-        // text on smaller screens. Without one, the text keeps its reading width.
-        <div class:list={photo && 'grid items-start gap-8 lg:grid-cols-2 lg:gap-12'}>
+        // The text keeps its reading width either way. A photo fills the space to its left on wide
+        // screens (RTL) and goes under the text where that space is too narrow.
+        <div class:list={photo && 'grid items-start gap-8 xl:grid-cols-[48rem_1fr] xl:gap-12'}>
           <div class="max-w-3xl space-y-5">
             {heading && <h2 class="text-3xl font-bold">{heading}</h2>}
             <Markdown text={text} />
@@ -94,7 +94,7 @@ const sections = data.sections.map(({ heading, text, image, imageAlt }) => {
               alt={alt}
               widths={[400, 800, 1200]}
               quality={70}
-              sizes="(min-width: 64rem) 50vw, (min-width: 48rem) 48rem, 100vw"
+              sizes="(min-width: 80rem) 20rem, (min-width: 48rem) 48rem, 100vw"
               class="w-full max-w-3xl rounded-card object-cover shadow-sm"
             />
           )}

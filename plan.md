@@ -429,8 +429,9 @@ ari-meat/
   - Done in code: the service files are now YAML (`src/content/services/<id>.yaml`); the Markdown
     body became a `sections` array (heading, Markdown text, optional photo + alt), so Ari edits the
     text in a plain text box like the other pages instead of the rich-text editor. With a photo the
-    section is two columns from `lg` (photo on the left in RTL), stacked with the photo under the
-    text below that. Photos: `src/assets/images/services/<id>/sections/<heading slug>/image.jpg`.
+    section has the text at its usual width (48rem) and the photo filling the space to its left
+    from `xl` (yonatan 2026-10-24: lines must not wrap earlier when a photo is added); below `xl`
+    the photo goes under the text. Photos: `src/assets/images/services/<id>/sections/<heading slug>/image.jpg`.
   - Built pages checked against the previous build: same text and links; only the typographic
     quotes differ (Astro's Markdown curled " and ', `marked` keeps them straight, as on other pages).
 
