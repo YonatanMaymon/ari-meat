@@ -3,38 +3,63 @@
 // /api/reviews once the section is near the screen. Hidden until real reviews arrive: there is no
 // placeholder text, and nothing shows while the Place ID or API key isn't set.
 // Google's terms require the reviewer's name (linked to their profile) and a Google attribution.
-import Section from './Section.astro';
 import Icon from './ui/Icon.astro';
 
 const star = 'size-5';
+const arrow =
+  'grid size-11 place-items-center rounded-full border border-charcoal/20 text-charcoal transition hover:border-ember-deep hover:text-ember-deep disabled:pointer-events-none disabled:opacity-30';
 const link = 'font-semibold text-ember-deep underline underline-offset-4 hover:text-charcoal';
 ---
 
 <div data-reviews-sentinel></div>
-<Section id="reviews" heading="מה אומרים עלינו" eyebrow="ביקורות ב-Google" hidden data-reviews>
-  <div class="mb-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-    <p class="flex items-center gap-3">
-      <span data-rating class="text-4xl font-bold" dir="ltr"></span>
-      <span data-stars class="flex gap-0.5" role="img">
-        {[1, 2, 3, 4, 5].map(() => (
-          <Icon name="star" class={star} />
-        ))}
-      </span>
-      <span data-count class="text-smoke-deep"></span>
-    </p>
-    <p class="flex gap-6">
-      <a data-all class={link} rel="noopener" target="_blank">
-        לכל הביקורות ב-Google
-      </a>
-      <a data-write class={link} rel="noopener" target="_blank">
-        כתבו ביקורת
-      </a>
-    </p>
+<section
+  id="reviews"
+  aria-labelledby="reviews-heading"
+  class="bg-cream py-(--spacing-section) text-charcoal"
+  hidden
+  data-reviews
+>
+  <div class="container-content">
+    <header class="mb-10 max-w-2xl">
+      <p class="mb-2 text-sm font-semibold tracking-wide text-ember-deep">ביקורות ב-Google</p>
+      <h2 id="reviews-heading" class="text-3xl font-bold sm:text-4xl">
+        מה אומרים עלינו
+      </h2>
+    </header>
+
+    <div class="mb-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+      <p class="flex items-center gap-3">
+        <span data-rating class="text-4xl font-bold" dir="ltr"></span>
+        <span data-stars class="flex gap-0.5" role="img">
+          {[1, 2, 3, 4, 5].map(() => (
+            <Icon name="star" class={star} />
+          ))}
+        </span>
+        <span data-count class="text-smoke-deep"></span>
+      </p>
+      <p class="flex gap-6">
+        <a data-all class={link} rel="noopener" target="_blank">
+          לכל הביקורות ב-Google
+        </a>
+        <a data-write class={link} rel="noopener" target="_blank">
+          כתבו ביקורת
+        </a>
+      </p>
+      <div data-arrows class="ms-auto hidden gap-2 sm:flex">
+        <button type="button" data-prev class={arrow} aria-label="לביקורת הקודמת">
+          <Icon name="arrow" class="size-5 rotate-180" />
+        </button>
+        <button type="button" data-next class={arrow} aria-label="לביקורת הבאה">
+          <Icon name="arrow" class="size-5" />
+        </button>
+      </div>
+    </div>
   </div>
 
+  <!-- Full width: runs edge to edge, with the first card lined up with the text above. -->
   <ul
     data-list
-    class="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-4 px-4 pb-4"
+    class="flex snap-x snap-mandatory gap-5 overflow-x-auto px-(--edge) pb-2 [--edge:max(1rem,calc((100%-var(--container-content))/2+1.5rem))] [scrollbar-width:none] scroll-px-(--edge) [&::-webkit-scrollbar]:hidden"
     aria-label="ביקורות"
   ></ul>
 
@@ -62,7 +87,7 @@ const link = 'font-semibold text-ember-deep underline underline-offset-4 hover:t
       </figure>
     </li>
   </template>
-</Section>
+</section>
 
 <script>
   import type { Reviews } from '../lib/reviews';
@@ -129,6 +154,34 @@ const link = 'font-semibold text-ember-deep underline underline-offset-4 hover:t
       list.appendChild(card);
     }
     section.hidden = false;
+    setUpArrows(section, list);
+  }
+
+  // Arrow buttons scroll one card at a time (the scrollbar is hidden; touch and trackpads swipe).
+  function setUpArrows(section: HTMLElement, list: HTMLElement) {
+    const arrows = $(section, 'arrows');
+    const prev = $<HTMLButtonElement>(section, 'prev');
+    const next = $<HTMLButtonElement>(section, 'next');
+    // In RTL, "next" is to the left and scrollLeft runs from 0 down to negative values.
+    const forward = getComputedStyle(list).direction === 'rtl' ? -1 : 1;
+    const step = () => (list.firstElementChild?.clientWidth ?? 300) + 20;
+
+    const update = () => {
+      const max = list.scrollWidth - list.clientWidth;
+      const at = Math.abs(list.scrollLeft);
+      arrows.classList.toggle('sm:flex', max > 1);
+      prev.disabled = at <= 1;
+      next.disabled = at >= max - 1;
+    };
+    prev.addEventListener('click', () =>
+      list.scrollBy({ left: -forward * step(), behavior: 'smooth' }),
+    );
+    next.addEventListener('click', () =>
+      list.scrollBy({ left: forward * step(), behavior: 'smooth' }),
+    );
+    list.addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
+    update();
   }
 
   async function load(section: HTMLElement) {
