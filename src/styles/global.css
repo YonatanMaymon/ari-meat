@@ -1,30 +1,27 @@
 @import 'tailwindcss';
 
 /*
- * Design tokens. Palette from plan.md, with extra shades where the brand colour fails WCAG AA
- * (4.5:1) for normal-size text. Measured contrast ratios:
- *   charcoal on cream        14.9   body text
- *   ember-deep on cream       5.2   links, small accent text on light sections
- *   white on ember-deep       6.0   primary button
- *   ember-light on charcoal   5.8   links, accent text on dark sections
- *   smoke-deep on cream       5.5   muted text on light sections (4.8 on cream-deep)
- *   smoke on charcoal         4.6   muted text on dark sections
- *   olive on cream            5.0
+ * Design tokens: the Brass palette (yonatan, 2026-10-24). Measured WCAG contrast ratios:
+ *   charcoal on cream        15.3   body text
+ *   brass-deep on cream       5.2   links, buttons, small accent text on light (4.5 on sand)
+ *   white on brass-deep       6.0   primary button
+ *   brass-light on charcoal   8.9   links, accent text and the big phone number on dark
+ *   muted on cream            5.8   secondary text on light (5.1 on sand)
+ *   smoke on charcoal         5.8   secondary text on dark (5.0 on charcoal-soft)
  *   white on whatsapp         5.4   (WhatsApp's own #25d366 fails with white text)
- * Plain ember (3.8 on cream, 4.0 on charcoal) is for large display text, icons and decoration only.
- * Muted text on dark stays off charcoal-soft (smoke on it is 4.0); use the full-contrast colour there.
+ * Plain brass (2.9 on cream) is for lines, icons and decoration only; on charcoal it passes (5.3).
  */
 @theme {
-  --color-charcoal: #1c1a17;
-  --color-charcoal-soft: #2a2622;
-  --color-ember: #c8552b;
-  --color-ember-deep: #a8431f;
-  --color-ember-light: #e0784e;
+  --color-charcoal: #191816;
+  --color-charcoal-soft: #26241f;
+  --color-brass: #a8874f;
+  --color-brass-deep: #7a5f2f;
+  --color-brass-light: #d2b47c;
   --color-olive: #5e6b3a;
-  --color-cream: #f3ede3;
-  --color-cream-deep: #e8dfd0;
-  --color-smoke: #8a8278;
-  --color-smoke-deep: #655e55;
+  --color-cream: #f2eee6;
+  --color-sand: #e6dfd2;
+  --color-smoke: #9a9286;
+  --color-muted: #615b52;
   --color-whatsapp: #0f7a41;
 
   /* Fallbacks only: the fonts chosen in the admin are set by components/FontFaces.astro. */
@@ -40,7 +37,7 @@
   html {
     scroll-behavior: smooth;
     /* Leaves room for the sticky header when jumping to #anchors. */
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 7rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -57,7 +54,7 @@
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-ember);
+    outline: 3px solid var(--color-brass-deep);
     outline-offset: 2px;
   }
 }

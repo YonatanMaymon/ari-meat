@@ -7,14 +7,14 @@ import { mainNav, quoteLink } from '../data/nav';
 <BaseLayout title="הדף לא נמצא" description="הדף שחיפשתם לא קיים." noindex>
   <section class="container-content flex min-h-[60svh] flex-col items-center justify-center gap-6 py-16 text-center">
     <h1 class="text-4xl font-bold">הדף לא נמצא</h1>
-    <p class="text-lg text-smoke-deep">ייתכן שהקישור ישן או שהדף עבר למקום אחר.</p>
+    <p class="text-lg text-muted">ייתכן שהקישור ישן או שהדף עבר למקום אחר.</p>
     <Button href="/" icon="arrow">
       חזרה לדף הבית
     </Button>
     <ul class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 font-semibold">
       {[...mainNav, quoteLink].map((link) => (
         <li>
-          <a href={link.href} class="text-ember-deep underline underline-offset-4">
+          <a href={link.href} class="text-brass-deep underline underline-offset-4">
             {link.label}
           </a>
         </li>
