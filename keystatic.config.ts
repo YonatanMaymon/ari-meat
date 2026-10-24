@@ -4,6 +4,7 @@
 // used: it needs Node's file system, and `npm run dev` runs on-demand routes in workerd.)
 import { collection, config, fields, singleton, type ComponentSchema } from '@keystatic/core';
 import { galleryCategories } from './src/data/gallery';
+import { defaultFonts, fontLabels, headingOnlyFonts, type FontId } from './src/data/font-options';
 
 // Hebrew to Latin letters, for file names made from the Hebrew description.
 const latin: Record<string, string> = Object.fromEntries(
@@ -81,6 +82,8 @@ const pageSingleton = <S extends Record<string, ComponentSchema>>(
   label: string,
   schema: S,
 ) => singleton({ label, path: `src/content/pages/${id}`, format: { data: 'yaml' }, schema });
+
+const fontOptions = (ids: FontId[]) => ids.map((value) => ({ value, label: fontLabels[value] }));
 
 export default config({
   storage: { kind: 'cloud' },
@@ -165,6 +168,28 @@ export default config({
     }),
   },
   singletons: {
+    settings: singleton({
+      label: 'הגדרות עיצוב',
+      // Read by the `settings` collection in src/content.config.ts.
+      path: 'src/content/settings',
+      format: { data: 'yaml' },
+      schema: {
+        headingFont: fields.select({
+          label: 'גופן לכותרות',
+          description: 'הכותרות הגדולות בכל האתר. אחרי השמירה האתר מתעדכן תוך כשתי דקות.',
+          options: fontOptions(Object.keys(fontLabels) as FontId[]),
+          defaultValue: defaultFonts.heading,
+        }),
+        bodyFont: fields.select({
+          label: 'גופן לטקסט',
+          description: 'כל שאר הטקסט באתר: פסקאות, תפריטים וכפתורים.',
+          options: fontOptions(
+            (Object.keys(fontLabels) as FontId[]).filter((id) => !headingOnlyFonts.includes(id)),
+          ),
+          defaultValue: defaultFonts.body,
+        }),
+      },
+    }),
     home: pageSingleton('home', 'דף הבית', {
       ...hero('home'),
       heroEyebrow: line('שורה מעל הכותרת'),
