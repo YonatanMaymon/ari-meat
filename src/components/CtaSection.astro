@@ -1,6 +1,12 @@
 ---
-// The one strong closing call to action at the bottom of every page (plan.md section 3).
+// The closing call to action at the bottom of every page: option B "split" from the design canvas
+// (yonatan, 2026-10-24). Text, big phone number and buttons on one side, a photo on the other;
+// on phones the photo sits on top.
+import { Image } from 'astro:assets';
+import photo from '../assets/images/heroes/slicing-roast-beef.jpg';
 import Button from './ui/Button.astro';
+import Icon from './ui/Icon.astro';
+import SocialButtons from './SocialButtons.astro';
 import { site } from '../data/site';
 import { quoteLink } from '../data/nav';
 
@@ -18,26 +24,39 @@ const {
 } = Astro.props;
 ---
 
-<section aria-labelledby="cta-heading" class="grain bg-charcoal py-(--spacing-section) text-cream">
-  <div
-    aria-hidden="true"
-    class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_bottom,rgb(200_85_43/0.35),transparent_70%)]"
-  ></div>
-  <div class="container-content max-w-3xl text-center">
-    <h2 id="cta-heading" class="text-3xl font-bold sm:text-5xl">
+<section aria-labelledby="cta-heading" class="grid bg-charcoal text-cream md:grid-cols-2">
+  <div class="flex flex-col justify-center gap-5 px-4 pt-10 pb-14 sm:px-6 md:px-12 md:py-20 lg:px-16">
+    <h2 id="cta-heading" class="text-4xl font-bold lg:text-5xl">
       {heading}
     </h2>
-    <p class="mt-5 text-lg text-cream/90">{text}</p>
-    <div class="mt-8 flex flex-wrap justify-center gap-3">
-      <Button href={quoteHref} size="lg">
+    <p class="text-lg leading-relaxed text-cream/90">{text}</p>
+    <a
+      href={site.phone.href}
+      dir="ltr"
+      class="self-start font-display text-4xl font-bold text-brass-light hover:text-cream lg:text-[2.75rem]"
+    >
+      {site.phone.display}
+    </a>
+    <div class="flex items-center gap-3">
+      <Button href={quoteHref} size="lg" class="max-sm:flex-1">
         {quoteLink.label}
       </Button>
-      <Button href={site.whatsapp.href} variant="whatsapp" size="lg" icon="whatsapp">
-        וואטסאפ
-      </Button>
-      <Button href={site.phone.href} variant="secondary-dark" size="lg" icon="phone">
-        <span dir="ltr">{site.phone.display}</span>
-      </Button>
+      <a
+        href={site.whatsapp.href}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex size-13.5 shrink-0 items-center justify-center rounded-full bg-whatsapp text-white transition hover:brightness-110"
+      >
+        <Icon name="whatsapp" label="וואטסאפ" class="size-7" />
+      </a>
     </div>
+    <SocialButtons tone="dark" size="lg" class="mt-1" />
   </div>
+  <Image
+    src={photo}
+    alt="פריסת רוסטביף על קרש עץ"
+    widths={[480, 800, 1280]}
+    sizes="(min-width: 48rem) 50vw, 100vw"
+    class="-order-1 h-65 w-full object-cover md:order-none md:h-full md:min-h-145"
+  />
 </section>

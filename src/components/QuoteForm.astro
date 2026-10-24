@@ -7,9 +7,9 @@ import { turnstileSiteKey } from '../lib/config';
 import { eventTypes, HONEYPOT, limits, regions, todayInIsrael } from '../lib/quote';
 
 const input =
-  'w-full rounded-lg border border-charcoal/25 bg-white px-4 py-3 text-base text-charcoal placeholder:text-smoke-deep/70 focus:border-ember-deep focus:ring-2 focus:ring-ember/30 focus:outline-none aria-invalid:border-ember-deep';
+  'w-full rounded-lg border border-charcoal/25 bg-white px-4 py-3 text-base text-charcoal placeholder:text-muted/70 focus:border-brass-deep focus:ring-2 focus:ring-brass/30 focus:outline-none aria-invalid:border-brass-deep';
 const label = 'mb-1.5 block font-semibold';
-const error = 'mt-1.5 text-sm font-semibold text-ember-deep empty:hidden';
+const error = 'mt-1.5 text-sm font-semibold text-brass-deep empty:hidden';
 ---
 
 <form
@@ -23,7 +23,7 @@ const error = 'mt-1.5 text-sm font-semibold text-ember-deep empty:hidden';
   <h2 id="quote-form-heading" class="text-2xl font-bold sm:text-3xl">
     ספרו לנו על האירוע
   </h2>
-  <p class="mt-2 text-smoke-deep">
+  <p class="mt-2 text-muted">
     שדות עם <span aria-hidden="true">*</span>
     <span class="sr-only">כוכבית</span> הם חובה. כל השאר עוזר לנו לחזור עם הצעה מדויקת.
   </p>
@@ -114,7 +114,7 @@ const error = 'mt-1.5 text-sm font-semibold text-ember-deep empty:hidden';
         class={input}
         aria-describedby="q-date-hint q-date-error"
       />
-      <p id="q-date-hint" class="mt-1.5 text-sm text-smoke-deep">
+      <p id="q-date-hint" class="mt-1.5 text-sm text-muted">
         עוד לא סגור? כתבו בהודעה.
       </p>
       <p id="q-date-error" class={error}></p>
@@ -177,21 +177,17 @@ const error = 'mt-1.5 text-sm font-semibold text-ember-deep empty:hidden';
   <div class="mt-6 min-h-[65px]" data-turnstile></div>
 
   <noscript>
-    <p class="mt-4 rounded-lg bg-cream-deep p-4">
+    <p class="mt-4 rounded-lg bg-sand p-4">
       הטופס צריך JavaScript כדי לשלוח. אפשר גם לכתוב לנו בוואטסאפ או להתקשר.
     </p>
   </noscript>
 
-  <p
-    class="mt-4 rounded-lg bg-cream-deep p-4 font-semibold empty:hidden"
-    role="alert"
-    data-status
-  ></p>
+  <p class="mt-4 rounded-lg bg-sand p-4 font-semibold empty:hidden" role="alert" data-status></p>
 
   <div class="mt-6 flex flex-wrap items-center gap-3">
     <button
       type="submit"
-      class="inline-flex items-center justify-center gap-2 rounded-full bg-ember-deep px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-ember focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-deep disabled:cursor-wait disabled:opacity-70"
+      class="inline-flex items-center justify-center gap-2 rounded-full bg-brass-deep px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-brass focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass-deep disabled:cursor-wait disabled:opacity-70"
     >
       <Icon name="mail" class="size-5" />
       <span data-submit-label>שליחה</span>

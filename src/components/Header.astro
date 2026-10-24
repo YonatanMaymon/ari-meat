@@ -1,5 +1,8 @@
 ---
+import { Image } from 'astro:assets';
+import logoCream from '../assets/images/brand/logo-cream.png';
 import Icon from './ui/Icon.astro';
+import SocialButtons from './SocialButtons.astro';
 import Button from './ui/Button.astro';
 import { site } from '../data/site';
 import { mainNav, quoteLink } from '../data/nav';
@@ -8,58 +11,61 @@ import { isActive, publicPath } from '../lib/url';
 const current = publicPath(Astro.url);
 ---
 
-<header class="sticky top-0 z-40 bg-charcoal/95 text-cream backdrop-blur">
-  <div class="container-content flex h-16 items-center justify-between gap-6">
-    <a
-      href="/"
-      class="inline-flex items-center gap-2 font-display text-2xl font-bold hover:text-ember-light"
-      aria-current={current === '/' ? 'page' : undefined}
-    >
-      <Icon name="home" class="size-6 text-ember-light" />
-      {site.name}
-    </a>
-
-    <nav aria-label="ניווט ראשי" class="hidden lg:block">
-      <ul class="flex items-center gap-6">
-        {mainNav.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              aria-current={current === link.href ? 'page' : undefined}
-              class:list={[
-                'py-2 transition-colors hover:text-ember-light',
-                isActive(link.href, current) && 'text-ember-light',
-              ]}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-
-    <div class="flex items-center gap-2">
-      <a
-        href={site.phone.href}
-        class="hidden items-center gap-2 font-semibold hover:text-ember-light md:inline-flex"
-      >
-        <Icon name="phone" />
-        <span dir="ltr">{site.phone.display}</span>
-      </a>
-      <!-- Wrapped: the button's own inline-flex would override `hidden`. -->
-      <div class="hidden md:block">
-        <Button href={quoteLink.href}>{quoteLink.label}</Button>
-      </div>
-
+<header class="sticky top-0 z-40 border-b border-cream/10 bg-charcoal text-cream">
+  <!-- Three columns: nav (or the menu button) | centred logo | social links and phone. -->
+  <div class="container-content grid h-19 grid-cols-[1fr_auto_1fr] items-center gap-4 lg:h-26">
+    <div class="flex items-center">
       <!-- Popover API: open/close, Escape and light dismiss with no JavaScript. -->
       <button
         type="button"
         popovertarget="mobile-menu"
-        class="-me-2 p-2 lg:hidden"
+        class="-ms-2 p-2 lg:hidden"
         aria-label="פתיחת תפריט"
       >
         <Icon name="menu" class="size-7" />
       </button>
+
+      <nav aria-label="ניווט ראשי" class="hidden lg:block">
+        <ul class="flex items-center gap-5 xl:gap-6">
+          {mainNav.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                aria-current={current === link.href ? 'page' : undefined}
+                class:list={[
+                  'py-2 whitespace-nowrap transition-colors hover:text-brass-light',
+                  isActive(link.href, current) && 'text-brass-light',
+                ]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <a href="/" class="block" aria-current={current === '/' ? 'page' : undefined}>
+      <Image
+        src={logoCream}
+        alt={`${site.name} - ${site.tagline}`}
+        widths={[120, 180, 240]}
+        sizes="(min-width: 64rem) 84px, 60px"
+        class="h-15 w-auto lg:h-21"
+        loading="eager"
+      />
+    </a>
+
+    <div class="flex items-center justify-end gap-2">
+      <SocialButtons tone="dark" size="md" class="max-sm:hidden" whatsapp />
+      <SocialButtons tone="dark" size="sm" class="sm:hidden" />
+      <a
+        href={site.phone.href}
+        class="ms-1.5 hidden items-center gap-2 rounded-full border-[1.5px] border-cream px-4.5 py-2 font-semibold transition-colors hover:bg-cream hover:text-charcoal xl:inline-flex"
+      >
+        <Icon name="phone-outline" class="size-[1.125rem]" />
+        <span dir="ltr">{site.phone.display}</span>
+      </a>
     </div>
   </div>
 
@@ -68,8 +74,13 @@ const current = publicPath(Astro.url);
     popover
     class="m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-charcoal p-0 text-cream backdrop:bg-black/50 lg:hidden"
   >
-    <div class="container-content flex h-16 items-center justify-between">
-      <span class="font-display text-2xl font-bold">{site.name}</span>
+    <div class="container-content flex h-19 items-center justify-between">
+      <Image
+        src={logoCream}
+        alt={`${site.name} - ${site.tagline}`}
+        widths={[120]}
+        class="h-12 w-auto"
+      />
       <button
         type="button"
         popovertarget="mobile-menu"
@@ -89,7 +100,7 @@ const current = publicPath(Astro.url);
               aria-current={current === link.href ? 'page' : undefined}
               class:list={[
                 'block py-1 font-semibold',
-                isActive(link.href, current) && 'text-ember-light',
+                isActive(link.href, current) && 'text-brass-light',
               ]}
             >
               {link.label}
@@ -103,7 +114,7 @@ const current = publicPath(Astro.url);
                       aria-current={current === child.href ? 'page' : undefined}
                       class:list={[
                         'block py-1.5',
-                        current === child.href ? 'text-ember-light' : 'text-smoke',
+                        current === child.href ? 'text-brass-light' : 'text-smoke',
                       ]}
                     >
                       {child.label}
@@ -118,6 +129,7 @@ const current = publicPath(Astro.url);
       <Button href={quoteLink.href} size="lg" class="mt-8 w-full">
         {quoteLink.label}
       </Button>
+      <SocialButtons tone="dark" size="lg" whatsapp class="mt-6 justify-center" />
     </nav>
   </div>
 </header>

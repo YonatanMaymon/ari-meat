@@ -16,7 +16,7 @@ const { text, dark = false, class: className } = Astro.props;
 <div
   class:list={[
     'space-y-5 [&_a]:font-semibold [&_a]:underline [&_a]:underline-offset-4 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:ps-6',
-    dark ? '[&_a]:text-ember-light' : '[&_a]:text-ember-deep',
+    dark ? '[&_a]:text-brass-light' : '[&_a]:text-brass-deep',
     className,
   ]}
   set:html={markdown(text)}

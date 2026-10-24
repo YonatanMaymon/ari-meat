@@ -8,7 +8,7 @@ import Button from '../../components/ui/Button.astro';
 import { site } from '../../data/site';
 
 const moodboard = [
-  { word: 'אש חיה', note: 'להבות, גחלים, צלב האסאדו. הצבע: ember.' },
+  { word: 'אש חיה', note: 'להבות, גחלים, צלב האסאדו. הצבע: brass.' },
   { word: 'אדמה ועץ', note: 'פחם, עץ זית, ברזל של המעשנות שארי בונה. הצבע: charcoal.' },
   { word: 'הגליל', note: 'מטעים, זיתים, שקיעה לכיוון הים ממתת. הצבע: olive.' },
   { word: 'שולחן ארוך', note: 'פשתן, אור חם, אנשים סביב אוכל. הצבע: cream.' },
@@ -31,7 +31,7 @@ const moodboard = [
       <h2 class="mt-10 text-2xl font-bold">לוח השראה</h2>
       <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {moodboard.map(({ word, note }) => (
-          <li class="rounded-card bg-cream-deep p-5">
+          <li class="rounded-card bg-sand p-5">
             <p class="font-display text-xl font-bold">{word}</p>
             <p class="mt-2">{note}</p>
           </li>
@@ -49,7 +49,7 @@ const moodboard = [
   <section class="grain relative flex min-h-[85svh] items-end overflow-hidden bg-charcoal text-cream">
     <div
       aria-hidden="true"
-      class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_bottom,rgb(200_85_43/0.55),transparent_70%)]"
+      class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_bottom,rgb(168_135_79/0.55),transparent_70%)]"
     >
       <p class="absolute top-24 start-4 rounded-full bg-charcoal/70 px-4 py-1 text-sm sm:start-6">
         תמונה רחבה: home-13.jpg או home-05.jpg
@@ -60,8 +60,8 @@ const moodboard = [
       class="absolute inset-0 -z-10 bg-linear-to-t from-charcoal via-charcoal/60 to-charcoal/10"
     ></div>
     <div class="container-content pt-16 pb-14 sm:pb-20">
-      <p class="flex items-center gap-3 font-semibold text-ember-light">
-        <span aria-hidden="true" class="h-0.5 w-10 bg-ember"></span>
+      <p class="flex items-center gap-3 font-semibold text-brass-light">
+        <span aria-hidden="true" class="h-0.5 w-10 bg-brass"></span>
         מתת, הגליל המערבי
       </p>
       <h2 class="mt-4 max-w-3xl text-5xl leading-tight font-bold sm:text-7xl">
@@ -95,9 +95,9 @@ const moodboard = [
           מתת, הגליל המערבי
         </p>
         <h2 class="mt-4 text-5xl leading-tight font-bold sm:text-6xl">
-          קייטרינג בשרי <span class="text-ember">על האש</span>
+          קייטרינג בשרי <span class="text-brass">על האש</span>
         </h2>
-        <p class="mt-5 max-w-xl text-lg text-smoke-deep sm:text-xl">
+        <p class="mt-5 max-w-xl text-lg text-muted sm:text-xl">
           מטבח ארגנטינאי וגלילי על אש חיה. חתונות בטבע, אירועים פרטיים ועסקיים בכל הארץ.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
@@ -111,7 +111,7 @@ const moodboard = [
       </div>
       <div
         aria-hidden="true"
-        class="grain relative flex aspect-[3/4] items-end justify-center overflow-hidden rounded-t-full rounded-b-card bg-charcoal bg-[radial-gradient(ellipse_at_bottom,rgb(200_85_43/0.6),transparent_70%)] p-6 text-cream"
+        class="grain relative flex aspect-[3/4] items-end justify-center overflow-hidden rounded-t-full rounded-b-card bg-charcoal bg-[radial-gradient(ellipse_at_bottom,rgb(168_135_79/0.6),transparent_70%)] p-6 text-cream"
       >
         <p class="rounded-full bg-charcoal/70 px-4 py-1 text-sm">
           תמונה לאורך: weddings-04.jpg או about-02.jpg
@@ -120,7 +120,7 @@ const moodboard = [
     </div>
   </section>
 
-  <section class="bg-cream-deep py-12">
+  <section class="bg-sand py-12">
     <div class="container-content max-w-3xl">
       <h2 class="text-2xl font-bold">ההבדל בקצרה</h2>
       <ul class="mt-4 list-disc space-y-3 ps-6">
