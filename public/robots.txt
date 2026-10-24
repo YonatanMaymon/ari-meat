@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /keystatic
 
-Sitemap: https://www.aricatering.com/sitemap-index.xml
+Sitemap: https://aricatering.com/sitemap-index.xml

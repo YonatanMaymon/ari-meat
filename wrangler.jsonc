@@ -14,7 +14,7 @@
     "enabled": true,
   },
   // Workers Builds uploads each non-master branch as a version; this serves it at
-  // <version>-ari-catering.ari-catering.workers.dev. Canonicals point to www.aricatering.com.
+  // <version>-ari-catering.ari-catering.workers.dev. Canonicals point to aricatering.com.
   "workers_dev": true,
   "preview_urls": true,
 
@@ -29,5 +29,6 @@
   // Secrets (not in this file):
   //   TURNSTILE_SECRET_KEY: dashboard → Workers → ari-catering → Settings → Variables and Secrets.
   //   Locally in .dev.vars (copy .dev.vars.example).
-  // Phase 6 (launch) will add "routes" for www.aricatering.com once DNS is on Cloudflare.
+  // Custom domains aricatering.com and www.aricatering.com are attached in the dashboard (Worker →
+  // Domains). A zone Redirect Rule 301s www to the bare domain.
 }

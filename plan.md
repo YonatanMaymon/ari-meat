@@ -257,13 +257,10 @@ ari-meat/
     [assets.md](assets.md). Logo PNG downloaded to `content-migration/logo-wix.png`.
 - [x] Decide the single official email + phone + WhatsApp number
   - Email `arielmaykab@gmail.com`, phone `052-8580775` (also the WhatsApp number). Already in `site.ts`.
-- [ ] Find out where the domain is registered (Wix or external) and get access
-  - Blocked: needs Ari's (or your) accounts, and the cloud workspace can't reach WHOIS/DNS.
-    To find out: look up `aricatering.com` at https://lookup.icann.org (the "Registrar" field), and
-    in the Wix dashboard check *Settings → Domains*. If it says "Purchased from Wix", it's
-    registered through Wix (transfer out or point DNS at launch); otherwise, get a login for the
-    named registrar. Also run `nslookup -type=NS aricatering.com` to see who hosts DNS today.
-    Needed before Phase 6 (DNS move), not before coding. Open question 3 in section 8.
+- [x] Find out where the domain is registered (Wix or external) and get access
+  - Registered through Wix (yonatan, 2026-10-23). Plan for Phase 6: first point Wix's nameservers
+    at Cloudflare (keeping the Wix records so the old site stays up), then optionally transfer the
+    registration to Cloudflare Registrar once the launch is stable.
 - [x] **Export a Search Console baseline**: current queries, impressions, top pages. Used to compare after launch. (If GSC isn't set up, set it up now on the Wix site.)
   - 16 months, saved as CSV in `docs/gsc-baseline-2026-10-23/` with a summary README.
     385 clicks / 34,651 impressions; nearly all clicks are branded, target keywords rank ~25–60.
@@ -480,9 +477,17 @@ ari-meat/
     and Android phone (2026-10-23): no bugs.
 
 ### Phase 6: Launch
-- [ ] Move DNS to Cloudflare (or point domain), attach custom domain to the Worker
-- [ ] Unify `www`/apex with a 301
-- [ ] Run `npm run check:redirects https://www.aricatering.com` against production
+- [x] Move DNS to Cloudflare (or point domain), attach custom domain to the Worker
+  - Done 2026-10-23: zone on Ari's Cloudflare account (no email/TXT records existed at Wix), domain
+    unassigned from the Wix site, nameservers at Wix switched to `jule`/`kurt.ns.cloudflare.com`
+    (old: `ns6`/`ns7.wixdns.net`). Wix only allows custom nameservers once the domain is unassigned
+    from the site, so this was the cutover. Custom domains `aricatering.com` and
+    `www.aricatering.com` attached to the `ari-catering` Worker.
+- [ ] Optional, after ~2 stable weeks: transfer the registration from Wix to Cloudflare Registrar
+- [x] Unify `www`/apex with a 301
+  - Decided (yonatan, 2026-10-24): the bare domain `https://aricatering.com` is canonical (`site` in
+    `astro.config.mjs`, `site.url`, robots.txt). A Cloudflare Redirect Rule 301s www → bare domain.
+- [ ] Run `npm run check:redirects https://aricatering.com` against production
 - [ ] Web Analytics: enable automatic setup for aricatering.com (dashboard → Web Analytics), remove
       `webAnalyticsToken` from `src/lib/config.ts`
 - [ ] Email Routing on aricatering.com: enable it, add + verify arielmaykab@gmail.com as a destination,
@@ -504,7 +509,7 @@ ari-meat/
 ## 8. Open questions for Ari
 1. Is the catering **kosher-certified**? By whom? (Big decision factor for many clients. Show it prominently if yes.)
 2. ~~Which email is the real one?~~ Answered: `arielmaykab@gmail.com`.
-3. Domain registrar: bought through Wix or elsewhere?
+3. ~~Domain registrar: bought through Wix or elsewhere?~~ Answered: through Wix.
 4. Does he have original photos/videos (not Instagram-compressed)?
 5. Keep the current logo or refresh it as part of the redesign?
 6. Should we show **price ranges** or "starting from" (big conversion + SEO lever), or stay quote-only?

@@ -9,8 +9,9 @@ import keystatic from '@keystatic/astro';
 
 // https://astro.build/config
 export default defineConfig({
-  // Canonical origin. The Wix site canonicalises to www, so we keep it.
-  site: 'https://www.aricatering.com',
+  // Canonical origin: the bare domain. www.aricatering.com (the Wix-era canonical) 301s here via a
+  // Cloudflare Redirect Rule.
+  site: 'https://aricatering.com',
 
   // URLs have no trailing slash (/catering/weddings). `format: 'file'` emits catering/weddings.html,
   // which Cloudflare static assets serves at /catering/weddings without redirecting to a slash URL.
