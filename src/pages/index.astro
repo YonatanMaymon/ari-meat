@@ -12,9 +12,7 @@ import StepList from '../components/StepList.astro';
 import ServiceAreas from '../components/ServiceAreas.astro';
 import CtaSection from '../components/CtaSection.astro';
 import ReadMore from '../components/ReadMore.astro';
-import Button from '../components/ui/Button.astro';
 import { site } from '../data/site';
-import { quoteLink } from '../data/nav';
 import { getPage } from '../lib/pages';
 import { getServices, serviceHref } from '../lib/services';
 import { business, website } from '../lib/schema';
@@ -39,14 +37,7 @@ const prose = 'max-w-3xl text-lg leading-relaxed';
     eyebrow={page.heroEyebrow || undefined}
     subtitle={page.heroSubtitle}
     size="full"
-  >
-    <Button href={quoteLink.href} size="lg">
-      {quoteLink.label}
-    </Button>
-    <Button href={site.whatsapp.href} variant="whatsapp" size="lg" icon="whatsapp">
-      וואטסאפ
-    </Button>
-  </Hero>
+  />
 
   <Section heading={about.heading} eyebrow={about.eyebrow || undefined}>
     <div class:list={[prose, 'space-y-5']}>
