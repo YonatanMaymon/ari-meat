@@ -28,8 +28,9 @@ export const site = {
 
   social: {
     instagram: 'https://www.instagram.com/_ari_catering_/',
-    // TODO: confirm the exact Facebook and TikTok profile URLs with Ari.
-    facebook: '',
+    // Share link from yonatan (2026-10-24); Facebook redirects it to the page.
+    facebook: 'https://www.facebook.com/share/1FtMGE4v8s/',
+    // TODO: confirm the TikTok profile URL with Ari.
     tiktok: '',
   },
 

@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/images/brand/logo-dark.png';
 import logoCream from '../assets/images/brand/logo-cream.png';
 import Icon from './ui/Icon.astro';
 import SocialButtons from './SocialButtons.astro';
@@ -12,7 +11,7 @@ import { isActive, publicPath } from '../lib/url';
 const current = publicPath(Astro.url);
 ---
 
-<header class="sticky top-0 z-40 border-b border-charcoal/10 bg-cream text-charcoal">
+<header class="sticky top-0 z-40 border-b border-cream/10 bg-charcoal text-cream">
   <!-- Three columns: nav (or the menu button) | centred logo | social links and phone. -->
   <div class="container-content grid h-19 grid-cols-[1fr_auto_1fr] items-center gap-4 lg:h-26">
     <div class="flex items-center">
@@ -34,8 +33,8 @@ const current = publicPath(Astro.url);
                 href={link.href}
                 aria-current={current === link.href ? 'page' : undefined}
                 class:list={[
-                  'py-2 whitespace-nowrap transition-colors hover:text-brass-deep',
-                  isActive(link.href, current) && 'text-brass-deep',
+                  'py-2 whitespace-nowrap transition-colors hover:text-brass-light',
+                  isActive(link.href, current) && 'text-brass-light',
                 ]}
               >
                 {link.label}
@@ -48,7 +47,7 @@ const current = publicPath(Astro.url);
 
     <a href="/" class="block" aria-current={current === '/' ? 'page' : undefined}>
       <Image
-        src={logo}
+        src={logoCream}
         alt={`${site.name} - ${site.tagline}`}
         widths={[120, 180, 240]}
         sizes="(min-width: 64rem) 84px, 60px"
@@ -58,11 +57,11 @@ const current = publicPath(Astro.url);
     </a>
 
     <div class="flex items-center justify-end gap-2">
-      <SocialButtons size="md" class="max-sm:hidden" whatsapp />
-      <SocialButtons size="sm" class="sm:hidden" />
+      <SocialButtons tone="dark" size="md" class="max-sm:hidden" whatsapp />
+      <SocialButtons tone="dark" size="sm" class="sm:hidden" />
       <a
         href={site.phone.href}
-        class="ms-1.5 hidden items-center gap-2 rounded-full border-[1.5px] border-charcoal px-4.5 py-2 font-semibold transition-colors hover:bg-charcoal hover:text-cream xl:inline-flex"
+        class="ms-1.5 hidden items-center gap-2 rounded-full border-[1.5px] border-cream px-4.5 py-2 font-semibold transition-colors hover:bg-cream hover:text-charcoal xl:inline-flex"
       >
         <Icon name="phone-outline" class="size-[1.125rem]" />
         <span dir="ltr">{site.phone.display}</span>
