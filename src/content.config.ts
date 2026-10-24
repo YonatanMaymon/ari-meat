@@ -10,8 +10,8 @@ import { defaultFonts, fontLabels, type FontId } from './data/font-options';
 const titledText = z.object({ title: z.string(), text: z.string() });
 
 const services = defineCollection({
-  // The file name is the URL slug: weddings.md → /catering/weddings.
-  loader: glob({ pattern: '*.md', base: './src/content/services' }),
+  // The file name is the URL slug: weddings.yaml → /catering/weddings.
+  loader: glob({ pattern: '*.yaml', base: './src/content/services' }),
   schema: ({ image }) =>
     z.object({
       /** catering: Ari comes to your event. matat: you come to Ari, at the farm in Matat. */
@@ -37,6 +37,21 @@ const services = defineCollection({
       image: image(),
       /** Hebrew alt text for `image`. */
       imageAlt: z.string(),
+      /** Ari's text from the old site: an <h2> (none on the opening paragraph) and Markdown. */
+      sections: z.array(
+        z.object({
+          /** `slug` names the folder of the section's photo. */
+          heading: z.object({ name: z.string().default(''), slug: z.string() }),
+          text: z.string(),
+          /**
+           * Optional photo beside the text, relative to this file:
+           * ../../assets/images/services/<id>/sections/<slug>/image.jpg. A plain string like the
+           * gallery's, so a format Astro can't optimise is skipped instead of failing the build.
+           */
+          image: z.string().nullish(),
+          imageAlt: z.string().default(''),
+        }),
+      ),
     }),
 });
 

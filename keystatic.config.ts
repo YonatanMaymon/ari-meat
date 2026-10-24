@@ -95,11 +95,10 @@ export default config({
   collections: {
     services: collection({
       label: 'דפי שירות',
-      // The file name is the page's URL (weddings.md → /catering/weddings), so it must not change.
+      // The file name is the page's URL (weddings.yaml → /catering/weddings), so it must not change.
       path: 'src/content/services/*',
       slugField: 'title',
-      format: { contentField: 'body' },
-      entryLayout: 'content',
+      format: { data: 'yaml' },
       columns: ['label'],
       schema: {
         // Fields that only matter for the site's structure and SEO stay in the file but are hidden
@@ -163,7 +162,43 @@ export default config({
           validation: { isRequired: true },
         }),
         related: fields.ignored(),
-        body: fields.markdoc({ label: 'תוכן הדף', extension: 'md' }),
+        sections: fields.array(
+          fields.object({
+            heading: fields.slug({
+              name: { label: 'כותרת', description: 'אפשר להשאיר ריק (בפסקת הפתיחה).' },
+              slug: {
+                label: 'שם התיקייה של התמונה',
+                description: 'נוצר לבד מהכותרת, אין צורך לשנות.',
+                generate: (heading) => slugify(heading) || 'intro',
+              },
+            }),
+            text: fields.text({
+              label: 'טקסט',
+              description: `${mdHelp} רשימה: כל שורה מתחילה במקף ורווח.`,
+              multiline: true,
+              validation: { isRequired: true },
+            }),
+            image: fields.image({
+              label: 'תמונה (לא חובה)',
+              description:
+                'אם בוחרים תמונה, היא מוצגת משמאל לטקסט במחשב ומתחתיו בטלפון. בלי תמונה הטקסט נשאר כמו שהוא.',
+              directory: 'src/assets/images/services',
+              publicPath: '../../assets/images/services/',
+            }),
+            imageAlt: line(
+              'תיאור התמונה',
+              'רק אם בחרתם תמונה: משפט קצר שמתאר מה רואים בה. גוגל וקוראי מסך משתמשים בו.',
+            ),
+          }),
+          {
+            label: 'תוכן הדף',
+            description: 'כל חלק הוא כותרת וטקסט, ואפשר להוסיף לו תמונה. גררו כדי לשנות את הסדר.',
+            // Section photos are stored as services/<page>/sections/<folder>/image.jpg. Without a
+            // slug field Keystatic names them by position, so adding a section would rename them.
+            slugField: 'heading',
+            itemLabel: (props) => props.fields.heading.value.name || '(פסקת פתיחה)',
+          },
+        ),
       },
     }),
   },
