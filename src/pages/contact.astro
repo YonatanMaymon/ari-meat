@@ -60,13 +60,13 @@ const channels = [
           {channels.map((c) => (
             <li class="relative flex flex-col gap-2 rounded-card bg-white p-5 shadow-sm ring-1 ring-charcoal/5 transition-shadow hover:shadow-lg">
               <div class="flex items-center gap-3">
-                <Icon name={c.icon} class="size-7 text-ember-deep" />
+                <Icon name={c.icon} class="size-7 text-brass-deep" />
                 <h3 class="text-xl font-bold">{c.title}</h3>
               </div>
-              <p class="flex-1 text-smoke-deep">{c.text}</p>
+              <p class="flex-1 text-muted">{c.text}</p>
               <a
                 href={c.href}
-                class="font-semibold break-all text-ember-deep after:absolute after:inset-0"
+                class="font-semibold break-all text-brass-deep after:absolute after:inset-0"
                 {...('external' in c && { target: '_blank', rel: 'noopener' })}
               >
                 <span dir={'ltr' in c ? 'ltr' : undefined}>{c.value}</span>
@@ -85,6 +85,6 @@ const channels = [
         {site.address.street}, {site.address.locality}, {site.address.region}
       </p>
     </address>
-    <p class="mt-4 max-w-2xl text-smoke-deep">{page.locationText}</p>
+    <p class="mt-4 max-w-2xl text-muted">{page.locationText}</p>
   </Section>
 </BaseLayout>

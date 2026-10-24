@@ -1,0 +1,66 @@
+---
+// Round Instagram / Facebook buttons, plus an optional round WhatsApp button (icon only).
+// Used in the header, the closing CTA and the footer. A network without a URL in site.ts is skipped.
+import Icon from './ui/Icon.astro';
+import { site } from '../data/site';
+
+export interface Props {
+  /** `light` for cream backgrounds, `dark` for charcoal ones. */
+  tone?: 'light' | 'dark';
+  size?: 'sm' | 'md' | 'lg';
+  whatsapp?: boolean;
+  class?: string;
+}
+
+const { tone = 'light', size = 'md', whatsapp = false, class: className } = Astro.props;
+
+const sizes = {
+  sm: { box: 'size-9', icon: 'size-4', wa: 'size-5' },
+  md: { box: 'size-10', icon: 'size-[1.125rem]', wa: 'size-[1.375rem]' },
+  lg: { box: 'size-11', icon: 'size-5', wa: 'size-7' },
+}[size];
+
+const outline =
+  tone === 'dark'
+    ? 'border-cream/35 text-cream hover:border-brass-light hover:text-brass-light'
+    : 'border-charcoal/25 text-charcoal hover:border-brass-deep hover:text-brass-deep';
+
+const networks = [
+  { label: 'אינסטגרם', href: site.social.instagram, icon: 'instagram-outline' as const },
+  { label: 'פייסבוק', href: site.social.facebook, icon: 'facebook-outline' as const },
+].filter((n) => n.href);
+---
+
+<ul class:list={['flex items-center gap-2', className]}>
+  {networks.map((n) => (
+    <li>
+      <a
+        href={n.href}
+        target="_blank"
+        rel="noopener"
+        class:list={[
+          'inline-flex items-center justify-center rounded-full border-[1.5px] transition-colors',
+          sizes.box,
+          outline,
+        ]}
+      >
+        <Icon name={n.icon} label={`${site.name} ב${n.label}`} class={sizes.icon} />
+      </a>
+    </li>
+  ))}
+  {whatsapp && (
+    <li>
+      <a
+        href={site.whatsapp.href}
+        target="_blank"
+        rel="noopener"
+        class:list={[
+          'inline-flex items-center justify-center rounded-full bg-whatsapp text-white transition hover:brightness-110',
+          sizes.box,
+        ]}
+      >
+        <Icon name="whatsapp" label="וואטסאפ" class={sizes.wa} />
+      </a>
+    </li>
+  )}
+</ul>

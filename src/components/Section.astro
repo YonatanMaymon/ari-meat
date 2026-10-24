@@ -29,12 +29,12 @@ const {
 
 const tones: Record<Tone, string> = {
   light: 'bg-cream text-charcoal',
-  sand: 'bg-cream-deep text-charcoal',
+  sand: 'bg-sand text-charcoal',
   dark: 'grain bg-charcoal text-cream',
 };
 // Muted text only where it keeps 4.5:1 contrast (see the notes in global.css).
 const mutedText: Record<Tone, string> = {
-  light: 'text-smoke-deep',
+  light: 'text-muted',
   sand: 'text-charcoal',
   dark: 'text-smoke',
 };
@@ -54,7 +54,7 @@ const headingId = heading ? `${id ?? heading.replace(/\s+/g, '-')}-heading` : un
           <p
             class:list={[
               'mb-2 text-sm font-semibold tracking-wide',
-              tone === 'dark' ? 'text-ember-light' : 'text-ember-deep',
+              tone === 'dark' ? 'text-brass-light' : 'text-brass-deep',
             ]}
           >
             {eyebrow}

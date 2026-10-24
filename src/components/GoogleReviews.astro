@@ -7,8 +7,8 @@ import Icon from './ui/Icon.astro';
 
 const star = 'size-5';
 const arrow =
-  'grid size-11 place-items-center rounded-full border border-charcoal/20 text-charcoal transition hover:border-ember-deep hover:text-ember-deep disabled:pointer-events-none disabled:opacity-30';
-const link = 'font-semibold text-ember-deep underline underline-offset-4 hover:text-charcoal';
+  'grid size-11 place-items-center rounded-full border border-charcoal/20 text-charcoal transition hover:border-brass-deep hover:text-brass-deep disabled:pointer-events-none disabled:opacity-30';
+const link = 'font-semibold text-brass-deep underline underline-offset-4 hover:text-charcoal';
 ---
 
 <div data-reviews-sentinel></div>
@@ -21,7 +21,7 @@ const link = 'font-semibold text-ember-deep underline underline-offset-4 hover:t
 >
   <div class="container-content">
     <header class="mb-10 max-w-2xl">
-      <p class="mb-2 text-sm font-semibold tracking-wide text-ember-deep">ביקורות ב-Google</p>
+      <p class="mb-2 text-sm font-semibold tracking-wide text-brass-deep">ביקורות ב-Google</p>
       <h2 id="reviews-heading" class="text-3xl font-bold sm:text-4xl">
         מה אומרים עלינו
       </h2>
@@ -35,7 +35,7 @@ const link = 'font-semibold text-ember-deep underline underline-offset-4 hover:t
             <Icon name="star" class={star} />
           ))}
         </span>
-        <span data-count class="text-smoke-deep"></span>
+        <span data-count class="text-muted"></span>
       </p>
       <p class="flex gap-6">
         <a data-all class={link} rel="noopener" target="_blank">
@@ -65,7 +65,7 @@ const link = 'font-semibold text-ember-deep underline underline-offset-4 hover:t
 
   <template data-card>
     <li class="w-[85%] max-w-sm shrink-0 snap-start sm:w-[22rem]">
-      <figure class="flex h-full flex-col gap-4 rounded-card bg-cream-deep p-6">
+      <figure class="flex h-full flex-col gap-4 rounded-card bg-sand p-6">
         <span data-stars class="flex gap-0.5" role="img">
           {[1, 2, 3, 4, 5].map(() => (
             <Icon name="star" class="size-4" />
@@ -81,7 +81,7 @@ const link = 'font-semibold text-ember-deep underline underline-offset-4 hover:t
           <span data-photo class="contents"></span>
           <span>
             <a data-author class="font-semibold hover:underline" rel="noopener" target="_blank"></a>
-            <span data-when class="block text-sm text-smoke-deep"></span>
+            <span data-when class="block text-sm text-muted"></span>
           </span>
         </figcaption>
       </figure>
@@ -109,7 +109,7 @@ const link = 'font-semibold text-ember-deep underline underline-offset-4 hover:t
   function setStars(el: HTMLElement, rating: number) {
     el.setAttribute('aria-label', `${rating.toFixed(1)} מתוך 5 כוכבים`);
     el.querySelectorAll('svg').forEach((svg, i) => {
-      svg.classList.add(i < Math.round(rating) ? 'text-ember' : 'text-charcoal/20');
+      svg.classList.add(i < Math.round(rating) ? 'text-brass' : 'text-charcoal/20');
     });
   }
 

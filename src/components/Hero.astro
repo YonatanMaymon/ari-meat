@@ -12,7 +12,7 @@ export interface Props {
   /** Short line above the title, e.g. the location. */
   eyebrow?: string;
   subtitle?: string;
-  /** Full-bleed background photo. Without one, a charcoal + ember glow background is used. */
+  /** Full-bleed background photo. Without one, a charcoal + brass glow background is used. */
   image?: ImageMetadata;
   /** Hebrew alt text. Required with `image`. */
   imageAlt?: string;
@@ -52,7 +52,7 @@ const {
   ) : (
     <div
       aria-hidden="true"
-      class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_bottom,rgb(200_85_43/0.45),transparent_65%)]"
+      class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_bottom,rgb(168_135_79/0.45),transparent_65%)]"
     />
   )}
   <!-- Darkens the bottom of the photo so the text always passes contrast. -->
@@ -64,8 +64,8 @@ const {
   <div class="container-content pt-16 pb-14 sm:pb-20">
     {breadcrumbs && <Breadcrumbs crumbs={breadcrumbs} />}
     {eyebrow && (
-      <p class="mb-4 flex items-center gap-3 font-semibold text-ember-light">
-        <span aria-hidden="true" class="h-0.5 w-10 bg-ember"></span>
+      <p class="mb-4 flex items-center gap-3 font-semibold text-brass-light">
+        <span aria-hidden="true" class="h-0.5 w-10 bg-brass"></span>
         {eyebrow}
       </p>
     )}

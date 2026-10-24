@@ -7,7 +7,7 @@ import { site } from '../data/site';
   {site.serviceAreas.map((area) => (
     <li class="rounded-card bg-white p-6 shadow-sm ring-1 ring-charcoal/5">
       <h3 class="text-xl font-bold">{area.name}</h3>
-      <p class="mt-2 text-smoke-deep">{area.places.join(' · ')}</p>
+      <p class="mt-2 text-muted">{area.places.join(' · ')}</p>
     </li>
   ))}
 </ul>

@@ -12,12 +12,12 @@ const { steps } = Astro.props;
     <li class="relative ps-14">
       <span
         aria-hidden="true"
-        class="absolute start-0 top-0 flex size-10 items-center justify-center rounded-full bg-ember-deep font-display text-lg font-bold text-white"
+        class="absolute start-0 top-0 flex size-10 items-center justify-center rounded-full bg-brass-deep font-display text-lg font-bold text-white"
       >
         {i + 1}
       </span>
       <h3 class="text-xl font-bold">{step.title}</h3>
-      <p class="mt-2 text-smoke-deep">{step.text}</p>
+      <p class="mt-2 text-muted">{step.text}</p>
     </li>
   ))}
 </ol>
