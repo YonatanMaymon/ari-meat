@@ -1,5 +1,5 @@
 ---
-// Homepage: hero → Ari → services → how it works → expertise → service areas → Google reviews → CTA.
+// Homepage: hero → Ari → Google reviews → services → how it works → expertise → service areas → CTA.
 // All of the text is Ari's own, word for word from the old Wix homepage
 // (content-migration/pages/home.md), and edited by him in the admin (src/content/pages/home.yaml).
 // Longer parts fold behind ReadMore toggles. The hero is direction A, "fire at night" (Phase 2).
@@ -51,6 +51,8 @@ const prose = 'max-w-3xl text-lg leading-relaxed';
       )}
     </div>
   </Section>
+
+  <GoogleReviews />
 
   <Section tone="sand" heading={page.services.heading} intro={page.services.intro || undefined}>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -115,8 +117,6 @@ const prose = 'max-w-3xl text-lg leading-relaxed';
       </p>
     </div>
   </Section>
-
-  <GoogleReviews />
 
   <CtaSection />
 </BaseLayout>
