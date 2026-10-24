@@ -6,7 +6,7 @@ const phoneE164 = '+972528580775';
 export const site = {
   name: 'ארי קייטרינג',
   tagline: 'חווית בשר ייחודית',
-  url: 'https://www.aricatering.com',
+  url: 'https://aricatering.com',
   locale: 'he_IL',
 
   phone: {

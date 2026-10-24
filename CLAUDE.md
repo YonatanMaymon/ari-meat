@@ -1,7 +1,7 @@
 # Ari Catering website
 
-Rebuild + redesign of https://www.aricatering.com (currently Wix): a Hebrew, RTL, SEO-first
-marketing site for a live-fire meat catering business, hosted on Cloudflare Workers.
+Rebuild + redesign of https://aricatering.com (formerly Wix, on Cloudflare since 2026-10-23): a
+Hebrew, RTL, SEO-first marketing site for a live-fire meat catering business, hosted on Cloudflare Workers.
 
 ## Work from plan.md, step by step
 
