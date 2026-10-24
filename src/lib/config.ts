@@ -24,4 +24,4 @@ export const quoteEmailFrom = { name: 'אתר ארי קייטרינג', email: '
  * secret. Find it at https://developers.google.com/maps/documentation/places/web-service/place-id
  * Empty: no reviews section. The API key is the GOOGLE_PLACES_API_KEY secret.
  */
-export const googlePlaceId = '';
+export const googlePlaceId = 'ChIJ6WJOyvtv5GMR9sYsxYhbfDs';

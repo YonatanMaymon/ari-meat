@@ -402,9 +402,8 @@ ari-meat/
     and links to all reviews / write a review. No review markup in JSON-LD: Google ignores
     self-serving reviews of a LocalBusiness.
   - The section stays hidden until real reviews arrive: no placeholder content.
-  - Waiting on yonatan: the Place ID of Ari's Google Business Profile (into `googlePlaceId` in
-    `src/lib/config.ts`) and a Google Cloud API key with "Places API (New)" enabled, restricted to
-    that API, saved in the Worker as the `GOOGLE_PLACES_API_KEY` secret. Then check it on the preview.
+  - Place ID set (2026-10-24) and yonatan saved the `GOOGLE_PLACES_API_KEY` secret in the Worker.
+    Left: check the section with the real reviews on the preview.
 - [ ] Admin for Ari at `/keystatic` (Keystatic, chosen by yonatan 2026-10-23): gallery first
   - Done in code: the gallery list moved from `src/data/gallery.ts` to `src/content/gallery.yaml`
     (photo, Hebrew alt text, category, in display order). Ari can upload, describe, recategorise,
