@@ -429,13 +429,13 @@ ari-meat/
     identical on all six. The YAML files were saved once through Keystatic as the format baseline.
   - Hero photos moved to `src/assets/images/pages/<id>/heroImage.jpg`; the home one is a copy, since
     `heroes/asado-cross-fire.jpg` is also the default share image and the business photo.
-- [ ] Admin: site fonts (asked by yonatan 2026-10-24)
+- [x] Admin: site fonts (asked by yonatan 2026-10-24)
   - Done in code: a "הגדרות עיצוב" singleton (`src/content/settings.yaml`) with a heading font and a
     text font, picked from 10 Hebrew Google fonts (`src/data/font-options.ts`, files from @fontsource).
     `components/FontFaces.astro` writes `@font-face` + `--font-sans`/`--font-display` for only the
     chosen fonts and preloads their Hebrew files. Display-only fonts (Suez One, Bellefair, Secular
     One) are offered for headings only. Default stays Frank Ruhl Libre + Heebo.
-- [ ] Admin: optional photo beside each text section of the service pages (asked by yonatan 2026-10-24)
+- [x] Admin: optional photo beside each text section of the service pages (asked by yonatan 2026-10-24)
   - Done in code: the service files are now YAML (`src/content/services/<id>.yaml`); the Markdown
     body became a `sections` array (heading, Markdown text, optional photo + alt), so Ari edits the
     text in a plain text box like the other pages instead of the rich-text editor. With a photo the
