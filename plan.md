@@ -391,7 +391,7 @@ ari-meat/
     logs `quote_submit`.
   - Decided (2026-10-23): turn Web Analytics on after the DNS move (Phase 6), with Cloudflare's
     automatic setup for the zone, so no token is needed. Then drop `webAnalyticsToken`.
-- [ ] Google reviews section on the home page (asked by yonatan 2026-10-24)
+- [x] Google reviews section on the home page (asked by yonatan 2026-10-24)
   - Done in code: `GoogleReviews.astro` above the closing CTA. Reviews come from the Places API
     (New) through `/api/reviews` (`src/lib/reviews.ts`), cached in D1 (`google_reviews`, 12 hours),
     so Google is asked about twice a day (inside the free monthly usage). Shows the overall rating,
@@ -400,7 +400,7 @@ ari-meat/
     self-serving reviews of a LocalBusiness.
   - The section stays hidden until real reviews arrive: no placeholder content.
   - Place ID set (2026-10-24) and yonatan saved the `GOOGLE_PLACES_API_KEY` secret in the Worker.
-    Left: check the section with the real reviews on the preview.
+    Verified with the real reviews on aricatering.com by yonatan (2026-10-24).
 - [ ] Admin for Ari at `/keystatic` (Keystatic, chosen by yonatan 2026-10-23): gallery first
   - Done in code: the gallery list moved from `src/data/gallery.ts` to `src/content/gallery.yaml`
     (photo, Hebrew alt text, category, in display order). Ari can upload, describe, recategorise,
@@ -503,7 +503,10 @@ ari-meat/
       `webAnalyticsToken` from `src/lib/config.ts`
 - [ ] Email Routing on aricatering.com: enable it, add + verify arielmaykab@gmail.com as a destination,
       then send a test quote from the live form and check it arrives (Phase 4 email code is ready)
-- [ ] Submit new sitemap in Search Console, request indexing of key pages
+- [x] Submit new sitemap in Search Console, request indexing of key pages
+  - Done 2026-10-31 (yonatan): Domain property `aricatering.com` added next to the old
+    `https://www.` URL-prefix one (kept for history). `sitemap-index.xml` read with Success, 13 pages
+    found. Indexing requested for all 13 pages through URL Inspection.
 - [ ] Keep Wix live (unpublished, not cancelled) for ~2 weeks as a rollback
 - [ ] Monitor GSC for 404s/coverage errors daily for the first 2 weeks
 - [ ] Cancel Wix plan once stable
