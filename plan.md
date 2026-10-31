@@ -212,7 +212,7 @@ ari-meat/
 │  ├─ _redirects            # 301s from old Wix URLs (incl. the ones found in Search Console)
 │  ├─ robots.txt
 │  ├─ llms.txt              # (planned)
-│  └─ favicon.svg
+│  └─ favicon.ico, favicon.png, apple-touch-icon.png  # header logo, cream on charcoal
 ├─ src/
 │  ├─ assets/images/        # photos used on the site; optimized at build time
 │  ├─ components/
