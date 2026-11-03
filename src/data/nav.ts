@@ -23,7 +23,7 @@ export const mainNav: readonly NavLink[] = [
     href: '/matat',
     children: [
       { label: 'ארוחת שף פרטית', href: '/matat/private-chef' },
-      { label: 'ימי גיבוש בפרדסים', href: '/matat/team-building' },
+      { label: 'ימי גיבוש במטעים', href: '/matat/team-building' },
     ],
   },
   { label: 'תפריט', href: '/menu' },
