@@ -147,6 +147,11 @@ const matatPage = page('matat', (h) => ({
   placeHeading: text,
   placeIntro: optional,
   produce: z.array(titledText),
+  /** Ari's story of Matat, from the old site, with a photo beside it. */
+  storyHeading: text,
+  storyText: text,
+  storyImage: h.image(),
+  storyAlt: text,
   servicesHeading: text,
   ctaHeading: text,
   ctaText: text,

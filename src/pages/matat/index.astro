@@ -1,10 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
 import Section from '../../components/Section.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import CtaSection from '../../components/CtaSection.astro';
 import Button from '../../components/ui/Button.astro';
+import Markdown from '../../components/Markdown.astro';
 import { quoteLink } from '../../data/nav';
 import { getServices, groups, serviceHref } from '../../lib/services';
 import { breadcrumbList } from '../../lib/schema';
@@ -46,7 +48,24 @@ const crumbs = [{ label: 'בית', href: '/' }, { label: groups.matat.label }];
     </ul>
   </Section>
 
-  <Section tone="sand" heading={page.servicesHeading}>
+  <Section tone="sand">
+    <div class="grid items-start gap-8 text-lg leading-relaxed xl:grid-cols-[48rem_1fr] xl:gap-12">
+      <div class="max-w-3xl space-y-5">
+        <h2 class="text-3xl font-bold">{page.storyHeading}</h2>
+        <Markdown text={page.storyText} />
+      </div>
+      <Image
+        src={page.storyImage}
+        alt={page.storyAlt}
+        widths={[400, 800, 1200]}
+        quality={70}
+        sizes="(min-width: 80rem) 20rem, (min-width: 48rem) 48rem, 100vw"
+        class="w-full max-w-3xl rounded-card object-cover shadow-sm"
+      />
+    </div>
+  </Section>
+
+  <Section heading={page.servicesHeading}>
     <div class="grid gap-6 sm:grid-cols-2">
       {services.map((s) => (
         <ServiceCard

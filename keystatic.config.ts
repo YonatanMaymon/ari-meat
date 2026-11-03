@@ -327,6 +327,23 @@ export default config({
       placeHeading: required('כותרת "המקום"'),
       placeIntro: fields.text({ label: 'טקסט על המקום', multiline: true }),
       produce: titledItems('כרטיסים: מה מגדלים ומייצרים'),
+      storyHeading: required('כותרת "הסיפור שלי ושל מתת"'),
+      storyText: fields.text({
+        label: 'טקסט "הסיפור שלי ושל מתת"',
+        description: mdHelp,
+        multiline: true,
+        validation: { isRequired: true },
+      }),
+      storyImage: fields.image({
+        label: 'תמונה ליד הסיפור',
+        directory: 'src/assets/images/pages/matat',
+        publicPath: '../../assets/images/pages/matat/',
+        validation: { isRequired: true },
+      }),
+      storyAlt: required(
+        'תיאור התמונה ליד הסיפור',
+        'משפט קצר שמתאר מה רואים בתמונה. גוגל וקוראי מסך משתמשים בו.',
+      ),
       servicesHeading: required('כותרת מעל החוויות'),
       ctaHeading: required('כותרת בתחתית הדף'),
       ctaText: fields.text({
