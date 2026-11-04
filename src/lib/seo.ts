@@ -7,7 +7,7 @@ export const TITLE_MAX_LENGTH = 60;
  * The homepage's full title, used as is (brand first, no " | brand" suffix). Google shows it as
  * the home result's title. Other pages pass their own keyword title.
  */
-export const HOME_TITLE = `${site.name} - חווית בשר איכותית`;
+export const HOME_TITLE = `${site.name} - חווית בשר ייחודית | קייטרינג בשרי על האש`;
 
 const SEPARATOR = ' | ';
 
