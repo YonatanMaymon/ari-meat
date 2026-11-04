@@ -3,8 +3,11 @@ import { site } from '../data/site';
 /** Google typically shows ~60 characters of a title before cutting it off. */
 export const TITLE_MAX_LENGTH = 60;
 
-/** Keyword the homepage ranks for. Other pages pass their own keyword title. */
-export const HOME_TITLE = 'קייטרינג בשרי על האש – חווית בשר ייחודית';
+/**
+ * The homepage's full title, used as is (brand first, no " | brand" suffix). Google shows it as
+ * the home result's title. Other pages pass their own keyword title.
+ */
+export const HOME_TITLE = `${site.name} - חווית בשר איכותית`;
 
 const SEPARATOR = ' | ';
 
@@ -16,11 +19,12 @@ const SEPARATOR = ' | ';
  * letting Google truncate the keyword.
  *
  * @param pageTitle The page's keyword-focused title, e.g. "קייטרינג לחתונה בטבע".
- *                  Undefined for the homepage.
+ *                  Undefined for the homepage, which gets HOME_TITLE.
  * @returns The full document title.
  */
 export function formatTitle(pageTitle?: string): string {
-  const keyword = pageTitle?.trim() || HOME_TITLE;
+  const keyword = pageTitle?.trim();
+  if (!keyword) return HOME_TITLE;
   const full = `${keyword}${SEPARATOR}${site.name}`;
   return full.length <= TITLE_MAX_LENGTH ? full : keyword;
 }
