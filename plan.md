@@ -463,6 +463,8 @@ ari-meat/
     line ("קייטרינג בשרי על האש – חווית בשר ייחודית"), since "ארי חווית בשר ייחודית" is the top
     branded query. Home description adds "בצפון"; `/catering` title adds "בטבע" (קייטרינג בטבע,
     1,300 impressions); weddings adds "בשטח"; corporate adds "אירועים עסקיים".
+  - 2026-11-04 (yonatan): home title is now "ארי קייטרינג - חווית בשר ייחודית | קייטרינג בשרי על האש"
+    (brand first, keyword after; site name stays "ארי קייטרינג"). Google shows it after a recrawl.
   - Share images: every page now has a 1200×630 `og:image` cropped from its hero photo (default: the
     home hero), for WhatsApp/Facebook previews.
 - [x] `_redirects` for all old URLs; verify every old URL returns 200 or 301 (script it)
