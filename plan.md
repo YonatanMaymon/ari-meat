@@ -444,6 +444,11 @@ ari-meat/
     the photo goes under the text. Photos: `src/assets/images/services/<id>/sections/<heading slug>/image.jpg`.
   - Built pages checked against the previous build: same text and links; only the typographic
     quotes differ (Astro's Markdown curled " and ', `marked` keeps them straight, as on other pages).
+- [x] Admin: saving with a new phone photo failed on mobile ("[Network] Load failed", 2026-11-17)
+  - Keystatic Cloud sends the whole save (YAML + each new photo, base64) in one request, and a
+    camera photo of 5 to 15 MB made it too big for mobile Safari/Brave. `public/admin/shrink-photos.js`
+    (added to the /keystatic pages by `src/middleware.ts`) now shrinks a picked photo in the browser
+    to at most 2560 px on the long side, as JPEG 85%, before Keystatic reads it.
 
 ### Phase 5: SEO & QA
 - [x] JSON-LD on all pages, validated in Google Rich Results Test
