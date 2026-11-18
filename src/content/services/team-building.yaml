@@ -1,11 +1,11 @@
 group: matat
 order: 2
-title: חוויה גלילית במטעים שלנו במתת
+title: יום גיבוש חוויתי במטעים של מתת גליל
 seoTitle: יום גיבוש בגליל – Offsite קולינרי במתת
 description: >-
   יום גיבוש למנהלים ולצוותים במטעים במתת שבגליל המערבי: סדנת בשרים ויין, סיור
   חקלאי, סדנאות וארוחות שף מול הנוף. קבלו הצעה לצוות שלכם.
-label: ימי גיבוש
+label: יום גיבוש חוויתי במטעים של מתת גליל
 summary: >-
   זהו לא עוד יום כיף סטנדרטי, אלא יום גיבוש אקסקלוסיבי המהווה מסע קולינרי וחקלאי
   באווירה פרטית ויוצאת דופן.
@@ -66,10 +66,10 @@ sections:
       – המקום שלנו מאפשר לכל קבוצה לקיים מפגש שובר שגרה וחוויה ייחודית מחוץ
       למשרד באווירה פסטורלית ובסטנדרט גבוה.
     image: >-
-      ../../assets/images/services/team-building/sections/lhtntk-mhshgrh-h-retreat-hkvlynry-shl-htzvvt-shlkm/image.JPG
+      ../../assets/images/services/team-building/sections/lhtntk-mhshgrh-h-retreat-hkvlynry-shl-htzvvt-shlkm/image.jpg
     imageAlt: >-
-      ירקות טריים ועשבי תיבול מהגינה האורגנית ביום גיבוש וריטריט צוותים בחוויות
-      במתת
+      יום גיבוש בגליל וריטריט צוותים במתת – קטיף עגבניות טריות בגינת הירק
+      האורגנית
   - heading:
       name: 'יום שתפור למידות שלכם: מגוון פעילויות וארוחות'
       slug: yvm-shtpvr-lmydvt-shlkm-mgvvn-paylvyvt-varvhvt
@@ -146,6 +146,9 @@ sections:
       מגוונים במושב מתת או בסביבה הקרובה. ניתן לתאם לינה משותפת במתחמים מגבשים,
       או לינה בנפרד בצימרים ובבקתות בוטיק ביישוב. כך תוכלו לסיים את ערב הבשרים
       והיין בנחת, ולהתעורר יחד לארוחת בוקר גלילית מול הנוף.
+    image: >-
+      ../../assets/images/services/team-building/sections/harkt-hhvvyh-avptzyvt-llynh-bmtt-vhsbybh/image.jpg
+    imageAlt: Offsite קולינרי וריטריט צוותים במתת – חווית בשרים במטעים על גריל פחמים
   - heading:
       name: 'מקום לפגישות והתכנסות בצפון: פרטיות מלאה'
       slug: mkvm-lpgyshvt-vhtknsvt-btzpvn-prtyvt-mlah
