@@ -1,6 +1,6 @@
 group: catering
 order: 2
-title: קייטרינג לאירועים קטנים וארוחות פרטיות
+title: קייטרינג לאירועים פרטיים
 seoTitle: קייטרינג בשרי לאירועים קטנים
 description: >-
   שף בשרים עד הבית ליום הולדת, בר מצווה, ברית או ארוחה משפחתית. אש חיה בחצר
@@ -37,7 +37,7 @@ faqs:
       המחיר תלוי במספר האורחים, בתפריט ובמיקום. ספרו לנו על האירוע ונחזור עם
       הצעת מחיר.
 image: ../../assets/images/services/private-events/image.jpg
-imageAlt: אורחים נהנים מארוחת שף פרטית בחצר – ארי קייטרינג לאירועים פרטיים
+imageAlt: צוות קייטרינג בשרי לאירועים פרטיים מחייך ליד עמדת גריל ואש חיה בטבע
 related:
   - market-tables
   - private-chef
@@ -52,6 +52,8 @@ sections:
       אתכם לשדרג את המפגש הבא שלכם עם אירוע בוטיק בשרי המבוסס על נתחים מובחרים,
       חומרי גלם איכותיים, ירקות מהגינה שלי וממשקים פרטיים בגליל, אש חיה והגעה
       לכל לוקיישן שתבחרו.
+    image: ../../assets/images/services/private-events/sections/intro/image.jpg
+    imageAlt: קייטרינג בשרי לאירועים פרטיים בחצר – צליית נתחי בשר וחצילים על אש חיה
   - heading:
       name: 'בוטיק בבית: חגיגת בשרים אישית אצלכם בחצר'
       slug: bvtyk-bbyt-hgygt-bshrym-ayshyt-atzlkm-bhtzr
@@ -74,6 +76,11 @@ sections:
       את סגנון ההגשה וההפקה המדויק עבורכם. אני לא מאמין בקיצורי דרך, האיכות
       מתחילה בבחירה קפדנית של חומרי הגלם – אני בוחר באופן אישי את הנתחים ומוודא
       את רמת השיוש, היישון והטריות.
+    image: >-
+      ../../assets/images/services/private-events/sections/bvtyk-bbyt-hgygt-bshrym-ayshyt-atzlkm-bhtzr/image.jpg
+    imageAlt: >-
+      קייטרינג שף לאירועים פרטיים – צוות ארי בהגשת מנות סביצ'ה ונתחי אסאדו על
+      האש
   - heading:
       name: קייטרינג בשרי ליום הולדת ואירועים משפחתיים
       slug: kyytryng-bshry-lyvm-hvldt-vayrvaym-mshphtyym
@@ -95,6 +102,9 @@ sections:
       - **קייטרינג לחינה:** שפע גלילי ואירוח דרום אמריקאי נדיב.
 
       - **קייטרינג מסיבות אירוסין ורווקים:** קרנבל בשרים משוחרר אך יוקרתי.
+    image: >-
+      ../../assets/images/services/private-events/sections/kyytryng-bshry-lyvm-hvldt-vayrvaym-mshphtyym/image.jpg
+    imageAlt: זוג חוגג עם מנות שף בחצר הבית – קייטרינג בשרי ליום הולדת ואירועי בוטיק
   - heading:
       name: 'שף פרטי עד הבית: להיות אורחים באירוע שלכם'
       slug: shf-prty-ad-hbyt-lhyvt-avrhym-bayrva-shlkm
@@ -111,6 +121,9 @@ sections:
       וניקיון ברמה הגבוהה ביותר. המטבח שאנחנו מקימים אצלכם בנוי לתלפיות, ואנחנו
       תמיד מגיעים לפחות 5 שעות לפני תחילת האירוע כדי להבטיח שהבשר יקבל את זמן
       הצלייה והעישון המדויק לו הוא זקוק.
+    image: >-
+      ../../assets/images/services/private-events/sections/shf-prty-ad-hbyt-lhyvt-avrhym-bayrva-shlkm/image.jpg
+    imageAlt: שף בשרים עד הבית מחזיק מגשי צלעות ואנטריקוט משויש מעל גריל עם אסאדו וירקות
   - heading:
       name: 'קייטרינג בשרי איכותי: הנתחים, הירקות והמסביב'
       slug: kyytryng-bshry-aykvty-hnthym-hyrkvt-vhmsbyb
@@ -125,6 +138,11 @@ sections:
       המנות הצמחוניות שלנו נעשות גם הן בסטייל של צלייה ועישון על אש חיה – ירקות
       שורש מקומיים, תבשילים יצירתיים וסלטים רעננים ממשקי הגליל המערבי שמשלימים
       את הארוחה.
+    image: >-
+      ../../assets/images/services/private-events/sections/kyytryng-bshry-aykvty-hnthym-hyrkvt-vhmsbyb/image.jpg
+    imageAlt: >-
+      שף בשרים לאירועים קטנים – איש צוות של ארי קייטרינג מגיש ברוסקטות עם נתחי
+      בשר מובחרים
   - heading:
       name: 'מהצפון הרחוק ועד הנגב והערבה: אנחנו מגיעים לכל מקום'
       slug: mhtzpvn-hrhvk-vad-hngb-vharbh-anhnv-mgyaym-lkl-mkvm
@@ -141,6 +159,11 @@ sections:
       המרכז, גוש דן, תל אביב, רמת השרון, הרצליה וכל איזור השרון, עמק חפר וחוף
       הכרמל וערכנו גם אירועים בהרי ירושלים, באזור השפלה וים המלח. וגם לדרום,
       למדבר יהודה, לערבה ואיזורי הנגב אנחנו נגיע בשבילכם ממתת הרחוקה.
+    image: >-
+      ../../assets/images/services/private-events/sections/mhtzpvn-hrhvk-vad-hngb-vharbh-anhnv-mgyaym-lkl-mkvm/image.jpg
+    imageAlt: >-
+      עיצוב ועריכת שולחנות בחצר – קייטרינג לברית מילה, בר מצווה ואירועים
+      משפחתיים
   - heading:
       name: 'לסיכום: למה לבחור ב"ארי קייטרינג"?'
       slug: lsykvm-lmh-lbhvr-b-ary-kyytryng
@@ -161,3 +184,8 @@ sections:
       קשר עוד היום, ונתחיל לתכנן את האירוע שלכם. צלצלו, שלחו ווצאפ או תשאירו
       [כאן](/contact?service=private-events#quote-form) פרטים ואחזור אליכם
       בהקדם.
+    image: >-
+      ../../assets/images/services/private-events/sections/lsykvm-lmh-lbhvr-b-ary-kyytryng/image.jpg
+    imageAlt: >-
+      לוגיסטיקה עצמאית מלאה – הטנדר והנגרר הממותג של ארי קייטרינג בדרך לאירוע
+      פרטי בטבע
