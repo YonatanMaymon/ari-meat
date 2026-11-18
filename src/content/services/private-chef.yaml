@@ -126,6 +126,11 @@ sections:
       תוכן המועברות מול הנוף הפתוח, ביניהן: סדנת תיפוף משחררת, סדנאות חוסן,
       סדנאות תנועה, יוגה ועוד. אנחנו נתאים את התוכן הנכון ביותר לאופי הקבוצה
       שלכם.
+    image: >-
+      ../../assets/images/services/private-chef/sections/tvkn-nvsf-vsdnavt/image.jpg
+    imageAlt: >-
+      ארוחת שף פרטית וארוחות לקבוצות במתת – מנת פתיחה של חציל קלוי מהגינה
+      האורגנית
   - heading:
       name: אופציות ללינה במתת
       slug: avptzyvt-llynh-bmtt
@@ -140,3 +145,8 @@ sections:
       היום ונתחיל להרכיב את התפריט המושלם עבורכם. צלצלו, שלחו ווצאפ או פשוט
       תשאירו פרטים [כאן](/contact?service=private-chef#quote-form) ואחזור אליכם
       בהקדם.
+    image: >-
+      ../../assets/images/services/private-chef/sections/avptzyvt-llynh-bmtt/image.jpg
+    imageAlt: >-
+      אירוח בוטיק וארוחות לקבוצות בגליל – סלק וירקות שורש צלויים על קרם גבינה
+      לבנה בארי קייטרינג
