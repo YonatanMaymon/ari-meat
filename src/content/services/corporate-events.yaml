@@ -35,7 +35,9 @@ faqs:
       המחיר תלוי במספר המשתתפים, בפורמט ובמיקום. שלחו לנו פרטים ונחזור עם הצעת
       מחיר.
 image: ../../assets/images/services/corporate-events/image.jpg
-imageAlt: שפים פורסים בשר ומגישים לאורחים בעמדה ליד בריכה
+imageAlt: >-
+  קייטרינג לאירועי חברה – צוות השפים של ארי קייטרינג פורס ומגיש בשרים בעמדה
+  פעילה ליד הבריכה
 related:
   - team-building
   - market-tables
@@ -50,6 +52,10 @@ sections:
       ואותנטי. אם אתם מחפשים קייטרינג כשר לאירועי חברה שרוצים לצאת מהבנאלי ולתת
       לעובדים משהו שונה, קרוב יותר לטבע, המשלב אוכל איכותי עם חוויה של אש חיה –
       הגעתם למקום הנכון.
+    image: ../../assets/images/services/corporate-events/sections/intro/image.JPG
+    imageAlt: >-
+      קייטרינג בשרי לערב חברה – שואו קולינרי והגשה חמה ואישית של ארי קייטרינג
+      באירוע עסקי
   - heading:
       name: איכות ללא פשרות
       slug: aykvt-lla-pshrvt
@@ -67,6 +73,11 @@ sections:
       רחבי היקף. המטבח שלנו, המבוסס על גרילים דרום אמריקאיים ומעשנות פרי תכנוני,
       מייצר תפאורה קולינרית מרשימה שמעוררת את כל החושים ומעניקה לאורחים תחושת
       אירוח יוקרתית אך חמה ובגובה העיניים.
+    image: >-
+      ../../assets/images/services/corporate-events/sections/aykvt-lla-pshrvt/image.jpg
+    imageAlt: >-
+      ארוחת שף למנהלים – פרוסות נתח בשר מובחר במידת עשייה מדויקת עם שום קונפי
+      וצ'ימיצ'ורי
   - heading:
       name: תפריט מותאם אישית
       slug: tpryt-mvtam-ayshyt
@@ -91,6 +102,11 @@ sections:
 
       שולחן שוק בשרי לאירועים עסקיים: פתרון מודרני, צבעוני ושופע שמתאים לאירועים
       באווירה קלילה, דינמית ומרשימה.
+    image: >-
+      ../../assets/images/services/corporate-events/sections/tpryt-mvtam-ayshyt/image.jpg
+    imageAlt: >-
+      קייטרינג להרמת כוסית – שף ארי וצוות ארי קייטרינג מרימים כוסית עם משתתפים
+      באירוע חברה באווירה חמה
   - heading:
       name: 'המומחיות בשטח: קייטרינג לאירועים ללא תשתיות'
       slug: hmvmhyvt-bshth-kyytryng-layrvaym-lla-tshtyvt
@@ -105,6 +121,11 @@ sections:
       זמנים צפופים. המטרה שלי היא להוריד מכם את כל הדאגות הלוגיסטיות – החל מהקמת
       המטבח ועד לפינוי מסודר של השטח בסיום האירוע. זהו השקט הנפשי שאני מעניק
       למפיקי האירועים ומנהלות הרווחה שאיתם אני עובד באופן קבוע.
+    image: >-
+      ../../assets/images/services/corporate-events/sections/hmvmhyvt-bshth-kyytryng-layrvaym-lla-tshtyvt/image.jpg
+    imageAlt: >-
+      הפקת אירוע שטח לחברות – צוות ארי קייטרינג צולה נתחי בשר וירקות צבעוניים על
+      גריל ענק באירוע חוץ
   - heading:
       name: חומרי גלם וערכים גליליים
       slug: hvmry-glm-varkym-glylyym
@@ -121,6 +142,11 @@ sections:
       קדרה עשירים ומנות יצירתיות שגורמות לכל האורחים להרגיש שחשבו עליהם עד הפרט
       האחרון. האירוח שלנו כולל מגוון רחב של סלטים רעננים, תוספות חמות ולחמים
       שנאפים בסטייל הייחודי לנו.
+    image: >-
+      ../../assets/images/services/corporate-events/sections/hvmry-glm-varkym-glylyym/image.jpg
+    imageAlt: >-
+      קייטרינג לאירועי חברה – הגשת מנות פתיחה של לחמים אפויים עם נתחי בשר, שום
+      קונפי ועגבניות שרי
   - heading:
       name: 'פריסה ארצית: ממתת ועד לכל מקום שבו העסק שלכם נמצא'
       slug: prysh-artzyt-mmtt-vad-lkl-mkvm-shbv-hask-shlkm-nmtza
@@ -135,6 +161,11 @@ sections:
       מחפשים חוויה אחרת? אני מזמין אתכם גם לימי גיבוש בצפון לקבוצות קטנות
       ו-Offsite קולינרי למנהלים אצלי במטעים הפסטורליים במתת. [לחצו
       כאן](/matat/team-building) לכל הפרטים על אירועי הריטריט במתת.
+    image: >-
+      ../../assets/images/services/corporate-events/sections/prysh-artzyt-mmtt-vad-lkl-mkvm-shbv-hask-shlkm-nmtza/image.jpg
+    imageAlt: >-
+      מנות שף צמחוניות לאירועים עסקיים – שף ארי מגיש כרובית שלמה וירקות צלויים
+      על אש חיה
   - heading:
       name: סדר וארגון באירועי חברה
       slug: sdr-vargvn-bayrvay-hbrh
@@ -150,6 +181,11 @@ sections:
       עטופים ומטופלים. בסוף היום, המטרה היא אחת: לייצר חיבור אנושי סביב האש
       והאוכל, חיבור שמחזק את הקשרים בתוך החברה ומעניק לצוות אנרגיות חדשות להמשך
       הדרך.
+    image: >-
+      ../../assets/images/services/corporate-events/sections/sdr-vargvn-bayrvay-hbrh/image.jpg
+    imageAlt: >-
+      ארוחת שף למנהלים – מגש אירוח עם נתחי בשר צלויים על לחם קלוי ורטבים בעבודת
+      יד
   - heading:
       name: למה לסגור עם ארי קייטרינג לאירוע העסקי הבא שלכם?
       slug: lmh-lsgvr-am-ary-kyytryng-layrva-hasky-hba-shlkm
@@ -175,3 +211,8 @@ sections:
       עוד היום, ונתחיל לתכנן את האירוע שלכם. צלצלו, שלחו ווצאפ או תשאירו
       [כאן](/contact?service=corporate-events#quote-form) פרטים ואחזור אליכם
       בהקדם.
+    image: >-
+      ../../assets/images/services/corporate-events/sections/lmh-lsgvr-am-ary-kyytryng-layrva-hasky-hba-shlkm/image.jpg
+    imageAlt: >-
+      קייטרינג בשרי לאירועי חברה – נקניקיות בוטיק ומאפי בשר נצלים על הגריל לצד
+      מעשנה באירוע שטח
